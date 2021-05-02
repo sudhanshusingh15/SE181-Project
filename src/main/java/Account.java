@@ -1,8 +1,8 @@
 public class Account {
-    private Integer accountID;
-    private String accountType;
-    private Double accountBalance;
-    private Double account_apr;
+    protected Integer accountID;
+    protected String accountType;
+    protected Double accountBalance;
+    protected Double account_apr;
 
 
     public Account(String accountType, Integer accountID, Double account_apr, Double depositedAmount) {
@@ -78,13 +78,15 @@ public class Account {
     public void withdrawFromAccount(Double withdrawAmount) {
         if (this.accountBalance - withdrawAmount >= 0) {
             this.accountBalance -= withdrawAmount;
+        } else {
+            this.accountBalance = 0.0;
         }
     }
 
     //Helper function for setAccountID()
     public Boolean checkAccountID(Integer accountID) {
         int count = String.valueOf(accountID).length();
-        if (count > 8 || count < 8) {
+        if (count != 8) {
             return false;
         }
 
