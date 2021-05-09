@@ -17,11 +17,27 @@ public class Bank {
 
     }
 
+    public boolean checkDeposit(Integer ID, double amount){
+        if (accounts.get(ID).getAccountType().equals("Checking")){
+            if (amount > 0.0 && amount <= 1000.0)
+                return true;
+            else
+                return false;
+        }
+        else if (accounts.get(ID).getAccountType().equals("Savings")){
+            if (amount > 0.0 && amount <= 2500.0)
+                return true;
+            else
+                return false;
+        }
+        else
+            return false;
+    }
+
     public void deposit(Integer ID, double amount) {
-        if (amount > 0) {
+        if (checkDeposit(ID, amount)) {
             accounts.get(ID).depositIntoAccount(amount);
         }
-
     }
 
 
