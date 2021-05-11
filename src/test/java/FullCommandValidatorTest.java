@@ -26,11 +26,11 @@ public class FullCommandValidatorTest {
         assertTrue(fullCommandValidator.Validator(command).check_if_valid(command));
     }
 
-//    @Test
-//    void create_valid_cd_command(){
-//        String command = "create cd 12345678 0.5 700.0";
-//        assertTrue(fullCommandValidator.Validator(command).check_if_valid(command));
-//    }
+    @Test
+    void create_valid_cd_command(){
+        String command = "create cd 12345678 0.5 1700.0";
+        assertTrue(fullCommandValidator.Validator(command).check_if_valid(command));
+    }
 
     @Test
     void create_invalid_checking_command(){
@@ -50,14 +50,14 @@ public class FullCommandValidatorTest {
         assertFalse(fullCommandValidator.Validator(command).check_if_valid(command));
     }
 
-//    @Test
-//    void create_valid_deposit_command(){
-//        account = new Account("Savings" ,12345678, 1.2, 0.0);
-//        bank.addAccount(12345678, account);
-//        String command = "Deposit 12345678 400";
-//        assertTrue(fullCommandValidator.Validator(command).check_if_valid(command));
-//    }
-//
+    @Test
+    void create_valid_deposit_command(){
+        account = new SavingsAccount(12345678 ,1.2);
+        bank.addAccount(12345678, account);
+        String command = "Deposit 12345678 400";
+        assertTrue(fullCommandValidator.Validator(command).check_if_valid(command));
+    }
+
     @Test
     void create_invalid_deposit_command(){
         account = new Account("Savings", 12345678, 1.2, 0.0);

@@ -10,7 +10,7 @@ public class depositValidator extends commonValidator {
         String[] Array = command.toLowerCase().split(" ");
         if (Array.length == 3) {
             if (checkID(Array[1])) {
-                if (ID_exists(Array[1])) {
+                if (!ID_exists(Array[1])) {
                     if (check_deposit_isValid(Array)) {
                         return true;
                     }
