@@ -5,11 +5,11 @@ public class CommandProcessor {
         this.bank = bank;
     }
 
-    public Processor createProcessor(String command) {
+    public Processor Process(String command) {
         String[] Array = command.toLowerCase().split(" ");
 
         if (Array[0].equals("create")) {
-            return new createProcessor(bank).process(Array);
+            return new createProcessor(bank).createAccountProcessor(Array);
         } else if (Array[0].equals("deposit")) {
             return new depositProcessor(bank);
         } else {

@@ -1,7 +1,7 @@
 public class createProcessor extends Processor{
     public createProcessor(Bank bank){super(bank);}
 
-    public Processor process(String[] Array){
+    public Processor createAccountProcessor(String[] Array){
         if(Array[1].equals("checking")){
             return new checkingProcessor(bank);
         }
