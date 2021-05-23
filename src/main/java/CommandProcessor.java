@@ -9,7 +9,7 @@ public class CommandProcessor {
         String[] Array = command.toLowerCase().split(" ");
 
         if (Array[0].equals("create")) {
-            return new createProcessor(bank).generateCreate(Array);
+            return new createProcessor(bank).process(Array);
         } else if (Array[0].equals("deposit")) {
             return new depositProcessor(bank);
         } else {
