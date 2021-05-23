@@ -66,6 +66,19 @@ public class CommandProcessorTest {
         assertEquals(1750.00, bank.getAccounts().get(12345678).getAccountBalance());
     }
 
+    @Test
+    void valid_multiple_deposit(){
+        account = new SavingsAccount(12345678, 1.2);
+        bank.addAccount(12345678, account);
+        account = new CheckingAccount(11223344,1.3);
+        bank.addAccount(11223344, account);
+        String command = "deposit 12345678 1750.00";
+        String command2 = "deposit 11223344 750.00";
+        commandProcessor.Process(command).execute(command);
+        commandProcessor.Process(command2).execute(command2);
+        assertEquals(1750.00, bank.getAccounts().get(12345678).getAccountBalance());
+        assertEquals(750.00, bank.getAccounts().get(11223344).getAccountBalance());
+    }
 
 
 
