@@ -39,6 +39,14 @@ public class CommandProcessorTest {
     }
 
     @Test
+    void case_insensitive_create(){
+        String command = "cReaTe SaVIngs 12345678 1.2";
+        commandProcessor.Process(command).execute(command);
+        assertEquals(12345678, bank.getAccounts().get(12345678).getAccountID());
+        assertEquals("Savings", bank.getAccounts().get(12345678).getAccountType());
+    }
+
+    @Test
     void valid_multiple_account(){
         String command = "create checking 12345678 1.3";
         commandProcessor.Process(command).execute(command);
@@ -64,6 +72,15 @@ public class CommandProcessorTest {
         String command = "deposit 12345678 1750.00";
         commandProcessor.Process(command).execute(command);
         assertEquals(1750.00, bank.getAccounts().get(12345678).getAccountBalance());
+    }
+
+    @Test
+    void case_insensitive_deposit(){
+        account = new CheckingAccount(12345678, 1.2);
+        bank.addAccount(12345678, account);
+        String command = "dEpOSit 12345678 750.00";
+        commandProcessor.Process(command).execute(command);
+        assertEquals(750.00, bank.getAccounts().get(12345678).getAccountBalance());
     }
 
     @Test
