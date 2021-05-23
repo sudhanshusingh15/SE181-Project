@@ -14,14 +14,14 @@ public class MasterControl {
 
     }
 
-//    public List<String> start(List<String> input) {
-//        for(String command : input){
-//            if(fullCommandValidator.Validator(command).check_if_valid(command)){
-//                commandProcessor.execute(command);
-//            } else {
-//                invalidStorage.addInvalidCommand();
-//            }
-//        }
-//        return invalidStorage.getInvalidCommands();
-//    }
+    public List<String> start(List<String> input) {
+        for(String command : input){
+            if(fullCommandValidator.Validator(command).check_if_valid(command)){
+                commandProcessor.createProcessor(command).execute(command);
+            } else {
+                invalidStorage.addInvalidCommand(command);
+            }
+        }
+        return invalidStorage.getInvalidCommands();
+    }
 }

@@ -10,7 +10,7 @@
 //    MasterControl masterControl;
 //
 //    @BeforeEach
-//    void setUp(){
+//    void set_up(){
 //        input = new ArrayList<>();
 //        Bank bank = new Bank();
 //        masterControl = new MasterControl(bank, new FullCommandValidator(bank), new CommandProcessor(bank), new InvalidStorage(bank));
