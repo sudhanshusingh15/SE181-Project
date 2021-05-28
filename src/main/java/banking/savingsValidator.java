@@ -1,3 +1,5 @@
+package banking;
+
 public class savingsValidator extends commonValidator {
     public savingsValidator(Bank bank){
         super(bank);

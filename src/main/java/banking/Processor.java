@@ -1,3 +1,5 @@
+package banking;
+
 public class Processor {
     protected Bank bank;
 

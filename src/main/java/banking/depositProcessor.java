@@ -1,3 +1,5 @@
+package banking;
+
 public class depositProcessor extends createProcessor{
     public depositProcessor(Bank bank){super(bank);}
 

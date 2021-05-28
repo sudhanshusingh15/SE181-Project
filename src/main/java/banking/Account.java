@@ -1,3 +1,5 @@
+package banking;
+
 public class Account {
     protected Integer accountID;
     protected String accountType;

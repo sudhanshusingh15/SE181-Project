@@ -1,4 +1,4 @@
-import java.lang.reflect.Array;
+package banking;
 
 public class depositValidator extends commonValidator {
     public depositValidator(Bank bank) {

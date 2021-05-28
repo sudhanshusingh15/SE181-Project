@@ -1,4 +1,4 @@
-import java.util.Locale;
+package banking;
 
 public class checkingProcessor extends createProcessor{
     public checkingProcessor(Bank bank){super(bank);}

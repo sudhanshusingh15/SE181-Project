@@ -1,3 +1,5 @@
+package banking;
+
 public class checkingValidator extends createValidator {
     public checkingValidator(Bank bank){
         super(bank);

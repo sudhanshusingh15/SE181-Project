@@ -1,3 +1,5 @@
+package banking;
+
 public class CDValidator extends createValidator {
     public CDValidator(Bank bank) {
         super(bank);
