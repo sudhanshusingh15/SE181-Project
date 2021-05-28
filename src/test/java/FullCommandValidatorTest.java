@@ -82,6 +82,12 @@ public class FullCommandValidatorTest {
         assertFalse(fullCommandValidator.Validator(command).check_if_valid(command));
     }
 
+    @Test
+    void case_insensitive_create(){
+        String command = "CrEAte ChEckIng 12345678 1.2";
+        assertTrue(fullCommandValidator.Validator(command).check_if_valid(command));
+    }
+
 
     /////////////DEPOSIT TESTS////////////////
 
@@ -131,6 +137,14 @@ public class FullCommandValidatorTest {
         bank.addAccount(12345678, account);
         String command = "Deposit CD 12345678 1000";
         assertFalse(fullCommandValidator.Validator(command).check_if_valid(command));
+    }
+
+    @Test
+    void case_insensitive_deposit(){
+        account = new SavingsAccount(12345678 ,1.2);
+        bank.addAccount(12345678, account);
+        String command = "DePOsIt 12345678 400";
+        assertTrue(fullCommandValidator.Validator(command).check_if_valid(command));
     }
 
 }
