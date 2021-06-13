@@ -12,9 +12,20 @@ public class CommandProcessor {
 
         if (Array[0].equals("create")) {
             return new createProcessor(bank).createAccountProcessor(Array);
-        } else if (Array[0].equals("deposit")) {
+        }
+        else if (Array[0].equals("deposit")) {
             return new depositProcessor(bank);
-        } else {
+        }
+        else if (Array[0].equals("withdraw")){
+            return new withdrawProcessor(bank);
+        }
+        else if (Array[0].equals("transfer")){
+            return new TransferProcessor(bank);
+        }
+//        else if (Array[0].equals("pass")){
+//            return new PassTimeProcessor(bank);
+//        }
+        else {
             return new falseProcessor(bank);
         }
     }

@@ -14,6 +14,15 @@ public class FullCommandValidator {
             }
             else if (Array[0].equals("deposit")){
                 return new depositValidator(bank);
+            }
+            else if (Array[0].equals("withdraw")){
+                return new withdrawValidator(bank);
+            }
+            else if (Array[0].equals("transfer")){
+                return new TransferValidator(bank);
+            }
+            else if (Array[0].equals("pass")){
+                return new PassTimeValidator(bank);
             } else {
                 return new falseValidator(bank);
             }

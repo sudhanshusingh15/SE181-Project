@@ -5,10 +5,12 @@ public class Account {
     protected String accountType;
     protected Double accountBalance;
     protected Double account_apr;
+    protected Integer month;
 
 
-    public Account(String accountType, Integer accountID, Double account_apr, Double depositedAmount) {
+    public Account(String accountType, Integer accountID, Double account_apr, Double depositedAmount, Integer month) {
         this.accountType = accountType;
+        this.month = month;
 
         if (this.checkAccountID(accountID)) {
             this.accountID = accountID;
@@ -47,6 +49,10 @@ public class Account {
         return this.account_apr;
     }
 
+    public Integer getMonth(){
+        return this.month;
+    }
+
     //Setters
     public boolean setAccountID(Integer accountID) {
         if (checkAccountID(accountID)) {
@@ -65,16 +71,15 @@ public class Account {
         return false;
     }
 
+    public void setMonth(){
+        this.month++ ;
+    }
+
     //Deposit into checking or savings account
     public void depositIntoAccount(Double depositAmount) {
         this.accountBalance += depositAmount;
 
     }
-
-    //Deposit into CD account
-    //   public void depositIntoCDAccount(Double depositAmount) {
-    //       this.accountBalance = depositAmount;
-    //   }
 
     //Withdraw from account
     public void withdrawFromAccount(Double withdrawAmount) {
@@ -85,8 +90,9 @@ public class Account {
         }
     }
 
+
     //Helper function for setAccountID()
-    public Boolean checkAccountID(Integer accountID) {
+    public boolean checkAccountID(Integer accountID) {
         int count = String.valueOf(accountID).length();
         if (count != 8) {
             return false;
@@ -96,11 +102,15 @@ public class Account {
     }
 
     //Helper function for setAccount_apr()
-    public Boolean checkApr(Double account_apr) {
+    public boolean checkApr(Double account_apr) {
         if (account_apr > 10.0 || account_apr < 0.0) {
             return false;
         }
         return true;
+    }
+
+    public void interestDeposit(Double Interest){
+        this.accountBalance += Interest;
     }
 
 }

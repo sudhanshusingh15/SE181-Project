@@ -1,6 +1,6 @@
 package banking;
 
-public class depositProcessor extends createProcessor{
+public class depositProcessor extends Processor{
     public depositProcessor(Bank bank){super(bank);}
 
     @Override
