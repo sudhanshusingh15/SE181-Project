@@ -78,7 +78,14 @@ public class Bank {
             else
                 return false;
         }
-        else
+        else if (accounts.get(ID).getAccountType().equals("CD")){
+            if (accounts.get(ID).getMonth() > 12) {
+                if (amount >= accounts.get(ID).accountBalance) {
+                    return true;
+                } else { return false; }
+            } else {
+                return false; }
+        } else
             return false;
     }
 
@@ -107,10 +114,7 @@ public class Bank {
                 if (accounts.get(key).getAccountBalance() == 0){
                     accounts.remove(key);
                     accountsList.remove(key);
-                } else {
-                    accounts.get(key).setMonth();
                 }
-
             }
             month-- ;
         }
@@ -122,7 +126,6 @@ public class Bank {
                 if (accounts.get(key).getAccountBalance() < 100.0){
                     accounts.get(key).withdrawFromAccount(25.0);
                 }
-                accounts.get(key).setMonth();
             }
             month-- ;
         }
@@ -143,6 +146,7 @@ public class Bank {
                 accounts.get(key).setMonth();
             }
             month-- ;
+
         }
     }
 

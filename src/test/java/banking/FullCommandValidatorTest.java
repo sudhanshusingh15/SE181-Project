@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class FullCommandValidatorTest {
 
     FullCommandValidator fullCommandValidator;
+    CommandProcessor commandProcessor;
     Bank bank;
     Account account;
 
@@ -167,6 +168,18 @@ public class FullCommandValidatorTest {
         bank.addAccount(12345678, account);
         String command = "Withdraw 34243424 890";
         assertFalse(fullCommandValidator.Validator(command).check_if_valid(command));
+    }
+
+    @Test
+    void invalid_cd_withdrawal(){
+        account = new CDAccount(12345678, 1.2, 5000.0);
+        bank.addAccount(12345678, account);
+        for (int i=1; i<15; i++){
+            bank.getAccounts().get(12345678).setMonth();
+        }
+        String command = "Withdraw 12345678 600";
+        assertFalse(fullCommandValidator.Validator(command).check_if_valid(command));
+
     }
 
     @Test

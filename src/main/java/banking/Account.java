@@ -76,7 +76,7 @@ public class Account {
     }
 
     public void setMonth(){
-        this.month++ ;
+        this.month +=1 ;
     }
 
     //Deposit into checking or savings account

@@ -122,6 +122,17 @@ public class CommandProcessorTest {
     }
 
     @Test
+    void valid_cd_withdrawal(){
+        account = new CDAccount(12345678, 1.2, 5000.0);
+        bank.addAccount(12345678, account);
+        String command1 = "Pass 13";
+        commandProcessor.Process(command1).execute(command1);
+        String command = "Withdraw 12345678 5500";
+        commandProcessor.Process(command).execute(command);
+        assertEquals(0.0, bank.getAccounts().get(12345678).getAccountBalance());
+    }
+
+    @Test
     void case_insensitive_withdrawal() {
         account = new SavingsAccount(12345678, 1.2);
         bank.addAccount(12345678, account);
