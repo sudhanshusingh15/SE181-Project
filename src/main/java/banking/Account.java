@@ -1,5 +1,7 @@
 package banking;
 
+import java.util.ArrayList;
+
 public class Account {
     protected Integer accountID;
     protected String accountType;
@@ -7,6 +9,7 @@ public class Account {
     protected Double account_apr;
     protected Integer month;
 
+    ArrayList<String> TransactionHistory = new ArrayList<>();
 
     public Account(String accountType, Integer accountID, Double account_apr, Double depositedAmount, Integer month) {
         this.accountType = accountType;
@@ -52,6 +55,7 @@ public class Account {
     public Integer getMonth(){
         return this.month;
     }
+
 
     //Setters
     public boolean setAccountID(Integer accountID) {
@@ -112,6 +116,20 @@ public class Account {
     public void interestDeposit(Double Interest){
         this.accountBalance += Interest;
     }
+
+    public Double floored_account_balance(){
+        Double roundedDouble = Math.round((getAccountBalance()) * 100.0) / 100.0;
+        return roundedDouble;
+    }
+
+    public ArrayList<String> getTransactionHistory() {
+        return TransactionHistory;
+    }
+
+    public void setTransactionHistory(ArrayList<String> transactionHistory) {
+        TransactionHistory = transactionHistory;
+    }
+
 
 }
 

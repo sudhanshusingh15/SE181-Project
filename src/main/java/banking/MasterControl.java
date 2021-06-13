@@ -1,5 +1,6 @@
 package banking;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MasterControl {
@@ -17,6 +18,7 @@ public class MasterControl {
     }
 
     public List<String> start(List<String> input) {
+        ArrayList<String> Heaven = new ArrayList<>();
         for(String command : input){
             if(fullCommandValidator.Validator(command).check_if_valid(command)){
                 commandProcessor.Process(command).execute(command);
@@ -24,6 +26,8 @@ public class MasterControl {
                 invalidStorage.addInvalidCommand(command);
             }
         }
-        return invalidStorage.getInvalidCommands();
+        Heaven.addAll(bank.generateFinalList());
+        Heaven.addAll(invalidStorage.getInvalidCommands());
+        return Heaven;
     }
 }

@@ -1,10 +1,15 @@
 package banking;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Bank {
     private HashMap<Integer, Account> accounts;
+    public ArrayList<Integer> accountsList = new ArrayList<>();
 
     Bank() {
         accounts = new HashMap<>();
@@ -15,14 +20,31 @@ public class Bank {
     }
 
     public void addAccount(Integer ID, Account Account) {
-
         accounts.put(ID, Account);
+        accountsList.add(ID);
+    }
 
+    public ArrayList<String> finalList = new ArrayList<>();
+
+    public ArrayList<String> generateFinalList(){
+        for (Integer key : accountsList){
+            DecimalFormat decimalFormat = new DecimalFormat("0.00");
+            decimalFormat.setRoundingMode(RoundingMode.FLOOR);
+
+            if (accounts.get(key).getAccountType() == "CD"){
+                finalList.add("Cd " + accounts.get(key).getAccountID() + " " + decimalFormat.format(accounts.get(key).getAccountBalance()) + " " + decimalFormat.format(accounts.get(key).getAccount_apr()));
+                finalList.addAll(accounts.get(key).getTransactionHistory());
+            } else{
+                finalList.add(accounts.get(key).getAccountType() + " " + accounts.get(key).getAccountID() + " " + decimalFormat.format(accounts.get(key).getAccountBalance()) + " " + decimalFormat.format(accounts.get(key).getAccount_apr()));
+                finalList.addAll(accounts.get(key).getTransactionHistory());
+            }
+        }
+        return finalList;
     }
 
     public boolean checkDeposit(Integer ID, double amount){
         if (accounts.get(ID).getAccountType().equals("Checking")){
-            if (amount > 0.0 && amount <= 1000.0)
+            if (amount >= 0.0 && amount <= 1000.0)
                 return true;
             else
                 return false;
@@ -79,50 +101,50 @@ public class Bank {
         }
     }
 
-//    public void pass_time_remove_account(Integer month){
-//        while (month !=0){
-//            for (Integer key : accounts.keySet()){
-//                if (accounts.get(key).getAccountBalance() == 0){
-//                    accounts.remove(key);
-//                } else {
-//                    accounts.get(key).setMonth();
-//                }
-//
-//            }
-//            month-- ;
-//        }
-//    }
-//
-//    public void pass_time_deduction(Integer month){
-//        while (month != 0) {
-//            for (Integer key : accounts.keySet()){
-//                if (accounts.get(key).getAccountBalance() < 100.0){
-//                    accounts.get(key).withdrawFromAccount(25.0);
-//                }
-//                accounts.get(key).setMonth();
-//            }
-//            month-- ;
-//        }
-//    }
-//
-//    public void pass_time_apr_accrue(Integer month){
-//        while (month != 0){
-//            for (Map.Entry mapElement : accounts.entrySet()){
-//                Integer key = (Integer)mapElement.getKey();
-//                Double APR = accounts.get(key).getAccount_apr();
-//                APR = (APR/100.0)/12.0;
-//                Double Interest = 0.0;
-//                if (accounts.get(key).getAccountType().equals("CD")){
-//                    Interest = (accounts.get(key).getAccountBalance()) * APR * 4;
-//                } else {
-//                    Interest = (accounts.get(key).getAccountBalance()) * APR;
-//                }
-//                accounts.get(key).interestDeposit(Interest);
-//                accounts.get(key).setMonth();
-//            }
-//            month-- ;
-//        }
-//    }
+    public void pass_time_remove_account(Integer month){
+        while (month !=0){
+            for (Integer key : accounts.keySet()){
+                if (accounts.get(key).getAccountBalance() == 0){
+                    accounts.remove(key);
+                    accountsList.remove(key);
+                } else {
+                    accounts.get(key).setMonth();
+                }
+
+            }
+            month-- ;
+        }
+    }
+
+    public void pass_time_deduction(Integer month){
+        while (month != 0) {
+            for (Integer key : accounts.keySet()){
+                if (accounts.get(key).getAccountBalance() < 100.0){
+                    accounts.get(key).withdrawFromAccount(25.0);
+                }
+                accounts.get(key).setMonth();
+            }
+            month-- ;
+        }
+    }
+
+    public void pass_time_apr_accrue(Integer month){
+        while (month != 0){
+            for (Integer key : accounts.keySet()){
+                Double APR = accounts.get(key).getAccount_apr();
+                APR = (APR/100.0)/12.0;
+                Double Interest = 0.0;
+                if (accounts.get(key).getAccountType().equals("CD")){
+                    Interest = (accounts.get(key).getAccountBalance()) * APR * 4;
+                } else {
+                    Interest = (accounts.get(key).getAccountBalance()) * APR;
+                }
+                accounts.get(key).interestDeposit(Interest);
+                accounts.get(key).setMonth();
+            }
+            month-- ;
+        }
+    }
 
 
 

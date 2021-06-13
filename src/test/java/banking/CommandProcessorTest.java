@@ -62,7 +62,7 @@ public class CommandProcessorTest {
     void valid_checking_deposit() {
         account = new CheckingAccount(12345678, 1.2);
         bank.addAccount(12345678, account);
-        String command = "deposit 12345678 750.00";
+        String command = "deposit 12345678 750";
         commandProcessor.Process(command).execute(command);
         assertEquals(750.00, bank.getAccounts().get(12345678).getAccountBalance());
     }
@@ -71,7 +71,7 @@ public class CommandProcessorTest {
     void valid_savings_deposit() {
         account = new SavingsAccount(12345678, 1.2);
         bank.addAccount(12345678, account);
-        String command = "deposit 12345678 1750.00";
+        String command = "deposit 12345678 1750";
         commandProcessor.Process(command).execute(command);
         assertEquals(1750.00, bank.getAccounts().get(12345678).getAccountBalance());
     }
@@ -80,7 +80,7 @@ public class CommandProcessorTest {
     void case_insensitive_deposit() {
         account = new CheckingAccount(12345678, 1.2);
         bank.addAccount(12345678, account);
-        String command = "dEpOSit 12345678 750.00";
+        String command = "dEpOSit 12345678 750";
         commandProcessor.Process(command).execute(command);
         assertEquals(750.00, bank.getAccounts().get(12345678).getAccountBalance());
     }
@@ -91,8 +91,8 @@ public class CommandProcessorTest {
         bank.addAccount(12345678, account);
         account = new CheckingAccount(11223344, 1.3);
         bank.addAccount(11223344, account);
-        String command = "deposit 12345678 1750.00";
-        String command2 = "deposit 11223344 750.00";
+        String command = "deposit 12345678 1750";
+        String command2 = "deposit 11223344 750";
         commandProcessor.Process(command).execute(command);
         commandProcessor.Process(command2).execute(command2);
         assertEquals(1750.00, bank.getAccounts().get(12345678).getAccountBalance());
@@ -106,7 +106,7 @@ public class CommandProcessorTest {
         account = new CheckingAccount(12345678, 1.2);
         bank.addAccount(12345678, account);
         bank.deposit(12345678, 500.0);
-        String command = "withdraw 12345678 250.0";
+        String command = "withdraw 12345678 250";
         commandProcessor.Process(command).execute(command);
         assertEquals(250.00, bank.getAccounts().get(12345678).getAccountBalance());
     }
@@ -116,7 +116,7 @@ public class CommandProcessorTest {
         account = new SavingsAccount(12345678, 1.2);
         bank.addAccount(12345678, account);
         bank.deposit(12345678, 1000.0);
-        String command = "withdraw 12345678 700.0";
+        String command = "withdraw 12345678 700";
         commandProcessor.Process(command).execute(command);
         assertEquals(300.0, bank.getAccounts().get(12345678).getAccountBalance());
     }
@@ -126,7 +126,7 @@ public class CommandProcessorTest {
         account = new SavingsAccount(12345678, 1.2);
         bank.addAccount(12345678, account);
         bank.deposit(12345678, 1000.0);
-        String command = "wIThDrAw 12345678 700.0";
+        String command = "wIThDrAw 12345678 700";
         commandProcessor.Process(command).execute(command);
         assertEquals(300.0, bank.getAccounts().get(12345678).getAccountBalance());
     }
@@ -139,8 +139,8 @@ public class CommandProcessorTest {
         account = new CheckingAccount(11223344, 1.3);
         bank.addAccount(11223344, account);
         bank.deposit(11223344, 450.0);
-        String command = "withdraw 12345678 400.0";
-        String command2 = "withdraw 11223344 100.0";
+        String command = "withdraw 12345678 400";
+        String command2 = "withdraw 11223344 100";
         commandProcessor.Process(command).execute(command);
         commandProcessor.Process(command2).execute(command2);
         assertEquals(350.0, bank.getAccounts().get(12345678).getAccountBalance());
@@ -154,7 +154,7 @@ public class CommandProcessorTest {
         bank.deposit(12345678, 600.0);
         account = new SavingsAccount(11223344, 1.2);
         bank.addAccount(11223344, account);
-        String command = "transfer 12345678 11223344 100.0";
+        String command = "transfer 12345678 11223344 100";
         commandProcessor.Process(command).execute(command);
         assertEquals(500.00, bank.getAccounts().get(12345678).getAccountBalance());
         assertEquals(100.00, bank.getAccounts().get(11223344).getAccountBalance());
@@ -167,7 +167,7 @@ public class CommandProcessorTest {
         bank.deposit(12345678, 600.0);
         account = new SavingsAccount(11223344, 1.2);
         bank.addAccount(11223344, account);
-        String command = "TRaNsfer 12345678 11223344 100.0";
+        String command = "TRaNsfer 12345678 11223344 100";
         commandProcessor.Process(command).execute(command);
         assertEquals(500.00, bank.getAccounts().get(12345678).getAccountBalance());
         assertEquals(100.00, bank.getAccounts().get(11223344).getAccountBalance());
@@ -180,35 +180,50 @@ public class CommandProcessorTest {
         bank.deposit(12345678, 600.0);
         account = new SavingsAccount(11223344, 1.2);
         bank.addAccount(11223344, account);
-        String command = "transfer 12345678 11223344 100.0";
+        String command = "transfer 12345678 11223344 100";
         commandProcessor.Process(command).execute(command);
         assertEquals(500.00, bank.getAccounts().get(12345678).getAccountBalance());
         assertEquals(100.00, bank.getAccounts().get(11223344).getAccountBalance());
-        String command1 = "transfer 11223344 12345678 50.0";
+        String command1 = "transfer 11223344 12345678 50";
         commandProcessor.Process(command).execute(command1);
         assertEquals(550.00, bank.getAccounts().get(12345678).getAccountBalance());
         assertEquals(50.00, bank.getAccounts().get(11223344).getAccountBalance());
 
     }
-//
-//    @Test
-//    void pass_apr(){
-//        account = new CheckingAccount(12345678, 1.2);
-//        account.setAccountBalance(5000.0);
-//        System.out.println(account.getAccountBalance());
-//        String command = "Pass 4";
-//        assertEquals(5020.00, bank.getAccounts().get(12345678).getAccountBalance());
-//
-//    }
 
-//    @Test
-//    void pass_remove(){
-//        account = new CheckingAccount(12345678, 1.2);
-//        bank.addAccount(12345678, account);
-//        String command = "Pass 1";
-//        assertFalse(bank.getAccounts().get(123456);
-//
-//    }
+    @Test
+    void pass_apr(){
+        account = new CheckingAccount(12345678, 1.2);
+        account.setAccountBalance(5000.0);
+        bank.addAccount(12345678,account);
+        String command = "Pass 4";
+        commandProcessor.Process(command).execute(command);
+        assertEquals(5020.03, bank.getAccounts().get(12345678).floored_account_balance());
+
+    }
+
+    @Test
+    void pass_deduction(){
+        account = new CheckingAccount(12345678, 1.2);
+        account.setAccountBalance(90.0);
+        bank.addAccount(12345678,account);
+        String command = "Pass 1";
+        commandProcessor.Process(command).execute(command);
+        assertEquals(65.07, bank.getAccounts().get(12345678).floored_account_balance());
+
+    }
+
+    @Test
+    void pass_remove(){
+        account = new CheckingAccount(12345678, 1.2);
+        account.setAccountBalance(0.0);
+        bank.addAccount(12345678,account);
+        String command = "Pass 1";
+        commandProcessor.Process(command).execute(command);
+        assertEquals(null, bank.getAccounts().get(12345678));
+    }
+
+
 
 }
 

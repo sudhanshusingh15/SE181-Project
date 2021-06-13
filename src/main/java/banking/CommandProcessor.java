@@ -22,9 +22,9 @@ public class CommandProcessor {
         else if (Array[0].equals("transfer")){
             return new TransferProcessor(bank);
         }
-//        else if (Array[0].equals("pass")){
-//            return new PassTimeProcessor(bank);
-//        }
+        else if (Array[0].equals("pass")){
+            return new PassTimeProcessor(bank);
+        }
         else {
             return new falseProcessor(bank);
         }

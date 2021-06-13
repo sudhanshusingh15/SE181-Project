@@ -1,5 +1,8 @@
 package banking;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
 public class withdrawProcessor extends Processor{
     public withdrawProcessor(Bank bank){super(bank);}
 
@@ -7,7 +10,9 @@ public class withdrawProcessor extends Processor{
     public void execute(String command){
         String[] Array =  command.toLowerCase().split(" ");
         Integer ID = Integer.parseInt(Array[1]);
-        Double withdrawal_amount = Double.parseDouble(Array[2]);
+        Integer withdrawal_amount = Integer.parseInt(Array[2]);
         bank.withdraw(ID, withdrawal_amount);
+        bank.getAccounts().get(ID).getTransactionHistory().add("Withdraw " + ID + " " + withdrawal_amount );
+
     }
 }
