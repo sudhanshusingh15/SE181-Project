@@ -1,0 +1,216 @@
+### SHIFTS (41040, 12) unique Shift ID: 41040 | dup action rows: 0
+Start range: 2021-10-01 00:00:00 -> 2022-01-31 23:30:00
+Created range: 2021-08-16 18:09:54 -> 2022-04-04 19:50:32
+Deleted values:
+ Deleted
+NaN    27058
+1.0    13982
+Verified:
+ Verified
+False    24640
+True     16400
+Worker ID null: 20035 | Facility null: 0
+Agent Req:
+ Agent Req
+CNA                   24662
+LVN                   11277
+RN                     3139
+NURSE                  1907
+CAREGIVER                31
+Medical Technician       12
+PT                        9
+Medical Aide              3
+Shift Type:
+ Shift Type
+pm        14232
+am        13951
+noc       11446
+custom     1411
+Charge by Agent Req:
+                       count  mean   50%  min    max
+Agent Req                                          
+CAREGIVER              31.0  30.8  30.0  8.0   44.5
+CNA                 24662.0  30.7  32.0  0.0   75.0
+LVN                 11277.0  47.3  47.0  0.0  120.0
+Medical Aide            3.0  10.7  12.0  8.0   12.0
+Medical Technician     12.0   9.1   6.0  3.0   32.0
+NURSE                1907.0   0.0   0.0  0.0    0.0
+PT                      9.0  10.1   7.0  0.0   27.0
+RN                   3139.0  63.7  65.0  0.0  116.0
+Time (hours) describe:
+ count    41040.00
+mean         7.63
+std          2.87
+min         -0.50
+25%          7.50
+50%          7.50
+75%          8.00
+max         17.01
+Unique facilities: 67 | unique workers: 997
+Shifts per facility: top10 share 49.7%, top5: {'5f9ad22ae3a95f0016090f97': 3138, '5f9c169622c5c50016d5ba32': 2974, '5f9c119522c5c50016d5b89e': 2916, '5f91b184cb91b40016e1e183': 2362, '5fa0a33daaa281001684ade2': 1833}
+Cross verified x deleted x has_worker:
+ Verified  deleted  has_worker
+False     False    False         10163
+                   True            495
+          True     False          9712
+                   True           4270
+True      False    False           160
+                   True          16240
+Shifts per month (by Start):
+ Start
+2021-10     7863
+2021-11     7871
+2021-12    11799
+2022-01    13506
+Freq: M
+Verified rate by month:
+ Start
+2021-10    0.357
+2021-11    0.426
+2021-12    0.395
+2022-01    0.413
+Freq: M
+
+### CANCELS (78073, 8) unique Action ID: 78073 unique Shift ID: 65562
+Created range: 2021-09-06 11:06:36 -> 2022-07-09 05:05:31
+Start range: 2021-10-01 00:00:00 -> 2022-01-31 23:45:00
+Action:
+ Action
+WORKER_CANCEL      66108
+NO_CALL_NO_SHOW    11965
+Lead time bins x Action:
+ Action            NO_CALL_NO_SHOW  WORKER_CANCEL    All
+lt_bin                                                 
+<0 (after start)            11964              2  11966
+0-4h                            0          11102  11102
+4-24h                           0          13219  13219
+24-72h                          0           7933   7933
+72h-7d                          0          10141  10141
+>7d                             1          23711  23712
+All                         11965          66108  78073
+NCNS lead time describe:
+ count    11965.00
+mean      -124.66
+std        253.91
+min      -4210.10
+25%       -132.13
+50%        -47.50
+75%         -2.46
+max        574.83
+WORKER_CANCEL lead time describe:
+ count    66108.00
+mean       147.64
+std        179.07
+min         -0.00
+25%          8.11
+50%         77.28
+75%        231.62
+max       1854.24
+Lead time vs calc: max abs diff 0.0
+Cancels per shift id:
+ 1     55260
+2      8549
+3      1413
+4       261
+5        62
+6        10
+7         4
+8         2
+18        1
+Cancel rows whose Shift ID in shifts log: 7780 / 78073 (10.0%)
+Cancel rows with Start in shifts Start range: 100.0%; of those in shifts log: 10.0%
+Cancel rows w/ facility in shifts: 10.0% | cancel facilities: 1416 | cancel workers: 9933
+Cancels per month (by Start) x Action:
+ Action   NO_CALL_NO_SHOW  WORKER_CANCEL
+Start                                  
+2021-10             2035           9653
+2021-11             2302          13146
+2021-12             3062          18987
+2022-01             4566          24322
+
+LATE (<24h incl NCNS) per month:
+ Start
+2021-10     5810
+2021-11     7247
+2021-12     9793
+2022-01    13437
+Freq: M
+Late cancels per worker: n workers 8578 | top10% share 36.0% | top20% share 54.2% | 1-timers 2612
+Distribution of late cancels per worker:
+ 1     2612
+2     1636
+3     1024
+4      720
+5      525
+6      434
+7      312
+8      279
+9      164
+10     175
+11     128
+12      91
+13      79
+14      61
+15      52
+Late cancels per facility: n 1353 | top10 share 7.6%
+Late cancels by shift start hour:
+ Start
+0      877
+1      303
+2      292
+3     1213
+4     2915
+5     1440
+6     1408
+7     1330
+8        4
+9       14
+10     385
+11    2244
+12    4900
+13    2237
+14    2271
+15    1567
+16      40
+17      52
+18     310
+19    2026
+20    4272
+21    2204
+22    2151
+23    1832
+Late cancels by weekday:
+ Start
+0    5536
+1    4164
+2    4143
+3    4086
+4    5008
+5    6257
+6    7093
+Cancel Created At hour-of-day (all cancels):
+ Created At
+0     3836
+1     3691
+2     3622
+3     3357
+4     2912
+5     2662
+6     2179
+7     1829
+8     1556
+9     1414
+10    1758
+11    2173
+12    2556
+13    2781
+14    3079
+15    3206
+16    3877
+17    4597
+18    4841
+19    4917
+20    4557
+21    4463
+22    4241
+23    3969

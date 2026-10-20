@@ -1,0 +1,155 @@
+ObjectId ts vs Created At: median abs diff 1.0s, p99 1.0s
+Worker signup range (cancel log, all markets): 2018-07-11 16:30:46 -> 2022-01-29 23:43:52
+
+### REFILL CURVE by lead time of last cancel:
+             shifts  refilled  worked  unfilled  deleted  refill_rate  unfilled_rate
+lt_bin                                                                             
+NCNS/after    1253       173     197      1022       33        0.138          0.816
+0-1h           500        68      76       374       47        0.136          0.748
+1-4h           883       238     249       564       64        0.270          0.639
+4-12h          704       220     224       402       63        0.312          0.571
+12-24h         332       138     142       125       58        0.416          0.377
+24-48h         275       127     130        72       65        0.462          0.262
+48-72h         178        92      96        31       45        0.517          0.174
+3-7d           681       346     369        65      231        0.508          0.095
+>7d           1729       955    1018        89      602        0.552          0.051
+
+### SHIFT-SWAP: share of cancels where same worker WORKED another Cleveland shift (verified):
+        overlap  sameday  within48
+cat                               
+0-4h      0.026    0.090     0.675
+24-72h    0.119    0.176     0.531
+4-24h     0.038    0.101     0.618
+>72h      0.245    0.339     0.653
+NCNS      0.028    0.094     0.675
+counts:
+         overlap  sameday  within48
+cat                               
+0-4h         38      130       975
+24-72h       67       99       298
+4-24h        43      115       705
+>72h        825     1144      2203
+NCNS         35      119       851
+Late cancels w/ overlapping worked shift: 116; of which higher charge at worked shift: 58, equal: 36, lower: 22; different facility: 81
+  mean charge canceled 35.3 vs worked 40.8
+
+### PSEUDO-BOOKINGS (final assignments + cancel events): 28785 | cancel rate 0.270 | late rate 0.134 | ncns rate 0.044
+Late rate by worker tenure at shift start:
+             bookings  late  ncns  workers  late_rate  ncns_rate  share_of_late
+tenure_bin                                                                    
+<2w             1088   193    59      261      0.177      0.054          0.050
+2-4w            2108   335   112      359      0.159      0.053          0.088
+1-2mo           4444   645   215      422      0.145      0.048          0.169
+2-3mo           4271   566   170      377      0.133      0.040          0.148
+3-6mo           7823   993   333      352      0.127      0.043          0.260
+6-12mo          5267   548   179      196      0.104      0.034          0.143
+>1y             3759   542   169      135      0.144      0.045          0.142
+Late rate by worker's nth booking in window:
+          bookings  late  ncns  late_rate  ncns_rate
+nth_bin                                            
+1st          1058   186    52      0.176      0.049
+2-3          1834   321    94      0.175      0.051
+4-5          1601   259    82      0.162      0.051
+6-10         3417   499   160      0.146      0.047
+11-20        5116   713   238      0.139      0.047
+21-50        8931  1066   349      0.119      0.039
+50+          6804   778   262      0.114      0.039
+CNA late rate by charge quartile:
+                 bookings  late  late_rate
+cq                                       
+(22.999, 30.0]      6451  1026      0.159
+(30.0, 33.0]        3689   603      0.163
+(33.0, 38.0]        4606   746      0.162
+(38.0, 75.0]        4649   606      0.130
+
+### FACILITIES (>=100 bookings) n=42. corr(late_rate, cna_charge)=0.14 corr(late_rate, cna_share)=-0.10 corr(late_rate, bookings)=-0.12
+                          bookings  late  ncns  cna_share  charge  late_rate  cna_charge
+Facility ID                                                                             
+5f6cd8b5e9982f0016c69eb2       624    31    10      0.854  27.346      0.050      26.103
+609975612a95760166932b34      1312    85    20      0.715  32.997      0.065      28.140
+61cac3f8e9cdd0018a278531       132    10     4      0.508  49.663      0.076      42.201
+614353bae9ed84016698c62e       486    40    20      0.942  23.356      0.082      23.148
+61afdb0987f1b201848bb921       608    54    19      0.724  38.910      0.089      35.159
+60c0ea658d75cf0166350164       403    36     8      0.958  25.859      0.089      26.111
+61422c7f81f2950166d5f881      1182   111    34      0.766  39.409      0.094      34.933
+5fa5934c05ed77001608f9fa       163    16     4      0.129  48.620      0.098      33.476
+5f91b184cb91b40016e1e183      1831   190    67      0.681  43.540      0.104      38.300
+5c4783699679f70016ea793d       277    30     4      0.758  26.325      0.108      26.152
+5f986e357f5dee0016f760a3      1039   116    35      0.756  31.226      0.112      27.927
+5f9c169622c5c50016d5ba32      1787   201    67      0.776  35.992      0.112      31.890
+60b7e4cb512928016631044f       183    21     8      0.956  29.760      0.115      29.069
+5e6bd68c8d921f0016325d09       776    91    29      0.997  19.504      0.117      19.491
+607edf32440b57016171d216       285    34    11      0.705  24.730      0.119      20.602
+5f9ad22ae3a95f0016090f97      1531   192    59      0.707  33.863      0.125      28.736
+6115360adf8ad201660e11c5       101    13     5      1.000  32.307      0.129      32.307
+605b3e20bd5d4d001637a526       239    31     9      0.703  39.485      0.130      37.018
+61bba740d1bd81018007ae98       460    60    17      0.720  39.822      0.130      35.045
+61ae26b46576e90180347b71       387    51    11      0.287  47.599      0.132      30.171
+60914df64dc0f301669d5173       778   109    41      0.653  39.571      0.140      33.163
+611c2eff616a6b01666adf3e       406    57    10      0.980  29.298      0.140      28.874
+61704cc1f19e4d0169ec4ac5       862   123    21      0.893  32.274      0.143      31.448
+610ae1207d6bba0166b0b0dd       499    73    34      0.745  34.010      0.146      30.153
+6137c340b7995a01665c51df      1728   257    88      0.695  34.888      0.149      31.221
+6064aa481c4bf40016be967a       525    79    38      0.749  35.571      0.150      30.478
+5f9b189a7ecb880016516a52      1370   208    71      1.000  32.585      0.152      32.585
+5f9ae1df913f5f00168322be       347    54    21      1.000  28.072      0.156      28.072
+614345797bfcbf016695bf29       244    38    18      0.512  29.480      0.156      22.400
+60ad3c007bed9b01661ee5b1       803   126    43      0.838  34.262      0.157      32.066
+5fa0a33daaa281001684ade2       950   151    36      0.639  38.269      0.159      27.967
+5f9c119522c5c50016d5b89e      1745   294   105      0.824  30.406      0.168      29.663
+5eb5cc85b87f6600177e30e3       335    57    15      0.797  30.578      0.170      28.331
+5f84b3119709c000164ce0ff       145    25     6      0.462  52.855      0.172      34.985
+60522c919a9349001684cbcd       614   111    36      0.619  37.591      0.181      33.426
+616854371fbb170169a0e7d3       138    25    12      0.384  40.072      0.181      40.189
+613fe9fde8a07a0166219500       315    59    24      0.451  39.241      0.187      32.838
+60afa63ecd541e0166bcbaec       293    55    13      0.918  39.710      0.188      38.000
+5f9891557f5dee0016f77fc0       845   159    57      0.936  31.831      0.188      31.225
+61ba6a6baaf6ec01864c1577       662   125    51      0.976  38.943      0.189      38.952
+61570c2502c79601870c32ac       136    26     7      0.059  44.596      0.191      31.250
+5c3cc2e3a2ae5c0016bef82c       781   155    55      0.851  24.367      0.198      22.774
+
+### WORKER SEGMENTS (Cleveland, Oct-Jan):
+  0 late    workers  283 | bookings  2023 | worked  1755 | late    0 (0% of all late) | seg late rate 0.00 | worked share 8%
+  1-2 late  workers  343 | bookings  5896 | worked  4783 | late  487 (13% of all late) | seg late rate 0.08 | worked share 23%
+  3-4 late  workers  155 | bookings  4841 | worked  3701 | late  527 (14% of all late) | seg late rate 0.11 | worked share 18%
+  5-9 late  workers  175 | bookings  7870 | worked  5831 | late 1114 (29% of all late) | seg late rate 0.14 | worked share 28%
+  10+ late  workers  102 | bookings  8131 | worked  4935 | late 1694 (44% of all late) | seg late rate 0.21 | worked share 23%
+Workers with late_rate>=0.5 and >=4 bookings: 38 -> late cancels 217 worked 135
+Policy sim: 2 late in 30d -> 7d suspension: suspensions 1147, late cancels avoided 1085 (28%), worked shifts lost 3355 (16.0%)
+Policy sim: 3 late in 30d -> 7d suspension: suspensions 679, late cancels avoided 757 (20%), worked shifts lost 2084 (9.9%)
+
+Late WORKER_CANCEL by local hour of cancel action:
+ local
+0      52
+1      33
+2      44
+3      37
+4      97
+5     165
+6     138
+7      37
+8      71
+9      84
+10    105
+11    125
+12    194
+13    194
+14    153
+15    104
+16    118
+17    148
+18    130
+19    123
+20    135
+21    134
+22    121
+23     43
+
+NURSE rows: charge==0 share 1.00, verified 3 of 1907
+
+Facility churn proxy (P1>=50 shifts, n=38): corr(P1 late_rate, growth P1->P2) = 0.45 ; corr(ncns share, growth) = 0.03
+         n      P1      P2  med_growth  shrank
+lr_bin                                        
+low     13  5046.0  6169.0        0.19    0.23
+mid     12  6296.0  8282.0        0.15    0.17
+high    13  4164.0  6434.0        0.61    0.15

@@ -1,0 +1,48 @@
+NCNS               n=1261 | worker never worked a Cleveland shift after this event: 22.0% (excl. last 2 weeks: 17.2%)
+late WORKER_CANCEL n=2585 | worker never worked a Cleveland shift after this event: 13.3% (excl. last 2 weeks: 10.7%)
+early cancel       n=3934 | worker never worked a Cleveland shift after this event: 18.9% (excl. last 2 weeks: 15.3%)
+NCNS where worker had never worked a Cleveland shift before: 13.9%
+
+Posting lead (days) quantiles: {0.1: 1.2, 0.25: 4.1, 0.5: 9.4, 0.75: 19.0, 0.9: 28.9}
+Facility late-rate persistence (n=30 facilities with >=50 bookings each period): corr(P1,P2)=0.45
+Worker late-rate persistence (n=227 workers with >=10 bookings each period): corr(P1,P2)=0.59 ; top-quartile P1 workers' P2 rate 0.214 vs bottom-quartile 0.067
+
+Active facilities/month: {Period('2021-10', 'M'): 42, Period('2021-11', 'M'): 40, Period('2021-12', 'M'): 51, Period('2022-01', 'M'): 52}
+Late-disrupted shifts per active facility per month: {Period('2021-10', 'M'): 13.7, Period('2021-11', 'M'): 18.0, Period('2021-12', 'M'): 21.7, Period('2022-01', 'M'): 24.4}
+Shifts per active facility per month: {Period('2021-10', 'M'): 98.4, Period('2021-11', 'M'): 127.1, Period('2021-12', 'M'): 140.5, Period('2022-01', 'M'): 157.3}
+  WORKER_CANCEL with lead < 1h: 515 (7.9% of all worker cancels)
+  WORKER_CANCEL with lead < 2h: 936 (14.4% of all worker cancels)
+  WORKER_CANCEL with lead < 4h: 1445 (22.2% of all worker cancels)
+  WORKER_CANCEL with lead < 8h: 1965 (30.1% of all worker cancels)
+  WORKER_CANCEL with lead < 12h: 2206 (33.8% of all worker cancels)
+  WORKER_CANCEL with lead < 24h: 2585 (39.7% of all worker cancels)
+  WORKER_CANCEL with lead < 48h: 2918 (44.8% of all worker cancels)
+  WORKER_CANCEL with lead < 72h: 3146 (48.3% of all worker cancels)
+Marketplace-wide: share of worker cancels <24h: 36.8% | <4h: 16.8% | NCNS share of all cancel events: 15.3%
+Cleveland: share of worker cancels <24h: 39.7% | <4h: 22.2% | NCNS share: 16.2%
+
+ECON excl NURSE/$0: late-disrupted shifts 3491 | not worked 2606 (74.6%) | GMV lost 4mo $802532 | annualized GMV $2407595 | revenue @22% $529671/yr | avg GMV/shift $342
+Worked GMV 4mo $5563117 (16396 shifts) -> annualized $16689352
+
+ segment  workers  bookings  worked  late  share_late  share_worked  late_rate
+      0      283      2023    1755     0         0.0           8.4        0.0
+    1-2      343      5896    4783   487        12.7          22.8        8.3
+    3-4      155      4841    3701   527        13.8          17.6       10.9
+    5-9      175      7870    5831  1114        29.1          27.8       14.2
+    10+      102      8131    4935  1694        44.3          23.5       20.8
+
+ ltb
+NCNS      1261
+0-1h       515
+1-2h       421
+2-4h       509
+4-8h       520
+8-12h      241
+12-24h     379
+24-48h     333
+48-72h     228
+3-7d       851
+7-14d     1525
+>14d       997
+
+ {'shifts': 41040, 'facilities': 67, 'workers': 1058, 'bookings': 28785, 'cancels': 7780, 'late_events': 3846, 'ncns_events': 1261, 'late_rate': np.float64(13.4), 'ncns_rate': np.float64(4.4), 'cancel_rate': np.float64(27.0), 'late_shifts': 3672, 'late_shifts_unfilled': 2487, 'late_shifts_deleted': 265, 'late_shifts_worked': 888, 'worked': 16400, 'unfilled': 10163, 'deleted': 13982}

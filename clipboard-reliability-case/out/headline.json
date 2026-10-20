@@ -1,0 +1,19 @@
+{
+ "shifts": 41040,
+ "facilities": 67,
+ "workers": 1058,
+ "bookings": 28785,
+ "cancels": 7780,
+ "late_events": 3846,
+ "ncns_events": 1261,
+ "late_rate": 13.4,
+ "ncns_rate": 4.4,
+ "cancel_rate": 27.0,
+ "late_shifts": 3672,
+ "late_shifts_unfilled": 2487,
+ "late_shifts_deleted": 265,
+ "late_shifts_worked": 888,
+ "worked": 16400,
+ "unfilled": 10163,
+ "deleted": 13982
+}

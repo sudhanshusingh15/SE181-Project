@@ -1,0 +1,3 @@
+rule,suspensions,late_avoided,late_avoided_pct,worked_lost,worked_lost_pct
+2 late in 30d -> 7d suspension,1147,1085,28,3355,16.0
+3 late in 30d -> 7d suspension,679,757,20,2084,9.9
