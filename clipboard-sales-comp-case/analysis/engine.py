@@ -4,7 +4,7 @@ import pandas as pd, numpy as np
 NET_MULT={15:1.2,30:1.0,45:0.9,60:0.7}
 def compute(d, month="2026-06", exclude_accounts=(), hold_closer_not_employed_at_close=False, gtm_pre_month=True, include_denied=False,
             credits_on_nonexisting=False, residue_as_won=False, golive_latest_cw=False, ignore_employment=False, ramp_no_proration=False,
-            first_worked_observed=False, no_ramp_restart_for=(), gtm_rate=0.03, half=0.5, smb_mult=None, gtm_as_standard=(), gtm_worked_only=(), role_override=None, mgr_proration=None):
+            first_worked_observed=False, no_ramp_restart_for=(), gtm_rate=0.03, half=0.5, smb_mult=None, gtm_as_standard=(), gtm_worked_only=(), role_override=None, mgr_proration=None, emp_override=None):
     ro,hr,fx,comp,mp,opp,app,bill=d["roster"],d["hr"],d["fx"],d["comp"],d["map"],d["opp"],d["app"],d["bill"]
     M_START=pd.Timestamp(month+"-01"); M_END=M_START+pd.offsets.MonthEnd(0); DIM=M_END.day; P_START=M_START-pd.offsets.MonthBegin(1); P_END=M_START-pd.Timedelta(days=1); MONTH=M_START.strftime("%Y-%m"); PMONTH=P_START.strftime("%Y-%m")
     comp=comp.rename(columns={"Role":"role","Monthly Quota Target":"quota","Standard Payout":"rate","Monthly Target":"quota2","Standard Payout 2":"rate2"}); roles=comp.set_index("role")
@@ -19,6 +19,10 @@ def compute(d, month="2026-06", exclude_accounts=(), hold_closer_not_employed_at
         for nm,(rl,rs) in role_override.items():
             reps.loc[reps.name==nm,"role"]=rl
             if rs is not None: reps.loc[reps.name==nm,"Current Role Start Date"]=pd.Timestamp(rs)
+    if emp_override:
+        for nm,(st,en) in emp_override.items():
+            reps.loc[reps.name==nm,"Start Date"]=pd.Timestamp(st); reps.loc[reps.name==nm,"Current Role Start Date"]=pd.Timestamp(st)
+            reps.loc[reps.name==nm,"End Date"]=pd.Timestamp(en) if en else pd.NaT
     reps["metric"]=reps.role.map(metric_of)
     reps["is_ic"]=reps.role.isin(list(ramp_pct)); reps["rate"]=reps.role.map(roles.rate.astype(float)); reps["quota"]=reps.role.map(roles.quota.astype(float))
     reps["emp_start"]=reps["Start Date"]; reps["emp_end"]=reps["End Date"].fillna(pd.Timestamp("2099-12-31"))
@@ -28,7 +32,7 @@ def compute(d, month="2026-06", exclude_accounts=(), hold_closer_not_employed_at
     def ramp_days(r):
         if r.role not in ramp_pct or r.days_emp==0: return 0,0
         rs=r["Current Role Start Date"]
-        if r["name"] in no_ramp_restart_for: rs=r["Start Date"]
+        if r["name"] in no_ramp_restart_for: rs=min([t for t in (r["Start Date"],r["Previous Role Start Date"]) if pd.notna(t)])
         n1=n2=0
         for t in pd.date_range(r.d_from,r.d_to):
             k=(t-rs).days+1
@@ -50,7 +54,7 @@ def compute(d, month="2026-06", exclude_accounts=(), hold_closer_not_employed_at
     A=A.merge((fwo if first_worked_observed else fwg).rename("fw"),left_on="app_account_id",right_index=True,how="left")
     for k,off in (("W1s",0),("W1e",29),("W2s",30),("W2e",59),("W3s",60),("W3e",89)): A[k]=A.fw+pd.Timedelta(days=off)
     A["is_gtm"]=(A.atype=="GTM")&~A.app_account_id.isin(gtm_as_standard); A["mult"]=np.where(A.is_gtm,1.0,A.net_terms.map(NET_MULT)); A["closer_name"]=A.closer.map(name); A["owner_name"]=A.owner.map(name)
-    A["c_start"]=A.closer.map(es); A["c_end"]=A.closer.map(ee)
+    A["c_start"]=A.closer.map(es); A["c_end"]=A.closer.map(ee); A["o_start"]=A.owner.map(es); A["o_end"]=A.owner.map(ee)
     wk=app[app.worked_shift]; wk_by={k:v.values for k,v in wk.groupby("app_account_id").shift_worked_date}; po_by={k:v.values for k,v in app.groupby("app_account_id").shift_posted_date}
     def cnt(by,acct,lo,hi):
         x=by.get(acct)
@@ -82,18 +86,21 @@ def compute(d, month="2026-06", exclude_accounts=(), hold_closer_not_employed_at
         newf=(f1f+imp2+imp3)*r.mult*conv*treat; newp=(f1p+imp2p+imp3p)*r.mult*conv*treat
         uncred=(f1f+imp2+imp3)*r.mult if not has_closer else 0
         exj=m*cnt(wk_by,a,M_START,M_END) if r.go_live<M_START else 0; exm=m*cnt(wk_by,a,P_START,P_END) if r.go_live<P_START else 0
-        rows.append(dict(crm_account_id=r.crm_account_id,app_account_id=a,billing_account_id=r.billing_account_id,closer=r.closer,closer_name=r.closer_name,owner=r.owner,owner_name=r.owner_name,atype=r.atype,segment=r.segment,net_terms=r.net_terms,mult=r.mult,charge=ch,pay=r.pay,margin=m,go_live=r.go_live,first_won=r.first_won,n_cw=r.n_cw,fw=r.fw,W1e=r.W1e,W2e=r.W2e,W3e=r.W3e,f1_june_full=f1f,f1_june_paid=f1p,W1=W1,W2=W2,W3=W3,imp2=imp2,imp3=imp3,conv=conv,new_cred_full=newf,new_cred_paid=newp,uncredited=uncred,pre_fw_gsv=pre,ex_june_nr=exj,ex_may_nr=exm,june_nr_all=m*cnt(wk_by,a,M_START,M_END),existing_june=r.go_live<M_START,existing_may=r.go_live<P_START))
+        os_=r.o_start if pd.notna(r.o_start) else FAR; oe_=r.o_end if pd.notna(r.o_end) else pd.Timestamp("1900-01-01")
+        exjp=m*cnt(wk_by,a,max(M_START,os_),min(M_END,oe_)) if r.go_live<M_START else 0
+        rows.append(dict(crm_account_id=r.crm_account_id,app_account_id=a,billing_account_id=r.billing_account_id,closer=r.closer,closer_name=r.closer_name,owner=r.owner,owner_name=r.owner_name,atype=r.atype,segment=r.segment,net_terms=r.net_terms,mult=r.mult,charge=ch,pay=r.pay,margin=m,go_live=r.go_live,first_won=r.first_won,n_cw=r.n_cw,fw=r.fw,W1e=r.W1e,W2e=r.W2e,W3e=r.W3e,f1_june_full=f1f,f1_june_paid=f1p,W1=W1,W2=W2,W3=W3,imp2=imp2,imp3=imp3,conv=conv,new_cred_full=newf,new_cred_paid=newp,uncredited=uncred,pre_fw_gsv=pre,ex_june_nr=exj,ex_june_nr_paid=exjp,ex_may_nr=exm,june_nr_all=m*cnt(wk_by,a,M_START,M_END),existing_june=r.go_live<M_START,existing_may=r.go_live<P_START))
     AC=pd.DataFrame(rows)
     b=bill if include_denied else bill[bill.ticket_status=="approved"]
     cj=b[b.billing_month==MONTH].groupby("billing_account_id").credit_amount.sum(); cm=b[b.billing_month==PMONTH].groupby("billing_account_id").credit_amount.sum()
     AC["cred_june_all"]=AC.billing_account_id.map(cj).fillna(0); AC["cred_may_all"]=AC.billing_account_id.map(cm).fillna(0)
     AC["cred_june"]=np.where(AC.existing_june|credits_on_nonexisting,AC.cred_june_all,0); AC["cred_may"]=np.where(AC.existing_may|credits_on_nonexisting,AC.cred_may_all,0)
-    AC["ex_june"]=AC.ex_june_nr-AC.cred_june; AC["ex_may"]=AC.ex_may_nr-AC.cred_may; AC["ex_june_samebook"]=np.where(AC.existing_may,AC.ex_june,0)
+    AC["o_emp_in_month"]=(AC.owner.map(es).fillna(FAR)<=M_END)&(AC.owner.map(ee).fillna(pd.Timestamp("1900-01-01"))>=M_START)
+    AC["ex_june"]=AC.ex_june_nr-AC.cred_june; AC["ex_june_paid"]=np.where(AC.existing_june&AC.o_emp_in_month,AC.ex_june_nr_paid-AC.cred_june,0); AC["ex_may"]=AC.ex_may_nr-AC.cred_may; AC["ex_june_samebook"]=np.where(AC.existing_may,AC.ex_june,0)
     # reps
     reps["new_full"]=reps.crm_owner_id.map(AC.groupby("closer").new_cred_full.sum()).fillna(0); reps["new_paid"]=reps.crm_owner_id.map(AC.groupby("closer").new_cred_paid.sum()).fillna(0)
-    reps["ex_june"]=reps.crm_owner_id.map(AC.groupby("owner").ex_june.sum()).fillna(0); reps["ex_may"]=reps.crm_owner_id.map(AC.groupby("owner").ex_may.sum()).fillna(0); reps["ex_june_samebook"]=reps.crm_owner_id.map(AC.groupby("owner").ex_june_samebook.sum()).fillna(0)
+    reps["ex_june"]=reps.crm_owner_id.map(AC.groupby("owner").ex_june.sum()).fillna(0); reps["ex_june_paid"]=reps.crm_owner_id.map(AC.groupby("owner").ex_june_paid.sum()).fillna(0); reps["ex_may"]=reps.crm_owner_id.map(AC.groupby("owner").ex_may.sum()).fillna(0); reps["ex_june_samebook"]=reps.crm_owner_id.map(AC.groupby("owner").ex_june_samebook.sum()).fillna(0)
     is_ae=reps.role.isin(["SMB Account Executive","ENT Account Executive"]); is_am=reps.role.isin(["SMB Account Manager","ENT Account Manager"])
-    reps["produced_paid"]=np.where(is_ae,reps.new_paid,np.where(is_am,reps.ex_june,0)); reps["produced_full"]=np.where(is_ae,reps.new_full,np.where(is_am,reps.ex_june,0))
+    reps["produced_paid"]=np.where(is_ae,reps.new_paid,np.where(is_am,reps.ex_june_paid,0)); reps["produced_full"]=np.where(is_ae,reps.new_full,np.where(is_am,reps.ex_june,0))
     reps["employed"]=reps.days_emp>0
     reps["credited"]=np.where(reps.employed,np.maximum(reps.produced_paid,reps.ramp_floor),0); reps["credited_full"]=np.where(reps.employed,np.maximum(reps.produced_full,reps.ramp_floor),reps.produced_full)
     reps["attain"]=np.where(reps.quota_pro>0,reps.credited/reps.quota_pro,np.nan)
@@ -117,6 +124,8 @@ def compute(d, month="2026-06", exclude_accounts=(), hold_closer_not_employed_at
             elif r.metric_ic=="Existing": cx[g]=cx.get(g,0)+r.credited_full
     reps["carried_new"]=reps.hr_id.map(cn).fillna(0); reps["carried_ex"]=reps.hr_id.map(cx).fillna(0)
     reps["rate2"]=reps.role.map(pd.to_numeric(roles.rate2,errors="coerce")).fillna(0)
+    reps["attain"]=np.where(reps.is_ic,reps.attain,np.where(reps.quota_pro>0,np.where(reps.metric=="Existing",reps.carried_ex,reps.carried_new)/reps.quota_pro,np.nan))
+    reps["quota2"]=reps.role.map(pd.to_numeric(roles.quota2,errors="coerce")).fillna(0); reps["attain2"]=np.where(reps.quota2>0,reps.carried_ex/reps.quota2,np.nan)
     reps["comm_mgr"]=[0 if ic else (rt*n if m=="New" else (rt*x if m=="Existing" else rt*n+r2*x)) for ic,m,rt,r2,n,x in zip(reps.is_ic,reps.metric,reps.rate,reps.rate2,reps.carried_new,reps.carried_ex)]
     if mgr_proration:
         for nm,fr in mgr_proration.items(): reps.loc[reps.name==nm,"comm_mgr"]*=fr

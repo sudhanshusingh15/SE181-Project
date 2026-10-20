@@ -8,7 +8,8 @@ SRC, OUT = sys.argv[1], sys.argv[2]
 LEDGER = json.load(open(sys.argv[3])) if len(sys.argv)>3 else []
 wb = openpyxl.load_workbook(SRC)
 APP="'9. App Export'"; OPP="'8. Opportunity Export'"; BILL="'10. Billing Export'"; HR="'2. HR Export'"; FX="'3. Exchange Rates'"; MAP="'7. Opportunity to ID Mapping'"; COMP="'5. Compensation'"; ACC="'6. Accelerators'"; ROS="'1. Sales Roster'"
-N_APP=107053; N_OPP=816; N_BILL=1090; N_HR=1081; N_FX=197; N_MAP=762; N_COMP=18; N_REP=81; N_ACCT=762
+N_APP=150000; N_OPP=1500; N_BILL=3000; N_HR=2000; N_FX=300; N_MAP=1100; N_COMP=18; N_REP=120; N_ACCT=1100
+RAW={'9. App Export':107052,'8. Opportunity Export':815,'10. Billing Export':1089,'2. HR Export':1080,'3. Exchange Rates':196,'7. Opportunity to ID Mapping':761,'1. Sales Roster':80}
 BLUE=Font(name="Arial",color="0000FF"); BLACK=Font(name="Arial"); BOLD=Font(name="Arial",bold=True); GREEN=Font(name="Arial",color="008000"); HDR=Font(name="Arial",bold=True,color="FFFFFF")
 HFILL=PatternFill("solid",fgColor="1F3864"); YFILL=PatternFill("solid",fgColor="FFFF00"); GFILL=PatternFill("solid",fgColor="F2F2F2")
 def hdr(ws,row,headers,widths=None):
@@ -60,7 +61,7 @@ I["A48"]="Convention: blue = input, black = formula, green = link to another tab
 CO=wb.create_sheet("Calc_Opps")
 hdr(CO,1,["opportunity_id","crm_account_id","match key: account | stage","is Closed Won"],[14,40,52,12])
 for r in range(2,N_OPP+1):
-    CO.cell(row=r,column=1,value=f"={OPP}!B{r}"); CO.cell(row=r,column=2,value=f"={OPP}!A{r}"); CO.cell(row=r,column=3,value=f'={OPP}!A{r}&"|"&{OPP}!F{r}'); CO.cell(row=r,column=4,value=f'=IF({OPP}!F{r}="Closed Won",1,0)')
+    g=f'{OPP}!B{r}=""'; CO.cell(row=r,column=1,value=f'=IF({g},"",{OPP}!B{r})'); CO.cell(row=r,column=2,value=f'=IF({g},"",{OPP}!A{r})'); CO.cell(row=r,column=3,value=f'=IF({g},"",{OPP}!A{r}&"|"&{OPP}!F{r})'); CO.cell(row=r,column=4,value=f'=IF({g},"",IF({OPP}!F{r}="Closed Won",1,0))')
 # =============================== CALC_ACCOUNTS (columns defined in order)
 A_COLS=[
 ("crm_account_id", f"={MAP}!A{{r}}"),
@@ -131,18 +132,23 @@ A_COLS=[
 ("EXISTING revenue, prior month (same-book test)", '=IF(BD{r}=1,BF{r}-BH{r},0)'),
 ("EXISTING comp-month revenue on the prior-month book", '=IF(BD{r}=1,BI{r},0)'),
 ("approved comp-month credits on accounts not yet existing (excluded)", '=IF(BC{r}=0,BG{r},0)'),
+("owner employment start", f'=IFERROR(INDEX(Calc_Reps!$H$2:$H${N_REP},MATCH(H{{r}},Calc_Reps!$C$2:$C${N_REP},0)),DATE(2099,12,31))'),
+("owner employment end (2099 if active)", f'=IFERROR(INDEX(Calc_Reps!$I$2:$I${N_REP},MATCH(H{{r}},Calc_Reps!$C$2:$C${N_REP},0)),DATE(1900,1,1))'),
+("net revenue, comp month, while owner employed (7.11)", f'=N{{r}}*COUNTIFS({APP}!$A$2:$A${N_APP},B{{r}},{APP}!$D$2:$D${N_APP},TRUE,{APP}!$E$2:$E${N_APP},">="&MAX(Inputs!$B$4,BM{{r}}),{APP}!$E$2:$E${N_APP},"<="&MIN(Inputs!$B$5,BN{{r}}))'),
+("EXISTING credited revenue, comp month, owner employed (7.11)", '=IF(AND(BC{r}=1,BM{r}<=Inputs!$B$5,BN{r}>=Inputs!$B$4),BO{r}-BG{r},0)'),
 ]
 CA=wb.create_sheet("Calc_Accounts")
 hdr(CA,1,[h for h,_ in A_COLS],[38,38,38,10]+[16]*(len(A_COLS)-4))
 CA.row_dimensions[1].height=78
-assert len(A_COLS)==64, len(A_COLS)
+assert len(A_COLS)==68, len(A_COLS)
 for r in range(2,N_ACCT+1):
     for ci,(h,f) in enumerate(A_COLS,1):
-        CA.cell(row=r,column=ci,value=f.format(r=r))
-date_cols=["E","F","P","Q","R","S","T","U","V","X","Y"]
+        if ci==1: CA.cell(row=r,column=ci,value=f'=IF({MAP}!A{r}="","",{MAP}!A{r})')
+        else: CA.cell(row=r,column=ci,value=f'=IF($A{r}="","",{f.format(r=r)[1:]})')
+date_cols=["E","F","P","Q","R","S","T","U","V","X","Y","BM","BN"]
 for col in date_cols:
     for r in range(2,N_ACCT+1): CA[f"{col}{r}"].number_format="yyyy-mm-dd"
-for col in ["AJ","AK","AL","AM","AN","AQ","AR","AS","AT","AV","AW","BA","BB","BE","BF","BG","BH","BI","BJ","BK","BL"]:
+for col in ["AJ","AK","AL","AM","AN","AQ","AR","AS","AT","AV","AW","BA","BB","BE","BF","BG","BH","BI","BJ","BK","BL","BO","BP"]:
     for r in range(2,N_ACCT+1): CA[f"{col}{r}"].number_format="#,##0.00"
 # =============================== CALC_REPS
 R_COLS=[
@@ -177,22 +183,22 @@ R_COLS=[
 ("ramp days in month 2 (days 31-60)", '=IF(OR(Y{r}=0,AC{r}=0),0,MAX(0,MIN(AB{r},J{r}+59)-MAX(AA{r},J{r}+30)+1))'),
 ("ramp floor on credited revenue (7.10)", '=(AE{r}*Y{r}+AF{r}*Z{r})*M{r}/Inputs!$B$6'),
 ("ramping in month (1/0)", '=IF(AE{r}+AF{r}>0,1,0)'),
-("produced, plan as written, while employed", f'=IF(S{{r}}="New",SUMIFS(Calc_Accounts!$AW$2:$AW${N_ACCT},Calc_Accounts!$G$2:$G${N_ACCT},C{{r}}),IF(S{{r}}="Existing",SUMIFS(Calc_Accounts!$BI$2:$BI${N_ACCT},Calc_Accounts!$H$2:$H${N_ACCT},C{{r}}),0))'),
+("produced, plan as written, while employed", f'=IF(S{{r}}="New",SUMIFS(Calc_Accounts!$AW$2:$AW${N_ACCT},Calc_Accounts!$G$2:$G${N_ACCT},C{{r}}),IF(S{{r}}="Existing",SUMIFS(Calc_Accounts!$BP$2:$BP${N_ACCT},Calc_Accounts!$H$2:$H${N_ACCT},C{{r}}),0))'),
 ("produced, plan as written, full month (manager roll-up)", f'=IF(S{{r}}="New",SUMIFS(Calc_Accounts!$AV$2:$AV${N_ACCT},Calc_Accounts!$G$2:$G${N_ACCT},C{{r}}),IF(S{{r}}="Existing",SUMIFS(Calc_Accounts!$BI$2:$BI${N_ACCT},Calc_Accounts!$H$2:$H${N_ACCT},C{{r}}),0))'),
-("produced, recommended, while employed", f'=IF(S{{r}}="New",SUMIFS(Calc_Accounts!$BB$2:$BB${N_ACCT},Calc_Accounts!$G$2:$G${N_ACCT},C{{r}}),IF(S{{r}}="Existing",SUMIFS(Calc_Accounts!$BI$2:$BI${N_ACCT},Calc_Accounts!$H$2:$H${N_ACCT},C{{r}}),0))'),
+("produced, recommended, while employed", f'=IF(S{{r}}="New",SUMIFS(Calc_Accounts!$BB$2:$BB${N_ACCT},Calc_Accounts!$G$2:$G${N_ACCT},C{{r}}),IF(S{{r}}="Existing",SUMIFS(Calc_Accounts!$BP$2:$BP${N_ACCT},Calc_Accounts!$H$2:$H${N_ACCT},C{{r}}),0))'),
 ("produced, recommended, full month", f'=IF(S{{r}}="New",SUMIFS(Calc_Accounts!$BA$2:$BA${N_ACCT},Calc_Accounts!$G$2:$G${N_ACCT},C{{r}}),IF(S{{r}}="Existing",SUMIFS(Calc_Accounts!$BI$2:$BI${N_ACCT},Calc_Accounts!$H$2:$H${N_ACCT},C{{r}}),0))'),
 ("credited revenue, plan as written", '=IF(AC{r}>0,MAX(AI{r},AG{r}),0)'),
 ("credited revenue, plan as written, full (roll-up)", '=IF(AC{r}>0,MAX(AJ{r},AG{r}),AJ{r})'),
 ("credited revenue, recommended", '=IF(AC{r}>0,MAX(AK{r},AG{r}),0)'),
 ("credited revenue, recommended, full (roll-up)", '=IF(AC{r}>0,MAX(AL{r},AG{r}),AL{r})'),
-("attainment (recommended / prorated quota)", '=IF(AD{r}>0,AO{r}/AD{r},"")'),
+("attainment: credited (recommended) or carried revenue / prorated quota", '=IF(AD{r}>0,IF(R{r}=1,AO{r}/AD{r},IF(O{r}="Existing",BD{r}/AD{r},BC{r}/AD{r})),"")'),
 ("accelerator eligible (AE, not ramping, employed)", '=IF(AND(R{r}=1,T{r}<>"",AH{r}=0,AC{r}>0),1,0)'),
 ("IC commission, plan as written", '=IF(R{r}=0,0,IF(AR{r}=1,N{r}*(MIN(AM{r},T{r})+V{r}*MAX(0,MIN(AM{r},U{r})-T{r})+X{r}*MAX(0,AM{r}-W{r})),N{r}*AM{r}))'),
 ("IC commission, recommended", '=IF(R{r}=0,0,IF(AR{r}=1,N{r}*(MIN(AO{r},T{r})+V{r}*MAX(0,MIN(AO{r},U{r})-T{r})+X{r}*MAX(0,AO{r}-W{r})),N{r}*AO{r}))'),
 ("IC commission, scenario multipliers (recommended basis)", '=IF(R{r}=0,0,IF(AR{r}=1,N{r}*(MIN(AO{r},T{r})+IF(E{r}="SMB Account Executive",Inputs!$B$34,V{r})*MAX(0,MIN(AO{r},U{r})-T{r})+IF(E{r}="SMB Account Executive",Inputs!$B$35,X{r})*MAX(0,AO{r}-W{r})),N{r}*AO{r}))'),
 ("prior-month existing revenue on same book (7.12)", f'=IF(S{{r}}="Existing",SUMIFS(Calc_Accounts!$BJ$2:$BJ${N_ACCT},Calc_Accounts!$H$2:$H${N_ACCT},C{{r}}),0)'),
 ("comp-month existing revenue on same book", f'=IF(S{{r}}="Existing",SUMIFS(Calc_Accounts!$BK$2:$BK${N_ACCT},Calc_Accounts!$H$2:$H${N_ACCT},C{{r}}),0)'),
-("retention SPIFF (7.12)", f'=IF(AND(S{{r}}="Existing",R{{r}}=1,AH{{r}}=0,AC{{r}}>0,AV{{r}}>0,AW{{r}}>=AV{{r}}),IF(E{{r}}="SMB Account Manager",{ACC}!$D$9,{ACC}!$D$10),0)'),
+("retention SPIFF (7.12, amount from tab 6)", f'=IF(AND(S{{r}}="Existing",R{{r}}=1,AH{{r}}=0,AC{{r}}>0,AV{{r}}>0,AW{{r}}>=AV{{r}}),IFERROR(INDEX({ACC}!$D$9:$D$10,MATCH(E{{r}},{ACC}!$A$9:$A$10,0)),0),0)'),
 ("manager level 1", "=K{r}"),
 ("manager level 2", f'=IFERROR(INDEX({HR}!$J$2:$J${N_HR},MATCH(AY{{r}},{HR}!$A$2:$A${N_HR},0)),"")'),
 ("manager level 3", f'=IFERROR(INDEX({HR}!$J$2:$J${N_HR},MATCH(AZ{{r}},{HR}!$A$2:$A${N_HR},0)),"")'),
@@ -212,31 +218,36 @@ R_COLS=[
 ("local currency", f'=INDEX({FX}!$D$2:$D${N_FX},MATCH(L{{r}},{FX}!$A$2:$A${N_FX},0))'),
 ("TOTAL local currency, recommended payable", '=BK{r}*BN{r}'),
 ("TOTAL local currency, plan as written", '=BL{r}*BN{r}'),
+("Metric II attainment (Head of Sales & AM only)", '=IF(P{r}>0,BD{r}/P{r},"")'),
+("IC commission, scenario multipliers (plan as written basis)", '=IF(R{r}=0,0,IF(AR{r}=1,N{r}*(MIN(AM{r},T{r})+IF(E{r}="SMB Account Executive",Inputs!$B$34,V{r})*MAX(0,MIN(AM{r},U{r})-T{r})+IF(E{r}="SMB Account Executive",Inputs!$B$35,X{r})*MAX(0,AM{r}-W{r})),N{r}*AM{r}))'),
+("TOTAL USD, scenario (plan as written basis)", '=BS{r}+BH{r}+AX{r}'),
 ]
 CR=wb.create_sheet("Calc_Reps")
 hdr(CR,1,[h for h,_ in R_COLS],[20,38,38,38,24]+[14]*(len(R_COLS)-5)); CR.row_dimensions[1].height=78
 for r in range(2,N_REP+1):
     for ci,(h,f) in enumerate(R_COLS,1):
         if f is None:
-            c=CR.cell(row=r,column=ci,value=0 if "USD" in h else None); c.font=BLUE
-        else: CR.cell(row=r,column=ci,value=f.format(r=r))
+            c=CR.cell(row=r,column=ci,value=(0 if "USD" in h else None) if r<=RAW['1. Sales Roster']+1 else None); c.font=BLUE
+        elif ci==1: CR.cell(row=r,column=ci,value=f'=IF({ROS}!A{r}="","",{ROS}!A{r})')
+        else: CR.cell(row=r,column=ci,value=f'=IF($A{r}="","",{f.format(r=r)[1:]})')
 for col in ["F","G","H","I","J","AA","AB"]:
     for r in range(2,N_REP+1): CR[f"{col}{r}"].number_format="yyyy-mm-dd"
-for col in ["M","AD","AG","AI","AJ","AK","AL","AM","AN","AO","AP","AS","AT","AU","AV","AW","AX","BC","BD","BE","BF","BG","BH","BI","BK","BL","BM","BP","BQ"]:
+for col in ["M","AD","AG","AI","AJ","AK","AL","AM","AN","AO","AP","AS","AT","AU","AV","AW","AX","BC","BD","BE","BF","BG","BH","BI","BK","BL","BM","BP","BQ","BS","BT"]:
     for r in range(2,N_REP+1): CR[f"{col}{r}"].number_format="#,##0.00"
-for r in range(2,N_REP+1): CR[f"AQ{r}"].number_format="0.0%"; CR[f"N{r}"].number_format="0.000%"; CR[f"Q{r}"].number_format="0.0000%"
+for r in range(2,N_REP+1): CR[f"AQ{r}"].number_format="0.0%"; CR[f"BR{r}"].number_format="0.0%"; CR[f"N{r}"].number_format="0.000%"; CR[f"Q{r}"].number_format="0.0000%"
 # =============================== PAYOUT SUMMARY
 PS=wb.create_sheet("Payout_Summary",1)
 PS["A1"]="June 2026 commission statement summary"; PS["A1"].font=Font(name="Arial",bold=True,size=14)
 PS["A2"]='="Comp month: "&TEXT(Inputs!B4,"mmmm yyyy")&". Recommended payable applies the treatments on Inputs (rows 38-40). Plan as written applies none. Local amounts use tab 3 rates."'
-cols=[("Name","A"),("Role","E"),("Country","L"),("Currency","BO"),("Days employed","AC"),("Prorated quota USD","AD"),("Credited revenue USD (recommended)","AO"),("Attainment","AQ"),("Ramping","AH"),("Retention SPIFF USD","AX"),("Commission USD, plan as written","BL"),("Commission USD, recommended payable","BK"),("Difference USD","__diff"),("Approved adjustment USD","BI"),("FX rate","BN"),("Payable in local currency (recommended)","BP"),("Payable in local currency (plan as written)","BQ")]
+cols=[("Name","A"),("Role","E"),("Country","L"),("Currency","BO"),("Days employed","AC"),("Prorated quota USD","AD"),("Credited or carried revenue USD (recommended)","__cred"),("Attainment","AQ"),("Ramping","AH"),("Retention SPIFF USD","AX"),("Commission USD, plan as written","BL"),("Commission USD, recommended payable","BK"),("Difference USD","__diff"),("Approved adjustment USD","BI"),("FX rate","BN"),("Payable in local currency (recommended)","BP"),("Payable in local currency (plan as written)","BQ")]
 hdr(PS,4,[c for c,_ in cols],[20,24,9,9,10,15,17,10,8,12,16,16,12,12,8,18,18]); PS.row_dimensions[4].height=60
 for i in range(2,N_REP+1):
     r=i+3
     for ci,(h,src) in enumerate(cols,1):
-        if src=="__diff": PS.cell(row=r,column=ci,value=f"=L{r}-K{r}")
-        else: PS.cell(row=r,column=ci,value=f"=Calc_Reps!{src}{i}")
-        PS.cell(row=r,column=ci).font=GREEN if src!="__diff" else BLACK
+        if src=="__diff": PS.cell(row=r,column=ci,value=f'=IF(A{r}="","",L{r}-K{r})')
+        elif src=="__cred": PS.cell(row=r,column=ci,value=f'=IF(Calc_Reps!$A{i}="","",IF(Calc_Reps!R{i}=1,Calc_Reps!AO{i},IF(Calc_Reps!O{i}="Existing",Calc_Reps!BD{i},Calc_Reps!BC{i})))')
+        else: PS.cell(row=r,column=ci,value=f'=IF(Calc_Reps!$A{i}="","",Calc_Reps!{src}{i})')
+        PS.cell(row=r,column=ci).font=GREEN if src not in ("__diff","__cred") else BLACK
     for ci in (6,7,10,11,12,13,14,16,17): PS.cell(row=r,column=ci).number_format="#,##0.00"
     PS.cell(row=r,column=8).number_format="0%"
 tr=N_REP+4
@@ -252,38 +263,46 @@ for k,role in enumerate(roles):
 # =============================== SCENARIO
 SC=wb.create_sheet("Scenario",2)
 SC["A1"]="Plan change: SMB AE accelerator 1.2x / 1.3x to 1.3x / 1.5x (assignment 3)"; SC["A1"].font=Font(name="Arial",bold=True,size=14)
-SC["A2"]="Bands unchanged ($30k to $40k, $40k+). Only accelerator-eligible SMB AEs move: ramping reps are not eligible, and managers are paid on credited revenue, not on reps' commission. Basis: recommended payable (Inputs treatments on). Proposed multipliers are Inputs!B34:B35."
+SC["A2"]="Bands unchanged ($30k to $40k, $40k+). Only accelerator-eligible SMB AEs move: ramping reps are not eligible, and managers are paid on credited revenue, not on reps' commission. Shown on both bases: recommended payable (Inputs treatments on) and plan as written. Proposed multipliers are Inputs!B34:B35."
 SC["A2"].alignment=Alignment(wrap_text=True); SC.row_dimensions[2].height=45
-hdr(SC,4,["Name","Role","Credited revenue USD","Accelerator eligible","Commission USD, current multipliers","Commission USD, proposed multipliers","Delta USD","Dollars in band I","Dollars in band II"],[20,22,16,10,18,18,12,14,14])
-# rows: all 80 reps referenced; non SMB AE show zero delta. Keep SMB AEs first via Python sort of roster is not possible without data; list all reps.
+hdr(SC,4,["Name","Role","Credited revenue USD (recommended)","Accelerator eligible","Current, recommended basis","Proposed, recommended basis","Delta, recommended basis","Credited revenue USD (as written)","Current, as written","Proposed, as written","Delta, as written","Dollars in band I (recommended)","Dollars in band II (recommended)"],[20,22,15,10,15,15,13,15,15,15,13,14,14])
+SC.row_dimensions[4].height=60
 for i in range(2,N_REP+1):
-    r=i+3
-    SC.cell(row=r,column=1,value=f"=Calc_Reps!A{i}").font=GREEN; SC.cell(row=r,column=2,value=f"=Calc_Reps!E{i}").font=GREEN; SC.cell(row=r,column=3,value=f"=Calc_Reps!AO{i}").font=GREEN; SC.cell(row=r,column=4,value=f"=Calc_Reps!AR{i}").font=GREEN
-    SC.cell(row=r,column=5,value=f"=Calc_Reps!AT{i}").font=GREEN; SC.cell(row=r,column=6,value=f"=Calc_Reps!AU{i}").font=GREEN; SC.cell(row=r,column=7,value=f"=F{r}-E{r}")
-    SC.cell(row=r,column=8,value=f'=IF(AND(D{r}=1,Calc_Reps!T{i}<>""),MAX(0,MIN(C{r},Calc_Reps!U{i})-Calc_Reps!T{i}),0)'); SC.cell(row=r,column=9,value=f'=IF(AND(D{r}=1,Calc_Reps!W{i}<>""),MAX(0,C{r}-Calc_Reps!W{i}),0)')
-    for ci in (3,5,6,7,8,9): SC.cell(row=r,column=ci).number_format="#,##0.00"
+    r=i+3; g=f'Calc_Reps!$A{i}=""'
+    refs=[("A","A"),("B","E"),("C","AO"),("D","AR"),("E","AT"),("F","AU"),("H","AM"),("I","AS"),("J","BS")]
+    for col,src in refs: SC[f"{col}{r}"]=f'=IF({g},"",Calc_Reps!{src}{i})'; SC[f"{col}{r}"].font=GREEN
+    SC[f"G{r}"]=f'=IF({g},"",F{r}-E{r})'; SC[f"K{r}"]=f'=IF({g},"",J{r}-I{r})'
+    SC[f"L{r}"]=f'=IF({g},"",IF(AND(D{r}=1,Calc_Reps!T{i}<>""),MAX(0,MIN(C{r},Calc_Reps!U{i})-Calc_Reps!T{i}),0))'; SC[f"M{r}"]=f'=IF({g},"",IF(AND(D{r}=1,Calc_Reps!W{i}<>""),MAX(0,C{r}-Calc_Reps!W{i}),0))'
+    for col in "CEFGHIJKLM": SC[f"{col}{r}"].number_format="#,##0.00"
 tr=N_REP+4
 SC.cell(row=tr,column=1,value="TOTAL").font=BOLD
-for ci in (3,5,6,7,8,9): c=SC.cell(row=tr,column=ci,value=f"=SUM({L(ci)}5:{L(ci)}{tr-1})"); c.font=BOLD; c.number_format="#,##0.00"
+for col in "CEFGHIJKLM": c=SC[f"{col}{tr}"]; c.value=f"=SUM({col}5:{col}{tr-1})"; c.font=BOLD; c.number_format="#,##0.00"
 SC.cell(row=tr+1,column=1,value="SMB AE only").font=BOLD
-for ci in (3,5,6,7,8,9): c=SC.cell(row=tr+1,column=ci,value=f'=SUMIF($B$5:$B${tr-1},"SMB Account Executive",{L(ci)}5:{L(ci)}{tr-1})'); c.font=BOLD; c.number_format="#,##0.00"
-SC.cell(row=tr+2,column=1,value="Delta as % of SMB AE commission"); c=SC.cell(row=tr+2,column=7,value=f"=IF(E{tr+1}>0,G{tr+1}/E{tr+1},0)"); c.number_format="0.0%"
+for col in "CEFGHIJKLM": c=SC[f"{col}{tr+1}"]; c.value=f'=SUMIF($B$5:$B${tr-1},"SMB Account Executive",{col}5:{col}{tr-1})'; c.font=BOLD; c.number_format="#,##0.00"
+SC.cell(row=tr+2,column=1,value="Delta as % of SMB AE commission"); c=SC[f"G{tr+2}"]; c.value=f"=IF(E{tr+1}>0,G{tr+1}/E{tr+1},0)"; c.number_format="0.0%"; c=SC[f"K{tr+2}"]; c.value=f"=IF(I{tr+1}>0,K{tr+1}/I{tr+1},0)"; c.number_format="0.0%"
 # =============================== LEDGER
 LG=wb.create_sheet("Ledger",3)
 LG["A1"]="Data quality exceptions ledger, June 2026"; LG["A1"].font=Font(name="Arial",bold=True,size=14)
-LG["A2"]="Ranked by dollars moved. 'Treatment' is what this model does by default; 'Plan as written' columns in Payout_Summary show the untreated figure. Sizes marked (live) are formulas; the rest were computed by the Python replica in analysis/ (code included) on the same raw tabs."
+LG["A2"]="Three groups, each ranked by dollars moved. HOLD: the plan as written pays it and I would not release it without a decision. NAIVE: a straight read of the extracts would have paid it wrong; this model does not. CALL: a judgment the plan leaves open, sized both ways. Dollars are June commission across all reps affected, including manager roll-ups, computed by the Python replica in analysis/ (code included) on the same raw tabs; the live check below reconciles group HOLD to the model."
 LG["A2"].alignment=Alignment(wrap_text=True); LG.row_dimensions[2].height=45
-hdr(LG,4,["#","Finding","Records touched","Reps affected","Dollars moved (USD commission)","Treatment applied in this model","Why, and what I would do instead"],[4,46,14,14,16,40,60])
+hdr(LG,4,["#","Group","Finding","Records touched","Reps affected","Dollars moved (USD commission)","Treatment applied in this model","Why, and what I would do instead"],[4,9,46,14,12,16,38,58])
 for i,row in enumerate(LEDGER):
     r=5+i
     LG.cell(row=r,column=1,value=i+1)
-    for ci,key in enumerate(["finding","records","reps","dollars","treatment","why"],2):
+    for ci,key in enumerate(["group","finding","records","reps","dollars","treatment","why"],2):
         v=row.get(key); c=LG.cell(row=r,column=ci,value=v); c.alignment=Alignment(wrap_text=True,vertical="top")
         if key=="dollars" and isinstance(v,(int,float)): c.number_format="#,##0"
     LG.row_dimensions[r].height=max(45,15*(1+len(str(row.get("why","")))//70))
 # live sizes for item 1 and the toggle
-LG.cell(row=5+len(LEDGER)+1,column=2,value="Live check: total plan-as-written minus recommended (all reps), USD").font=BOLD
-c=LG.cell(row=5+len(LEDGER)+1,column=5,value=f"=SUM(Calc_Reps!BL2:BL{N_REP})-SUM(Calc_Reps!BK2:BK{N_REP})"); c.number_format="#,##0.00"; c.font=BOLD
+LG.cell(row=5+len(LEDGER)+1,column=3,value="Live check: total plan-as-written minus recommended (all reps), USD").font=BOLD
+c=LG.cell(row=5+len(LEDGER)+1,column=6,value=f"=SUM(Calc_Reps!BL2:BL{N_REP})-SUM(Calc_Reps!BK2:BK{N_REP})"); c.number_format="#,##0.00"; c.font=BOLD
+# =============================== INPUTS: capacity check
+I["A50"]="Data capacity check: rows present in each tab against the rows the formulas cover. If any line says EXTEND, raise the constant in model/build_model.py and rebuild."; I["A50"].font=BOLD
+for j,h in enumerate(["Tab","Rows present","Rows covered","Status"]): c=I.cell(row=51,column=1+j,value=h); c.font=BOLD
+checks=[("9. App Export",N_APP-1),("8. Opportunity Export",N_OPP-1),("10. Billing Export",N_BILL-1),("2. HR Export",N_HR-1),("3. Exchange Rates",N_FX-1),("7. Opportunity to ID Mapping (accounts)",N_ACCT-1),("1. Sales Roster (reps)",N_REP-1)]
+for k,(tab,capn) in enumerate(checks):
+    rr=52+k; sheet=tab.split(" (")[0]
+    I.cell(row=rr,column=1,value=tab); I.cell(row=rr,column=2,value=f"=COUNTA('{sheet}'!$A:$A)-1"); I.cell(row=rr,column=3,value=capn); I.cell(row=rr,column=4,value=f'=IF(B{rr}<=C{rr},"OK","EXTEND RANGES")')
 # =============================== README
 RM=wb.create_sheet("README",0)
 RM.column_dimensions["A"].width=120
@@ -295,13 +314,13 @@ lines=["June 2026 commission model: how it works",
 "",
 "How a payout traces. Payout_Summary -> Calc_Reps (credited revenue, bands, roll-up) -> Calc_Accounts (per-account windows and revenue, by COUNTIFS/SUMIFS over tab 9 and tab 10) -> tabs 7, 8, 9, 10 (source rows). Every Calc_ column header names the plan section it applies.",
 "",
-"Running July. Change Inputs!B4 to 2026-07-01, replace tabs 1 to 11 with the July extracts in the same layout (same column order; row counts may grow up to the ranges used, or extend the ranges), review Inputs rows 38 to 42, and recalculate. Approved adjustments go in Calc_Reps columns BI:BJ. Nothing else changes.",
+"Running July. Change Inputs!B4 to 2026-07-01, replace tabs 1 to 11 with the July extracts in the same layout (same column order), check the capacity table at Inputs!A50 says OK on every line (the formulas cover 150,000 shifts, 1,500 opportunities, 3,000 credit tickets, 2,000 employees, 1,100 accounts and 120 reps), review Inputs rows 38 to 42, and recalculate. Approved adjustments go in Calc_Reps columns BI:BJ. Nothing else changes.",
 "",
 "Two payout columns. 'Plan as written' applies section 07 literally. 'Recommended payable' applies the treatments switched on at Inputs!B38:B40 (by default: hold new-logo credit on the flagged GTM account, see Ledger item 1). The difference is shown per rep.",
 "",
 "Conventions. Blue text = input; black = formula; green = link to another tab; yellow fill = cells a reviewer would change. All amounts USD unless the header says local. Dates are stored as dates. Percentages are stored as fractions.",
 "",
-"Functions used. SUMIFS, COUNTIFS, INDEX/MATCH, MINIFS, EOMONTH, EDATE, TEXT. No volatile functions, no array formulas, no macros, no external links.",
+"Functions used. SUMIFS, COUNTIFS, COUNTA, INDEX/MATCH, MINIFS, EOMONTH, EDATE, TEXT. No volatile functions, no array formulas, no macros, no external links. Rows beyond the data in the Calc tabs are blank-guarded formulas waiting for a larger extract.",
 "",
 "Assumptions where the plan is silent are listed in the written summary and in the Ledger; the two treatment toggles on Inputs make the alternatives one click away."]
 for i,t in enumerate(lines,1):
