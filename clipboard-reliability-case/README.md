@@ -21,7 +21,7 @@ A project proposal written for the Clipboard "Marketplace Reliability" candidate
 ## Reproducing
 
 1. Export the Google Sheets linked in the case prompt as `.xlsx` into `data/`: `shifts.xlsx` (Cleveland_shifts_logs) and `cancels.xlsx` (Cancel_logs).
-2. Install: `pip install pandas openpyxl numpy matplotlib`, `npm i -g playwright` with a Chromium build, and the Inter font.
+2. Install: `pip install pandas openpyxl numpy matplotlib`; `npm i -g playwright` plus a Chromium build (set `NODE_PATH` to the global `node_modules` so `require('playwright')` resolves, or run `npm i playwright` inside `writeup/`); and the Inter font.
 3. Run `./run_all.sh`.
 
 ## Data notes

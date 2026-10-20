@@ -35,8 +35,9 @@ P(c2.groupby("cat")[["overlap","sameday","within48"]].mean().round(3).to_string(
 sw=c2[c2.overlap&(c2["Lead Time"]<24)]; P("Late cancels w/ overlapping worked shift: %d; of which higher charge at worked shift: %d, equal: %d, lower: %d; different facility: %d" % (len(sw),(sw.ov_charge>sw.Charge).sum(),(sw.ov_charge==sw.Charge).sum(),(sw.ov_charge<sw.Charge).sum(),(sw.ov_fac!=sw["Facility ID"]).sum()))
 P("  mean charge canceled %.1f vs worked %.1f" % (sw.Charge.mean(), sw.ov_charge.mean()))
 # 3. worker tenure at shift start -> late rate. Build pseudo-booking table
-bk=pd.concat([sh[sh.has_worker][["Shift ID","Worker ID","Facility ID","Start","Charge","Agent Req","Shift Type","worker_created"]].assign(late=False,ncns=False,canceled=False,lt=np.nan),
-              cl[["Shift ID","Worker ID","Facility ID","Start","worker_created","late","ncns","Lead Time"]].rename(columns={"Lead Time":"lt"}).merge(sh[["Shift ID","Charge","Agent Req","Shift Type"]],on="Shift ID",how="left").assign(canceled=True)],ignore_index=True)
+assign=sh[sh.has_worker][["Shift ID","Worker ID","Facility ID","Start","Charge","Agent Req","Shift Type","worker_created","Verified"]].rename(columns={"Verified":"verified"}).assign(late=False,ncns=False,canceled=False,lt=np.nan,cancel_at=pd.NaT)
+canc=cl[["Shift ID","Worker ID","Facility ID","Start","worker_created","late","ncns","Lead Time","Created At"]].rename(columns={"Lead Time":"lt","Created At":"cancel_at"}).merge(sh[["Shift ID","Charge","Agent Req","Shift Type"]],on="Shift ID",how="left").assign(canceled=True,verified=False)
+bk=pd.concat([assign,canc],ignore_index=True); bk["verified"]=bk.verified.astype(bool)
 P("\n### PSEUDO-BOOKINGS (final assignments + cancel events):", len(bk), "| cancel rate %.3f | late rate %.3f | ncns rate %.3f" % (bk.canceled.mean(), bk.late.mean(), bk.ncns.mean()))
 bk["tenure_d"]=(bk.Start-bk.worker_created).dt.days
 bk["tenure_bin"]=pd.cut(bk.tenure_d,[-np.inf,14,30,60,90,180,365,np.inf],labels=["<2w","2-4w","1-2mo","2-3mo","3-6mo","6-12mo",">1y"])
@@ -61,24 +62,50 @@ P("\n### WORKER SEGMENTS (Cleveland, Oct-Jan):")
 for lo,hi,name in [(0,0,"0 late"),(1,2,"1-2 late"),(3,4,"3-4 late"),(5,9,"5-9 late"),(10,999,"10+ late")]:
     seg=wstats[(wstats.late>=lo)&(wstats.late<=hi)]; P("  %-9s workers %4d | bookings %5d | worked %5d | late %4d (%.0f%% of all late) | seg late rate %.2f | worked share %.0f%%" % (name,len(seg),seg.bookings.sum(),seg.worked.sum(),seg.late.sum(),100*seg.late.sum()/wstats.late.sum(),seg.late.sum()/max(seg.bookings.sum(),1),100*seg.worked.sum()/wstats.worked.sum()))
 P("Workers with late_rate>=0.5 and >=4 bookings:", ((wstats.late_rate>=.5)&(wstats.bookings>=4)).sum(), "-> late cancels", wstats[(wstats.late_rate>=.5)&(wstats.bookings>=4)].late.sum(), "worked", wstats[(wstats.late_rate>=.5)&(wstats.bookings>=4)].worked.sum())
-# simulate: after k-th late cancel in rolling 30 days -> suspended 7 days (no bookings honored during suspension; count late cancels and worked shifts that fall in suspension windows as 'avoided'/'lost')
+# simulate: after k-th late cancel in a rolling 30-day window -> 7-day suspension. Bookings inside a suspension: late ones count as avoided, assignments as lost (verified ones reported separately). Stable ordering so the result is deterministic.
 def simulate(k, susp_days=7, window=30):
-    avoided=0; lost=0; suspensions=0
+    avoided=0; lost_a=0; lost_v=0; suspensions=0
     for w,g in bk.groupby("Worker ID"):
-        g=g.sort_values("Start"); lates=[]; susp_until=pd.Timestamp.min
-        for _,r in g.iterrows():
+        g=g.sort_values(["Start","Shift ID"],kind="mergesort"); lates=[]; susp_until=pd.Timestamp.min
+        for r in g.itertuples():
             if r.Start<susp_until:
                 if r.late: avoided+=1
-                elif not r.canceled: lost+=1
+                elif not r.canceled: lost_a+=1; lost_v+=int(r.verified)
                 continue
             if r.late:
                 lates=[t for t in lates if (r.Start-t).days<window]+[r.Start]
                 if len(lates)>=k: susp_until=r.Start+pd.Timedelta(days=susp_days); suspensions+=1; lates=[]
-    return avoided,lost,suspensions
-for k in [2,3]:
-    a,l,s=simulate(k); P("Policy sim: %d late in 30d -> 7d suspension: suspensions %d, late cancels avoided %d (%.0f%%), worked shifts lost %d (%.1f%%)" % (k,s,a,100*a/bk.late.sum(),l,100*l/(~bk.canceled).sum()))
+    return dict(rule=f"{k} late in 30 days, then seven day suspension",suspensions=suspensions,deactivations=0,late_avoided=avoided,verified_lost=lost_v,assignments_lost=lost_a)
+def simulate_written():
+    """The 2021 policy as written, no excusals: NCNS 1st/2nd -> 7 day suspension, 3rd -> deactivation; call-off (<4h) 2nd -> 7 days, 4th -> deactivation; standard (4-72h) every 6th -> 7 days. Offense time = cancel time for cancels, shift start for no-shows."""
+    susp=0; deact=0; avoided=0; lost_a=0; lost_v=0
+    for w,g in bk.groupby("Worker ID"):
+        g=g.assign(t=np.where(g.canceled&~g.ncns, g.cancel_at, g.Start)).sort_values(["t","Shift ID"],kind="mergesort")
+        n_ncns=n_call=n_std=0; susp_until=pd.Timestamp.min; dead=False
+        for r in g.itertuples():
+            if dead or r.Start<susp_until:
+                if r.late: avoided+=1
+                elif not r.canceled: lost_a+=1; lost_v+=int(r.verified)
+                continue
+            if r.ncns:
+                n_ncns+=1
+                if n_ncns>=3: dead=True; deact+=1
+                else: susp_until=r.t+pd.Timedelta(days=7); susp+=1
+            elif r.canceled and r.lt<4:
+                n_call+=1
+                if n_call>=4: dead=True; deact+=1
+                elif n_call==2: susp_until=r.t+pd.Timedelta(days=7); susp+=1
+            elif r.canceled and r.lt<=72:
+                n_std+=1
+                if n_std%6==0: susp_until=r.t+pd.Timedelta(days=7); susp+=1
+    return dict(rule="2021 policy as written, no excusals",suspensions=susp,deactivations=deact,late_avoided=avoided,verified_lost=lost_v,assignments_lost=lost_a)
+sims=pd.DataFrame([simulate(2),simulate(3),simulate_written()])
+n_late=int(bk.late.sum()); n_ver=int(sh.Verified.sum()); n_assign=int((~bk.canceled).sum())
+sims["late_avoided_pct"]=sims.late_avoided/n_late; sims["verified_lost_pct"]=sims.verified_lost/n_ver; sims["assignments_lost_pct"]=sims.assignments_lost/n_assign; sims["verified_lost_per_avoided"]=sims.verified_lost/sims.late_avoided
+sims.to_csv(f"{S}/out/policy_sim.csv",index=False)
+P("\n### POLICY SIMULATIONS (denominators: %d late events, %d verified shifts, %d assignments)" % (n_late,n_ver,n_assign)); P(sims.round(3).to_string(index=False))
 # 6. cancel action local time (ET = UTC-5 in Nov-Jan, -4 in Oct) for late worker cancels
-lw=cl[(cl.Action=="WORKER_CANCEL")&(cl["Lead Time"]<24)].copy(); lw["local"]=lw["Created At"]-pd.Timedelta(hours=5); P("\nLate WORKER_CANCEL by local hour of cancel action:\n", lw.groupby(lw.local.dt.hour).size().to_string())
+lw=cl[(cl.Action=="WORKER_CANCEL")&(cl["Lead Time"]<24)].copy(); lw["local"]=lw["Created At"].dt.tz_localize("UTC").dt.tz_convert("America/New_York"); P("\nLate WORKER_CANCEL by local (America/New_York) hour of cancel action:\n", lw.groupby(lw.local.dt.hour).size().to_string())
 # 7. NURSE zero charge check
 P("\nNURSE rows: charge==0 share %.2f, verified %d of %d" % ((sh[sh["Agent Req"]=="NURSE"].Charge==0).mean(), sh[sh["Agent Req"]=="NURSE"].Verified.sum(), (sh["Agent Req"]=="NURSE").sum()))
 # 8. facility churn proxy: posting change vs early-period late exposure

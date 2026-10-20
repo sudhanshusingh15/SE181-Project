@@ -1,3 +1,4 @@
-rule,suspensions,late_avoided,late_avoided_pct,worked_lost,worked_lost_pct
-2 late in 30d -> 7d suspension,1147,1085,28,3355,16.0
-3 late in 30d -> 7d suspension,679,757,20,2084,9.9
+rule,suspensions,deactivations,late_avoided,verified_lost,assignments_lost,late_avoided_pct,verified_lost_pct,assignments_lost_pct,verified_lost_per_avoided
+"2 late in 30 days, then seven day suspension",1147,0,1085,2333,3347,0.28211128445137806,0.1422560975609756,0.15934301356819805,2.150230414746544
+"3 late in 30 days, then seven day suspension",679,0,757,1442,2084,0.19682787311492458,0.08792682926829268,0.09921447274458463,1.904887714663144
+"2021 policy as written, no excusals",891,147,1476,3486,4947,0.3837753510140406,0.2125609756097561,0.23551535348726493,2.361788617886179
