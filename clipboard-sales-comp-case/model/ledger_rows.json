@@ -1,0 +1,98 @@
+[
+ {
+  "finding": "GTM account 3ffe588d-e4a1-48bf-83f4-2c425aede793, closed by Jon Snow, live 1 June: 313 shifts posted in June, 45 worked (14% fill against 73% for the other 39 GTM accounts). GTM credits gross value on posted shifts, so the plan credits $41,081 of revenue on $8,100 of net revenue and lifts Jon Snow from 15% to 152% of quota ($721 to $7,883). Slack corroborates the pattern (templates loaded by the rep; facility did not ask for the volume).",
+  "records": "313 shifts, 1 account",
+  "reps": 4,
+  "dollars": 9339,
+  "treatment": "HOLD. New-logo credit withheld in the recommended column (Inputs!B39 = 1, account listed at Inputs!A42). Plan-as-written columns still show it.",
+  "why": "Would not release without a leadership decision. Worked-shifts-only would release $1,258 of the $9,339; treating the account as Standard net revenue $1,726. Recommend a GTM guardrail from July: posted volume credits only up to a fill-rate floor, Ops reviews any account filling under half of what it posts."
+ },
+ {
+  "finding": "Joiners, leavers and ramp by calendar day: Ron Weasley started 30 June (one day), Tom Sawyer 15 June, Severus Snape left 29 May, Katniss Everdeen 12 June; Frodo Baggins, Gimli, Jay Gatsby, Scout Finch, Percy Jackson and Anna are mid-ramp.",
+  "records": "8 HR rows",
+  "reps": 13,
+  "dollars": 14160,
+  "treatment": "NAIVE error prevented. 7.10 and 7.11 applied by day: floors prorate against quota/30, credit only on dates employed, managers carry the full revenue.",
+  "why": "A full-month ramp floor or an unprorated statement would pay Ron $4,640 instead of $160, Tom $2,800 more, Frodo $1,120 more, Severus $1,318 (he earns nothing), Katniss $619 more, plus manager roll-ups."
+ },
+ {
+  "finding": "HR dates contradict each other and Slack: Jay Gatsby and Scout Finch show ENT AE from 1 May with the SMB role ending 7 June and 31 May; Jay says he moved on 8 June. Lord Voldemort shows manager from 1 May; he says he took over on 22 June.",
+  "records": "3 HR rows",
+  "reps": 3,
+  "dollars": 14171,
+  "treatment": "CALL. HR snapshot governs (Appendix A: the Manager-ID shown held for the whole month; Current Role decides the plan). Escalated for HR to confirm effective dates before payroll.",
+  "why": "Paid as SMB AEs on their SMB-closed deals, Jay and Scout would earn $11,488 more (16% rate, SMB bands, no ramp). Voldemort credited from 22 June only would earn $2,683 less. The record has to be fixed, not interpreted."
+ },
+ {
+  "finding": "Expansions: 22 accounts have a second Closed Won opportunity dated June.",
+  "records": "22 opportunities",
+  "reps": 26,
+  "dollars": 4060,
+  "treatment": "NAIVE error prevented. Go-live is the earliest Closed Won (7.3); an expansion does not restart the account.",
+  "why": "Processing per opportunity resets go-live into June and drops the account from the AM's existing book for the month: 25 AMs and managers lose, one SPIFF flips."
+ },
+ {
+  "finding": "Ramp restarts on promotion or rehire: Anna (ENT AM from 11 May) is floored at $450,000 against a $314,843 book; Percy Jackson at $217,500 against $150,044; Gimli, Jay Gatsby and Scout Finch lose accelerator eligibility (Scout at 128% of quota).",
+  "records": "5 HR rows",
+  "reps": 8,
+  "dollars": 3560,
+  "treatment": "CALL. Restart applied as 7.10 reads ('a promotion into a ramped role or a rehire restarts it').",
+  "why": "Flag as a design issue: a lateral move pays 100% attainment on 70% of a book, and a tenured rep moving teams loses accelerators for two months. If leadership reads SMB-to-ENT as lateral, Scout gains $339 and nothing else changes."
+ },
+ {
+  "finding": "Closers not employed when the deal closed: 194 accounts carry a closed_by_owner_id whose HR start date is after the first Closed Won. 8 carry June credit (Tom Sawyer 3, Frodo Baggins 2, Gimli 2, Ron Weasley 1).",
+  "records": "194 opportunities",
+  "reps": 4,
+  "dollars": 1754,
+  "treatment": "CALL. Paid as 7.4 reads: closed_by_owner_id governs as exported. Inputs!B40 = 1 holds it.",
+  "why": "After ramp floors and 7.11 only Gimli's two accounts, closed during his 2024 to 2026 gap, move money ($1,318 plus roll-ups). Recommend a CRM audit of how closed_by is set on reassignment before July."
+ },
+ {
+  "finding": "Approved credits on accounts that were not yet existing in June: 34 tickets, $8,249.",
+  "records": "34 tickets",
+  "reps": 24,
+  "dollars": 1624,
+  "treatment": "NAIVE error prevented. Excluded: credits reduce Existing revenue only (7.2, 7.7), and these accounts have no Existing revenue yet.",
+  "why": "Charged to the future owner they would cut 23 AM and manager numbers and flip Doc Brown's $1,500 SPIFF."
+ },
+ {
+  "finding": "GTM shifts posted before the comp month on windows that opened in June (two accounts: Jon Snow, Daenerys Targaryen).",
+  "records": "2 accounts",
+  "reps": 5,
+  "dollars": 915,
+  "treatment": "CALL. Recognised in the month the window opens (Inputs!B38 = 1).",
+  "why": "7.6 gives F1-30D an upper bound only, so these shifts are in the window, but no earlier statement could have recognised them. Set B38 to 0 to recognise only shifts posted inside the month."
+ },
+ {
+  "finding": "account_first_worked_shift_date: 48 accounts have no worked shift on the given date; the first observed shift is 1 to 9 days later, which moves window edges.",
+  "records": "48 accounts",
+  "reps": 16,
+  "dollars": 814,
+  "treatment": "CALL. Given date used, as the data dictionary instructs ('do not try to infer it').",
+  "why": "Sized by re-anchoring on the observed date. Worth a question to the app team about how the field is populated."
+ },
+ {
+  "finding": "Denied credit tickets.",
+  "records": "254 tickets",
+  "reps": 33,
+  "dollars": 533,
+  "treatment": "NAIVE error prevented. Ignored (7.2).",
+  "why": "Subtracting them would cut 33 AM and manager numbers by $533 in total."
+ },
+ {
+  "finding": "Blank closed_by_owner_id on two June go-lives (OPP-00411, OPP-00765): $1,432 of F1-30D revenue credits nobody.",
+  "records": "2 opportunities",
+  "reps": 0,
+  "dollars": 184,
+  "treatment": "CALL. Nobody credited, managers included (7.4, 7.8).",
+  "why": "$184 of commission forgone. CRM fix requested so July does not repeat it."
+ },
+ {
+  "finding": "Hygiene with no June effect in this model: 12 non-won rows carrying a closed_won_date (residue), 11 opportunities live before they were won, 4 accounts with no shifts in the extract.",
+  "records": "27 rows",
+  "reps": 0,
+  "dollars": 0,
+  "treatment": "NAIVE error prevented. Stage governs (7.3); go-live from Closed Won rows only.",
+  "why": "The old statement did pay on a non-won row (Legolas, 7 July), so every June statement already sent needs the same check."
+ }
+]

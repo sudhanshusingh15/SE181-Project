@@ -1,0 +1,92 @@
+### MAPPING (761, 3) | unique crm 761 app 761 billing 761 | nulls {'crm_account_id': 0, 'app_account_id': 0, 'billing_account_id': 0}
+dup crm ids: 0 | dup app: 0 | dup billing: 0
+
+### OPP EXPORT (815, 12) | opp ids unique 815 | accounts 761
+stage: {'Closed Won': 783, 'Closed Lost': 14, 'Discovery': 9, 'Negotiation': 9}
+account_type: {'Standard': 768, 'GTM': 47}
+segment: {'SMB': 597, 'ENT': 218}
+net_terms: {30: 428, 45: 188, 60: 123, 15: 76}
+closed_by null: 2 | crm_owner null: 0 | closed_won_date null: 20 | eff start null: 20
+closed_won_date populated on non-Closed Won rows: 12 | Closed Won rows missing closed_won_date: 0
+closed_by ids not on roster: 0 distinct: 0
+crm_owner ids not on roster: 0 distinct: 0
+accounts not in mapping: 0 | mapping crm ids not in opp: 0
+opps per account: {1: 708, 2: 52, 3: 1}
+accounts with >1 distinct charge_rate_per_shift: 0
+accounts with >1 distinct pay_rate_per_shift: 0
+accounts with >1 distinct net_terms: 0
+accounts with >1 distinct segment: 0
+accounts with >1 distinct account_type: 0
+accounts with >1 distinct crm_owner_id: 0
+accounts with >=1 Closed Won: 761 | accounts with 0 Closed Won: 0
+accounts with >1 Closed Won: 22 | of which closed_by differs across wins: 0
+effective_start_date range: 2024-01-15 00:00:00 -> 2026-06-28 00:00:00 | closed_won_date range: 2023-12-30 00:00:00 -> 2026-06-27 00:00:00
+eff start before closed won date: 11 | eff start > 90 days after closed won: 0
+margin per shift (charge-pay) describe:
+ count    815.0
+mean     327.6
+std      115.8
+min      180.0
+25%      250.0
+50%      270.0
+75%      460.0
+max      570.0
+non-positive margin rows: 0
+rates by segment:
+         charge_rate_per_shift                                                       pay_rate_per_shift                                                      
+                        count    mean    std    min     25%     50%     75%     max              count    mean    std    min     25%     50%     75%     max
+segment                                                                                                                                                     
+ENT                     218.0  1884.0  178.0  940.0  1792.0  1900.0  2010.0  2090.0              218.0  1374.0  156.0  690.0  1270.0  1385.0  1498.0  1610.0
+SMB                     597.0  1053.0  111.0  700.0   970.0  1050.0  1130.0  2080.0              597.0   792.0  103.0  520.0   710.0   780.0   870.0  1620.0
+dup opportunity rows (all cols): 0 | dup opp ids: 0
+
+### APP EXPORT (107052, 6) | shift ids unique 107052 | accounts 757
+worked flag: {True: 79048, False: 28004} | dtype bool
+posted range: 2026-02-19 00:00:00 -> 2026-06-29 00:00:00 | worked range: 2026-03-01 00:00:00 -> 2026-06-30 00:00:00
+worked TRUE with null worked date: 0 | worked FALSE with a worked date: 0
+worked date before posted date: 0 | lag days describe:
+ count    79048.0
+mean         5.5
+std          2.9
+min          1.0
+25%          3.0
+50%          5.0
+75%          8.0
+max         10.0
+worked shifts by month: {Period('2026-03', 'M'): 16142, Period('2026-04', 'M'): 17529, Period('2026-05', 'M'): 21324, Period('2026-06', 'M'): 24053}
+posted shifts by month: {Period('2026-02', 'M'): 3718, Period('2026-03', 'M'): 22378, Period('2026-04', 'M'): 24471, Period('2026-05', 'M'): 29545, Period('2026-06', 'M'): 26940}
+accounts with >1 distinct first-worked date: 0 | null first worked: 0
+accounts where min worked date in extract < given first worked date: 0 | accounts with first worked inside extract window (>=2026-03-01): 289 | of those, min worked == given: 240
+first worked date > min worked date (given later than observed): 0
+app accounts not in mapping: 0 rows; 0 accounts
+dup shift ids: 0 | fully duplicated rows: 0
+Empty DataFrame
+Columns: [app_account_id, shift_id, shift_posted_date, worked_shift, shift_worked_date, account_first_worked_shift_date]
+Index: []
+shifts per account describe:
+ count     757.0
+mean      141.0
+std       138.0
+min         1.0
+25%        67.0
+50%       112.0
+75%       170.0
+max      1302.0
+
+### BILLING (1089, 6) | status: {'approved': 835, 'denied': 254} | months: {'2026-06': 550, '2026-05': 539} | types: {'dispute': 531, 'promotion': 291, 'billing_error': 267}
+credit_amount describe:
+ count    1089.0
+mean      264.0
+std       156.7
+min        47.0
+25%       130.0
+50%       240.0
+75%       298.0
+max       570.0 
+negative/zero amounts: 0
+billing ids not in mapping: 0 | shift ids not in app export: 0 | null shift id: 0
+tickets whose shift's account != billing account: 0
+tickets where billing_month != shift worked month: 0 | tickets on unworked shifts: 0
+dup tickets (same shift id): 0 | fully duplicated rows: 0
+credit amount vs account margin: tickets > charge rate: 0
+approved credits by month:  {'count': {'2026-05': 420, '2026-06': 415}, 'sum': {'2026-05': 108866, '2026-06': 109465}}
