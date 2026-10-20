@@ -1,0 +1,218 @@
+### residue rows (closed_won_date on non Closed Won):
+                      crm_account_id opportunity_id                   closed_by_owner_id                         crm_owner_id account_type opportunity_stage closed_won_date effective_start_date segment  charge_rate_per_shift  pay_rate_per_shift  net_terms           closer
+dac13193-d8e5-4ca8-99bd-753becb27e64      OPP-00134 6c06d956-7d24-4630-a024-8f90fd6844bb 82368b40-c1f4-4a2e-8962-85516373bdbf          GTM       Negotiation      2026-06-05           2026-06-12     SMB                   1160                 870         30     Peter Parker
+0065687a-4b42-417a-bf50-5c1a3593009e      OPP-00318 9c9b5ded-7eae-40cd-b876-fdadfb66a71e cd3c4559-961b-4fc7-848e-fb4d19529827     Standard       Closed Lost      2026-06-27           2026-06-23     ENT                   1700                1220         30  Edmund Pevensie
+5c846b5d-66fe-410b-b6b5-1273a86dc20c      OPP-00393 0be7a646-e01a-4abb-9dfa-f4126cb1bbba f5b4cbf3-4628-4d73-bfaa-ded6115aac87     Standard       Closed Lost      2026-06-04           2026-06-16     SMB                   1120                 860         45        Peter Pan
+ff84ef1d-910b-4e7b-986c-5cd30516b14e      OPP-00428 30d96a80-e8c4-4d17-be2e-7d17c565432b d1b2f9c6-d0e8-4a0f-8b14-326037ec3f6f     Standard       Negotiation      2026-06-27           2026-06-19     SMB                    920                 630         45          Gandalf
+f9ebe66a-77be-4875-8aee-c31ae3f980d7      OPP-00460 6c06d956-7d24-4630-a024-8f90fd6844bb 13bbe5f8-d03e-4df2-a0ce-99fce9d1ab90     Standard       Closed Lost      2026-06-10           2026-06-21     SMB                   1130                 850         30     Peter Parker
+87784bb2-43d3-4ee0-9a73-d13154b0c3bc      OPP-00505 989fe72d-260d-4157-963d-0bf89c45e17f be2dfa17-af21-41b1-922e-96c3a87c3f99          GTM       Negotiation      2026-06-26           2026-06-27     SMB                    900                 630         30             Yoda
+91f26178-69f7-43f1-a69f-7243acaf134a      OPP-00514 b97bcf84-285f-4023-9fbe-2cb23a9051c0 8511bf76-e007-4eb5-b14c-ed57b4ea53b6     Standard       Closed Lost      2026-06-12           2026-06-12     SMB                   1020                 750         45            Gimli
+43e53b32-b222-4139-b48b-cc505b44a050      OPP-00619 1abb0aee-f0c0-4b15-93f3-24e549d92b67 4c401bd9-0dc0-4f18-8862-8c3803cc5757     Standard       Closed Lost      2026-06-07           2026-06-12     ENT                   1880                1410         30  Winnie the Pooh
+07424e73-2b66-4613-8f38-4094b0e8a231      OPP-00626 0be7a646-e01a-4abb-9dfa-f4126cb1bbba f5b4cbf3-4628-4d73-bfaa-ded6115aac87     Standard       Closed Lost      2026-06-09           2026-06-23     SMB                   1070                 840         30        Peter Pan
+b7b5da9f-3870-42c6-bbad-41baebe8aaed      OPP-00633 c74c9a10-7b3a-45e4-8212-67b5a73a9e5d cb96bc1a-8d33-4d1a-809d-32921a73086f          GTM       Closed Lost      2026-06-27           2026-06-28     SMB                    990                 740         60 Albus Dumbledore
+ef6f412f-ae7c-4b20-a45b-cf3cd1de32ab      OPP-00658 ceaa8e8c-e987-4eda-bbb6-cc021baa07b5 698812aa-bb3c-4f5f-a8f8-b2dfe415f36d     Standard       Negotiation      2026-06-27           2026-06-25     SMB                   1120                 850         15    Bilbo Baggins
+a9122efe-35fe-4bb1-928c-1b82432e0d49      OPP-00707 b97bcf84-285f-4023-9fbe-2cb23a9051c0 82368b40-c1f4-4a2e-8962-85516373bdbf          GTM       Negotiation      2026-06-06           2026-06-05     SMB                   1170                 930         45            Gimli
+
+### all non Closed Won rows:
+                      crm_account_id opportunity_id opportunity_stage closed_won_date effective_start_date account_type segment
+8083622c-9ba3-4acb-b475-e31cf45f0d12      OPP-00121         Discovery             NaT                  NaT     Standard     SMB
+dac13193-d8e5-4ca8-99bd-753becb27e64      OPP-00134       Negotiation      2026-06-05           2026-06-12          GTM     SMB
+37722fc0-5819-460b-b2d1-41f5563a2f19      OPP-00264       Closed Lost             NaT                  NaT     Standard     ENT
+0b1e5e78-7ca4-40bb-9f9d-0afaf5b75746      OPP-00293       Negotiation             NaT                  NaT     Standard     ENT
+0065687a-4b42-417a-bf50-5c1a3593009e      OPP-00318       Closed Lost      2026-06-27           2026-06-23     Standard     ENT
+cf4f6d03-e54f-4350-a4d1-e61ca6f45a23      OPP-00358       Negotiation             NaT                  NaT          GTM     SMB
+025aea7e-a3a2-4d3a-87c0-6af6d4bd3e78      OPP-00364       Closed Lost             NaT                  NaT     Standard     ENT
+5ed0d127-52f2-4a73-b428-65fcec2ab322      OPP-00389         Discovery             NaT                  NaT     Standard     SMB
+5c846b5d-66fe-410b-b6b5-1273a86dc20c      OPP-00393       Closed Lost      2026-06-04           2026-06-16     Standard     SMB
+d26100fb-f25d-4bc3-866b-51e89a766a32      OPP-00410       Closed Lost             NaT                  NaT     Standard     ENT
+786a34d7-bcef-4845-9655-cb4b05c95ffd      OPP-00426         Discovery             NaT                  NaT     Standard     ENT
+ff84ef1d-910b-4e7b-986c-5cd30516b14e      OPP-00428       Negotiation      2026-06-27           2026-06-19     Standard     SMB
+5962a5a0-fd18-4ed6-9fdf-1129cd5d62c9      OPP-00447         Discovery             NaT                  NaT     Standard     SMB
+0065687a-4b42-417a-bf50-5c1a3593009e      OPP-00458         Discovery             NaT                  NaT     Standard     ENT
+f9ebe66a-77be-4875-8aee-c31ae3f980d7      OPP-00460       Closed Lost      2026-06-10           2026-06-21     Standard     SMB
+2f87de5a-95d3-47b9-897b-8969fdd50503      OPP-00476         Discovery             NaT                  NaT     Standard     ENT
+4655bcc3-c6b1-437e-b3bb-1856dfe3e84c      OPP-00495         Discovery             NaT                  NaT     Standard     ENT
+87784bb2-43d3-4ee0-9a73-d13154b0c3bc      OPP-00505       Negotiation      2026-06-26           2026-06-27          GTM     SMB
+91f26178-69f7-43f1-a69f-7243acaf134a      OPP-00514       Closed Lost      2026-06-12           2026-06-12     Standard     SMB
+4bf02915-c3c6-4af5-9a63-f08ceb5ae474      OPP-00535         Discovery             NaT                  NaT     Standard     ENT
+1dd6e529-6547-4b98-8d30-cb7ee112f786      OPP-00552       Closed Lost             NaT                  NaT     Standard     SMB
+46a42d6b-6808-4c57-8f63-bc3b5e631f35      OPP-00591       Closed Lost             NaT                  NaT     Standard     SMB
+93bf643a-771d-4bdf-b16e-a83b8381f509      OPP-00607       Negotiation             NaT                  NaT     Standard     SMB
+43e53b32-b222-4139-b48b-cc505b44a050      OPP-00619       Closed Lost      2026-06-07           2026-06-12     Standard     ENT
+b8ccf166-93bd-4f81-96f4-cb165be7d71c      OPP-00624         Discovery             NaT                  NaT     Standard     SMB
+07424e73-2b66-4613-8f38-4094b0e8a231      OPP-00626       Closed Lost      2026-06-09           2026-06-23     Standard     SMB
+b7b5da9f-3870-42c6-bbad-41baebe8aaed      OPP-00633       Closed Lost      2026-06-27           2026-06-28          GTM     SMB
+b88d97a4-fd31-4507-ab99-76a18acc9579      OPP-00657       Negotiation             NaT                  NaT     Standard     SMB
+ef6f412f-ae7c-4b20-a45b-cf3cd1de32ab      OPP-00658       Negotiation      2026-06-27           2026-06-25     Standard     SMB
+a9122efe-35fe-4bb1-928c-1b82432e0d49      OPP-00707       Negotiation      2026-06-06           2026-06-05          GTM     SMB
+a6a59717-32d8-4643-a2c8-5c2c235e0006      OPP-00720       Closed Lost             NaT                  NaT          GTM     SMB
+1f20418b-760a-4316-9f26-a87bcdbf45b4      OPP-00754       Closed Lost             NaT                  NaT          GTM     SMB
+
+### blank closed_by rows:
+                      crm_account_id opportunity_id closed_by_owner_id                         crm_owner_id account_type opportunity_stage closed_won_date effective_start_date segment  charge_rate_per_shift  pay_rate_per_shift  net_terms
+ad1b615f-3892-44dc-a5b6-c3ac3f73b9f1      OPP-00411                NaN bfffe1a4-dea9-4252-a5e5-8f9ab3bc2163     Standard        Closed Won      2026-06-11           2026-06-15     ENT                   1950                1420         60
+91e91096-0e59-46fc-9db6-73e719a7e796      OPP-00765                NaN be2dfa17-af21-41b1-922e-96c3a87c3f99     Standard        Closed Won      2026-05-30           2026-06-14     SMB                   1110                 880         30
+
+### eff start before closed won:
+                      crm_account_id opportunity_id opportunity_stage closed_won_date effective_start_date                   closed_by_owner_id           closer
+185c0388-87ed-4935-bf5d-ebc559571dcc      OPP-00281        Closed Won      2026-06-16           2026-06-15 7695182c-36d9-4de0-ac0d-1848d1a85940    Severus Snape
+0065687a-4b42-417a-bf50-5c1a3593009e      OPP-00318       Closed Lost      2026-06-27           2026-06-23 9c9b5ded-7eae-40cd-b876-fdadfb66a71e  Edmund Pevensie
+ff84ef1d-910b-4e7b-986c-5cd30516b14e      OPP-00428       Negotiation      2026-06-27           2026-06-19 30d96a80-e8c4-4d17-be2e-7d17c565432b          Gandalf
+6ae00d02-bf31-4828-8237-c240685242a4      OPP-00594        Closed Won      2026-06-12           2026-06-03 30d96a80-e8c4-4d17-be2e-7d17c565432b          Gandalf
+ef6f412f-ae7c-4b20-a45b-cf3cd1de32ab      OPP-00658       Negotiation      2026-06-27           2026-06-25 ceaa8e8c-e987-4eda-bbb6-cc021baa07b5    Bilbo Baggins
+aa4e252b-cac9-4561-9d76-70e714aa68a8      OPP-00686        Closed Won      2026-06-23           2026-06-09 4c19d2d6-fd40-4098-a7bf-88355f506b13 Huckleberry Finn
+a9122efe-35fe-4bb1-928c-1b82432e0d49      OPP-00707       Negotiation      2026-06-06           2026-06-05 b97bcf84-285f-4023-9fbe-2cb23a9051c0            Gimli
+fff327ce-da9c-4062-88a1-b12fcfb730cd      OPP-00713        Closed Won      2026-06-07           2026-06-03 25df077d-41b8-43c4-8c1f-10194800c056        Jane Eyre
+1790dc63-241b-4b0b-a774-33cffcc4ec0b      OPP-00747        Closed Won      2026-06-07           2026-06-05 ea4ee438-8c67-43ae-a699-b89ed503a0f5       James Bond
+17c101c9-f4dd-4d76-90d5-014f3622fa6b      OPP-00763        Closed Won      2026-06-24           2026-06-14 7a1abd29-c654-4163-ad5d-accc47c2899c     Harry Potter
+4e8802e2-c9fd-4045-884e-87533e22bec4      OPP-00787        Closed Won      2026-06-15           2026-06-08 66eaa80d-3749-4876-92a9-af449d590714       Tom Sawyer
+
+### accounts with >1 Closed Won (first 12 accounts):
+                      crm_account_id opportunity_id closed_won_date effective_start_date                   closed_by_owner_id                         crm_owner_id
+0501cd85-87eb-47fa-b929-28e37a5adad6      OPP-00296      2025-03-13           2025-04-04 25caf7fc-cec2-4d0f-96fa-b92d2a80a2c8 cd3c4559-961b-4fc7-848e-fb4d19529827
+0501cd85-87eb-47fa-b929-28e37a5adad6      OPP-00560      2026-06-20           2026-06-26 25caf7fc-cec2-4d0f-96fa-b92d2a80a2c8 cd3c4559-961b-4fc7-848e-fb4d19529827
+1790dc63-241b-4b0b-a774-33cffcc4ec0b      OPP-00049      2024-09-18           2024-10-19 ea4ee438-8c67-43ae-a699-b89ed503a0f5 cb96bc1a-8d33-4d1a-809d-32921a73086f
+1790dc63-241b-4b0b-a774-33cffcc4ec0b      OPP-00747      2026-06-07           2026-06-05 ea4ee438-8c67-43ae-a699-b89ed503a0f5 cb96bc1a-8d33-4d1a-809d-32921a73086f
+17c101c9-f4dd-4d76-90d5-014f3622fa6b      OPP-00145      2025-01-21           2025-02-18 7a1abd29-c654-4163-ad5d-accc47c2899c 82368b40-c1f4-4a2e-8962-85516373bdbf
+17c101c9-f4dd-4d76-90d5-014f3622fa6b      OPP-00763      2026-06-24           2026-06-14 7a1abd29-c654-4163-ad5d-accc47c2899c 82368b40-c1f4-4a2e-8962-85516373bdbf
+185c0388-87ed-4935-bf5d-ebc559571dcc      OPP-00255      2025-03-21           2025-04-04 7695182c-36d9-4de0-ac0d-1848d1a85940 698812aa-bb3c-4f5f-a8f8-b2dfe415f36d
+185c0388-87ed-4935-bf5d-ebc559571dcc      OPP-00281      2026-06-16           2026-06-15 7695182c-36d9-4de0-ac0d-1848d1a85940 698812aa-bb3c-4f5f-a8f8-b2dfe415f36d
+1d4f9739-ed0e-4ff0-b8fc-cd417b05218d      OPP-00466      2024-11-22           2024-12-17 1abb0aee-f0c0-4b15-93f3-24e549d92b67 2d4e77a8-9786-4fb7-98d0-2cde84f6c651
+1d4f9739-ed0e-4ff0-b8fc-cd417b05218d      OPP-00672      2026-06-02           2026-06-03 1abb0aee-f0c0-4b15-93f3-24e549d92b67 2d4e77a8-9786-4fb7-98d0-2cde84f6c651
+250690c0-b7bf-4cc5-bb90-4cdb9aa88e4c      OPP-00453      2025-05-23           2025-06-09 7d657b49-0e83-41f4-9399-ddd53666d430 9559726d-a4df-452a-abbd-5e3a34fdd8e9
+250690c0-b7bf-4cc5-bb90-4cdb9aa88e4c      OPP-00583      2026-06-05           2026-06-19 7d657b49-0e83-41f4-9399-ddd53666d430 9559726d-a4df-452a-abbd-5e3a34fdd8e9
+28a002f7-b282-4984-960c-5882aef33696      OPP-00148      2025-05-20           2025-06-07 0be7a646-e01a-4abb-9dfa-f4126cb1bbba cb96bc1a-8d33-4d1a-809d-32921a73086f
+28a002f7-b282-4984-960c-5882aef33696      OPP-00223      2026-06-16           2026-06-23 0be7a646-e01a-4abb-9dfa-f4126cb1bbba cb96bc1a-8d33-4d1a-809d-32921a73086f
+2b4dff96-f8a5-4d01-ae40-025fbafb45f9      OPP-00066      2024-12-11           2024-12-17 ea4ee438-8c67-43ae-a699-b89ed503a0f5 be2dfa17-af21-41b1-922e-96c3a87c3f99
+2b4dff96-f8a5-4d01-ae40-025fbafb45f9      OPP-00073      2026-06-04           2026-06-07 ea4ee438-8c67-43ae-a699-b89ed503a0f5 be2dfa17-af21-41b1-922e-96c3a87c3f99
+37a761c7-0091-49f1-83c4-ebcfc8210e27      OPP-00269      2025-01-19           2025-01-30 128398c6-b432-4937-b33e-c8387d3934dc 5dc35adf-0290-4096-a36d-6011a9e5893e
+37a761c7-0091-49f1-83c4-ebcfc8210e27      OPP-00631      2026-06-15           2026-06-23 128398c6-b432-4937-b33e-c8387d3934dc 5dc35adf-0290-4096-a36d-6011a9e5893e
+4e8802e2-c9fd-4045-884e-87533e22bec4      OPP-00756      2025-04-11           2025-04-23 66eaa80d-3749-4876-92a9-af449d590714 4c401bd9-0dc0-4f18-8862-8c3803cc5757
+4e8802e2-c9fd-4045-884e-87533e22bec4      OPP-00787      2026-06-15           2026-06-08 66eaa80d-3749-4876-92a9-af449d590714 4c401bd9-0dc0-4f18-8862-8c3803cc5757
+6ae00d02-bf31-4828-8237-c240685242a4      OPP-00327      2024-04-26           2024-05-18 30d96a80-e8c4-4d17-be2e-7d17c565432b d1b2f9c6-d0e8-4a0f-8b14-326037ec3f6f
+6ae00d02-bf31-4828-8237-c240685242a4      OPP-00594      2026-06-12           2026-06-03 30d96a80-e8c4-4d17-be2e-7d17c565432b d1b2f9c6-d0e8-4a0f-8b14-326037ec3f6f
+91482ff0-1bd7-4daf-8ffc-a6c79178a2af      OPP-00206      2025-12-26           2026-01-04 0be7a646-e01a-4abb-9dfa-f4126cb1bbba 8511bf76-e007-4eb5-b14c-ed57b4ea53b6
+91482ff0-1bd7-4daf-8ffc-a6c79178a2af      OPP-00618      2026-06-04           2026-06-21 0be7a646-e01a-4abb-9dfa-f4126cb1bbba 8511bf76-e007-4eb5-b14c-ed57b4ea53b6
+
+### ACCOUNTS:  761 | no shifts in extract: 4 | first worked before go-live: 0 | first worked null: 4
+first worked - go_live days describe:
+ count    757.0
+mean       4.9
+std        2.6
+min        1.0
+25%        3.0
+50%        5.0
+75%        7.0
+max        9.0
+accounts with given first-worked in window but no worked shift on that date: 48
+count    48.0
+mean      2.0
+std       1.9
+min       1.0
+25%       1.0
+50%       1.0
+75%       2.0
+max       9.0
+                      crm_account_id    go_live first_worked min_worked_extract  n_shifts account_type
+f5abd378-79ab-42b9-812a-89a1f95e36fe 2026-06-19   2026-06-20         2026-06-21       7.0     Standard
+d13a7ebb-4ba9-4ceb-a62f-348eada38fc6 2026-06-01   2026-06-04         2026-06-05      29.0     Standard
+0959ad86-0fd9-4a19-bda8-66029bc31d41 2026-04-02   2026-04-04         2026-04-05     104.0          GTM
+91e91096-0e59-46fc-9db6-73e719a7e796 2026-06-14   2026-06-21         2026-06-24       3.0     Standard
+84bb5f54-9ed8-4d2b-9f2b-71e959e2ad02 2026-04-09   2026-04-11         2026-04-15      45.0     Standard
+0e117d18-901b-4273-ae2f-87cd5defc508 2026-03-04   2026-03-06         2026-03-07     225.0     Standard
+d26100fb-f25d-4bc3-866b-51e89a766a32 2026-05-09   2026-05-14         2026-05-15     119.0     Standard
+44d8d942-f986-439b-a564-56af5f46ed1f 2026-06-10   2026-06-13         2026-06-14      37.0     Standard
+
+accounts whose first worked shift falls inside the 90-day new-logo window overlapping June (first_worked > 2026-03-02): 289 | GTM among them: 30
+GTM accounts: 40 | by segment: {'SMB': 40}
+go-live by month (accounts): {Period('2025-11', 'M'): 23, Period('2025-12', 'M'): 12, Period('2026-01', 'M'): 26, Period('2026-02', 'M'): 7, Period('2026-03', 'M'): 52, Period('2026-04', 'M'): 70, Period('2026-05', 'M'): 74, Period('2026-06', 'M'): 97}
+first worked by month: {Period('2026-01', 'M'): 23, Period('2026-02', 'M'): 11, Period('2026-03', 'M'): 52, Period('2026-04', 'M'): 69, Period('2026-05', 'M'): 73, Period('2026-06', 'M'): 95}
+accounts live before 2026-06-01 (existing in June): 664 | live before 2026-05-01: 590 | go-live in June: 97 | go-live after June: 0
+accounts with worked shifts in June but go-live >= June 1: 92
+accounts with shifts worked BEFORE go-live: 0
+
+accounts closed per AE (roster names):
+ closed_by_owner_id
+Jane Eyre             27
+Samwise Gamgee        27
+Legolas               25
+Walter White          24
+Harry Potter          24
+Indiana Jones         24
+Edmund Pevensie       23
+Han Solo              23
+Daenerys Targaryen    23
+Katniss Everdeen      23
+Huckleberry Finn      22
+Yoda                  22
+Frodo Baggins         22
+Holden Caulfield      21
+Peter Pan             21
+Gandalf               21
+Peter Parker          21
+Severus Snape         21
+Gimli                 21
+Clark Kent            21
+Jon Snow              21
+Jay Gatsby            20
+Luke Skywalker        19
+Princess Leia         19
+Ron Weasley           19
+Hermione Granger      18
+Tom Sawyer            18
+Elizabeth Bennet      17
+Scout Finch           17
+Albus Dumbledore      17
+Winnie the Pooh       16
+Diana Prince          16
+Atticus Finch         16
+James Bond            16
+Sherlock Holmes       15
+Captain Hook          14
+Bilbo Baggins         13
+Tony Stark            12
+
+accounts owned per AM:
+ crm_owner_id
+Lucy Pevensie     38
+Bella Swan        38
+Dorothy Gale      38
+Baloo             38
+Edward Cullen     38
+Alice             38
+Dr. Watson        38
+Aslan             38
+Mufasa            37
+Woody             37
+Oliver Twist      37
+Simba             37
+The Mad Hatter    37
+Willy Wonka       37
+Percy Jackson     37
+Ellen Ripley      18
+Morpheus          18
+Anna              18
+Shrek             18
+Rocky Balboa      18
+Olaf              18
+Elsa              18
+Forrest Gump      18
+Doc Brown         18
+Neo               18
+Donkey            18
+
+shift_id format check: 1.0 | posted dates with time component: 0 | worked dates with time: 0
+shifts worked per account in June describe:
+ count    750.0
+mean      32.1
+std       21.3
+min        1.0
+25%       18.0
+50%       26.5
+75%       41.0
+max      132.0
+worked shifts per account per day max: 8
+
+approved June credits on accounts that went live on/after June 1 (not existing): {'count': 34, 'sum': 8249}
+approved credits by type (June): {'count': {'billing_error': 109, 'dispute': 209, 'promotion': 97}, 'sum': {'billing_error': 15523, 'dispute': 79540, 'promotion': 14402}}
+credit amount vs account charge rate: tickets with credit > charge: 0

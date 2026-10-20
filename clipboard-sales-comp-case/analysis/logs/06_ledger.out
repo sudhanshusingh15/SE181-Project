@@ -1,0 +1,312 @@
+
+### 1a. Exclude flagged GTM account (recommended): total signed delta -9,338.64 | sum of abs 9,338.64 | reps affected 4
+name
+Jon Snow           -7,161.33
+Bruce Wayne        -1,355.68
+Ebenezer Scrooge     -410.81
+Hannibal Lecter      -410.81
+
+### 1b. Flagged GTM account: credit worked shifts only: total signed delta -8,080.61 | sum of abs 8,080.61 | reps affected 4
+name
+Jon Snow           -6,216.33
+Bruce Wayne        -1,160.77
+Ebenezer Scrooge     -351.75
+Hannibal Lecter      -351.75
+
+### 1c. Flagged GTM account: treat as Standard net revenue: total signed delta -7,613.34 | sum of abs 7,613.34 | reps affected 4
+name
+Jon Snow           -5,865.33
+Bruce Wayne        -1,088.38
+Ebenezer Scrooge     -329.81
+Hannibal Lecter      -329.81
+flagged account detail: {'f1_june_gsv': np.int64(219100), 'pre_fw_gsv': np.int64(16800), 'conv': np.float64(0.1875), 'new_cred_full': np.float64(41081.25), 'june_nr': np.int64(8100), 'net_terms': np.int64(30)}
+Jon Snow baseline: credited 45590.25 commission 7882.77 ; without account: credited 4509.00 commission 721.44
+
+### 2. Hold credit where closer not employed on close date: total signed delta -1,754.05 | sum of abs 1,754.05 | reps affected 4
+name
+Gimli              -1,317.60
+Lord Voldemort       -271.76
+Ebenezer Scrooge      -82.35
+Hannibal Lecter       -82.35
+accounts with first won before closer start: 194; with any June new credit: 8; June new credit full $37611.50
+               accounts  new_credit
+closer_name                        
+Tom Sawyer            3   16,730.00
+Frodo Baggins         2   12,474.00
+Gimli                 2    8,235.00
+Ron Weasley           1      172.50
+
+### 3. Naive: ignore joiner/leaver dates (7.11): total signed delta 1,936.28 | sum of abs 1,936.28 | reps affected 2
+name
+Katniss Everdeen     618.52
+Severus Snape      1,317.76
+
+### 4. Naive: ramp floor not prorated by day: total signed delta 12,223.82 | sum of abs 12,223.82 | reps affected 11
+name
+Gollum                20.00
+Mowgli                33.33
+Percy Jackson        100.00
+Darth Vader          231.00
+Ebenezer Scrooge     640.00
+Hannibal Lecter      646.49
+Lord Voldemort       957.00
+Captain Ahab       1,036.00
+Frodo Baggins      1,120.00
+Tom Sawyer         2,800.00
+Ron Weasley        4,640.00
+
+### 5. Naive: residue rows treated as wins: total signed delta 0.00 | sum of abs 0.00 | reps affected 0
+  (none)
+
+### 6. Naive: go-live from the latest Closed Won (expansions restart): total signed delta -3,320.97 | sum of abs 4,059.63 | reps affected 26
+name
+Forrest Gump       -309.65
+Jack Sparrow       -275.01
+Gollum             -243.18
+John McClane       -242.19
+Alice              -199.87
+Hannibal Lecter    -197.79
+Matilda Wormwood   -189.00
+Olaf               -180.00
+Trinity            -179.04
+Rocky Balboa       -174.73
+Buzz Lightyear     -172.15
+Dr. Watson         -154.53
+Woody              -138.40
+Shrek              -133.92
+Neo                -118.40
+Mowgli             -116.37
+Oliver Twist        -99.20
+Edward Cullen       -95.12
+Aslan               -89.60
+Baloo               -85.07
+Dorothy Gale        -76.27
+Marty McFly         -73.66
+Simba               -62.40
+Mufasa              -51.03
+Bella Swan          -33.73
+Lucy Pevensie       369.33
+
+### 7. Naive: denied tickets subtracted: total signed delta -533.28 | sum of abs 533.28 | reps affected 33
+name
+Trinity            -40.71
+Jack Sparrow       -40.01
+Gollum             -32.29
+Hannibal Lecter    -27.77
+Buzz Lightyear     -26.42
+Marty McFly        -23.88
+Olaf               -22.32
+Aslan              -21.85
+Oliver Twist       -20.40
+Mufasa             -20.08
+Neo                -19.15
+Matilda Wormwood   -18.32
+Mowgli             -18.02
+Shrek              -15.73
+Donkey             -15.55
+Woody              -14.21
+Morpheus           -13.21
+Ellen Ripley       -13.17
+Doc Brown          -12.97
+Simba              -12.32
+Edward Cullen      -12.21
+Elsa               -12.13
+John McClane       -11.05
+Lucy Pevensie      -10.75
+Baloo               -9.47
+Bella Swan          -9.25
+Alice               -8.37
+Willy Wonka         -8.12
+Dorothy Gale        -7.33
+Rocky Balboa        -7.19
+The Mad Hatter      -4.76
+Dr. Watson          -2.31
+Forrest Gump        -1.94
+
+### 8. Naive: credits on not-yet-existing accounts subtracted from the owner: total signed delta 1,376.06 | sum of abs 1,623.94 | reps affected 24
+name
+Elsa                 -14.26
+Trinity              -11.16
+Jack Sparrow         -10.54
+Ellen Ripley          -9.80
+Olaf                  -8.80
+Marty McFly           -7.84
+Matilda Wormwood      -7.78
+The Mad Hatter        -7.13
+Hannibal Lecter       -6.64
+Gollum                -6.42
+Alice                 -4.75
+Simba                 -4.39
+Buzz Lightyear        -3.78
+Oliver Twist          -3.60
+Willy Wonka           -3.20
+Woody                 -3.13
+Forrest Gump          -2.27
+Edward Cullen         -1.61
+Mufasa                -1.55
+Mowgli                -1.44
+Aslan                 -1.43
+Lucy Pevensie         -1.29
+John McClane          -1.13
+Doc Brown          1,500.00
+
+### 9. Assumption: GTM pre-month posted GSV NOT recognised this month: total signed delta -914.77 | sum of abs 914.77 | reps affected 5
+name
+Jon Snow             -546.00
+Daenerys Targaryen   -172.50
+Bruce Wayne          -122.20
+Ebenezer Scrooge      -37.03
+Hannibal Lecter       -37.03
+
+### 10. Sensitivity: windows anchored on observed first worked date: total signed delta 765.51 | sum of abs 813.51 | reps affected 16
+name
+Captain Hook       -24.00
+Darth Vader          4.45
+Walter White        15.68
+Princess Leia       15.84
+Aragorn             25.43
+Bruce Wayne         27.09
+Lord Voldemort      29.78
+Mr. Darcy           32.20
+Hannibal Lecter     35.49
+Ebenezer Scrooge    35.49
+Peter Pan           53.76
+Hermione Granger    54.08
+Yoda                81.43
+Jay Gatsby          92.00
+Albus Dumbledore   136.40
+Jon Snow           150.38
+
+### 11. Alternative: ramp does not restart on promotion/rehire: total signed delta -2,882.39 | sum of abs 3,560.15 | reps affected 8
+name
+Anna              -901.05
+Percy Jackson     -899.41
+Marty McFly       -495.58
+Mowgli            -299.80
+Jack Sparrow      -270.31
+Gollum            -179.88
+Hannibal Lecter   -175.23
+Scout Finch        338.88
+
+### 12. Alternative: Jay Gatsby and Scout Finch paid as SMB AEs (their June credit is from SMB deals): total signed delta 11,488.32 | sum of abs 11,488.32 | reps affected 2
+name
+Jay Gatsby    4,778.37
+Scout Finch   6,709.95
+
+### 13. Alternative: Lord Voldemort manager credit from 22 June only (Slack vs HR): total signed delta -2,683.12 | sum of abs 2,683.12 | reps affected 1
+name
+Lord Voldemort   -2,683.12
+
+### 14. Scenario: SMB AE multipliers 1.3 / 1.5: total signed delta 1,716.45 | sum of abs 1,716.45 | reps affected 13
+name
+Harry Potter         6.04
+Gandalf             18.63
+Diana Prince        32.54
+Peter Pan           52.94
+Tony Stark          74.45
+Captain Hook       102.52
+Han Solo           112.75
+Luke Skywalker     146.61
+Sherlock Holmes    153.81
+Clark Kent         175.36
+Hermione Granger   212.67
+Yoda               289.24
+Jon Snow           338.89
+
+### ALL NAIVE TOGETHER (vs plan as written): total signed delta 8,522.76 | sum of abs 19,806.54 | reps affected 43
+name
+Gollum              -459.76
+Aslan               -421.68
+Jack Sparrow        -332.57
+Alice               -324.59
+Forrest Gump        -317.01
+Mowgli              -303.87
+Matilda Wormwood    -299.31
+Buzz Lightyear      -278.68
+Edward Cullen       -268.89
+John McClane        -260.45
+Trinity             -232.83
+Olaf                -211.12
+Rocky Balboa        -190.92
+Baloo               -180.93
+Bella Swan          -178.32
+Dorothy Gale        -174.64
+Dr. Watson          -162.67
+Woody               -155.75
+Shrek               -154.40
+Neo                 -140.75
+Oliver Twist        -125.08
+Marty McFly         -109.78
+Willy Wonka          -94.12
+Simba                -79.11
+Mufasa               -78.41
+Elsa                 -29.66
+Ellen Ripley         -22.97
+Donkey               -15.55
+Morpheus             -13.21
+Doc Brown            -12.97
+The Mad Hatter       -11.89
+Percy Jackson        100.00
+Darth Vader          231.00
+Hannibal Lecter      347.08
+Lucy Pevensie        357.29
+Katniss Everdeen     618.52
+Ebenezer Scrooge     640.00
+Lord Voldemort       957.00
+Captain Ahab       1,036.00
+Frodo Baggins      1,120.00
+Severus Snape      1,317.76
+Tom Sawyer         2,800.00
+Ron Weasley        4,640.00
+
+blank closer uncredited new revenue: $1432.00 on 2 accounts
+accounts with no shifts in extract:                       crm_account_id     closer_name    owner_name    go_live    atype
+12fc9ceb-ff7e-4809-baa1-296cc76ddaf6        Han Solo  Oliver Twist 2026-06-23 Standard
+1f20418b-760a-4316-9f26-a87bcdbf45b4     Ron Weasley Edward Cullen 2026-06-12      GTM
+eeb9392b-4bb9-4b92-8639-81183fa4f411     Ron Weasley Edward Cullen 2026-06-19      GTM
+fc4e3367-4928-4ac1-9b97-89f7eded7e31 Edmund Pevensie          Anna 2026-06-23 Standard
+
+residue rows closers: {'Peter Parker': 2, 'Peter Pan': 2, 'Gimli': 2, 'Edmund Pevensie': 1, 'Gandalf': 1, 'Yoda': 1, 'Winnie the Pooh': 1, 'Albus Dumbledore': 1, 'Bilbo Baggins': 1}
+
+Dr. Watson same-book: May 230674.00 June 206856.00 (89.67%)
+Katniss Everdeen   role SMB Account Executive  days 12 prod_paid   1,438.75 prod_full   5,304.50 floor      0.00 credited   1,438.75 attain  0.12 elig 1 comm    230.20 spiff 0
+Tom Sawyer         role ENT Account Executive  days 16 prod_paid   8,130.00 prod_full  16,730.00 floor 32,000.00 credited  32,000.00 attain  1.00 elig 0 comm  3,200.00 spiff 0
+Ron Weasley        role SMB Account Executive  days  1 prod_paid       0.00 prod_full     172.50 floor  1,000.00 credited   1,000.00 attain  1.00 elig 0 comm    160.00 spiff 0
+Frodo Baggins      role SMB Account Executive  days 30 prod_paid  19,304.00 prod_full  19,304.00 floor 23,000.00 credited  23,000.00 attain  0.77 elig 0 comm  3,680.00 spiff 0
+Gimli              role SMB Account Executive  days 30 prod_paid  35,851.88 prod_full  35,851.88 floor 16,000.00 credited  35,851.88 attain  1.20 elig 0 comm  5,736.30 spiff 0
+Hermione Granger   role SMB Account Executive  days 30 prod_paid  41,646.00 prod_full  41,646.00 floor      0.00 credited  41,646.00 attain  1.39 elig 1 comm  7,062.37 spiff 0
+Scout Finch        role ENT Account Executive  days 30 prod_paid  76,944.00 prod_full  76,944.00 floor 29,000.00 credited  76,944.00 attain  1.28 elig 0 comm  7,694.40 spiff 0
+Jay Gatsby         role ENT Account Executive  days 30 prod_paid  59,059.00 prod_full  59,059.00 floor 29,000.00 credited  59,059.00 attain  0.98 elig 0 comm  5,905.90 spiff 0
+Percy Jackson      role SMB Account Manager    days 30 prod_paid 150,044.00 prod_full 150,044.00 floor 217,500.00 credited 217,500.00 attain  0.97 elig 0 comm  2,900.00 spiff 0
+Anna               role ENT Account Manager    days 30 prod_paid 314,843.00 prod_full 314,843.00 floor 450,000.00 credited 450,000.00 attain  1.00 elig 0 comm  3,000.00 spiff 0
+Walter White       role SMB Account Executive  days 30 prod_paid  20,575.00 prod_full  20,575.00 floor      0.00 credited  20,575.00 attain  0.69 elig 1 comm  3,292.00 spiff 0
+Gandalf            role SMB Account Executive  days 30 prod_paid  31,164.50 prod_full  31,164.50 floor      0.00 credited  31,164.50 attain  1.04 elig 1 comm  5,023.58 spiff 0
+Albus Dumbledore   role SMB Account Executive  days 30 prod_paid  17,646.38 prod_full  17,646.38 floor      0.00 credited  17,646.38 attain  0.59 elig 1 comm  2,823.42 spiff 0
+Harry Potter       role SMB Account Executive  days 30 prod_paid  30,377.50 prod_full  30,377.50 floor      0.00 credited  30,377.50 attain  1.01 elig 1 comm  4,872.48 spiff 0
+Luke Skywalker     role SMB Account Executive  days 30 prod_paid  39,163.00 prod_full  39,163.00 floor      0.00 credited  39,163.00 attain  1.31 elig 1 comm  6,559.30 spiff 0
+Jon Snow           role SMB Account Executive  days 30 prod_paid  45,590.25 prod_full  45,590.25 floor      0.00 credited  45,590.25 attain  1.52 elig 1 comm  7,882.77 spiff 0
+Dorothy Gale       role SMB Account Manager    days 30 prod_paid 213,955.00 prod_full 213,955.00 floor      0.00 credited 213,955.00 attain  0.95 elig 0 comm  3,352.73 spiff 500
+Legolas            role SMB Account Executive  days 30 prod_paid  28,354.00 prod_full  28,354.00 floor      0.00 credited  28,354.00 attain  0.95 elig 1 comm  4,536.64 spiff 0
+
+Gandalf late-June accounts: Empty DataFrame
+Columns: [crm_account_id, go_live, fw, f1_june_full, new_cred_full]
+Index: []
+Albus no-shift account: Empty DataFrame
+Columns: [crm_account_id, go_live, first_won]
+Index: []
+Harry Potter credited accounts:
+                       crm_account_id  net_terms  mult  f1_june_full  new_cred_full
+31df0e4b-0a0e-4351-9078-d05f731ebd9b         15  1.00         14280       2,677.50
+6f6248fa-f355-4d33-a7f0-0c819b87b870         45  0.90          4050       3,645.00
+a04795f3-d06e-474e-b0e5-021bf2c96b1e         30  1.00          5280       5,280.00
+c4678f9e-5feb-486f-9ca3-d6d10339de8d         30  1.00         10150      10,150.00
+cf4f6d03-e54f-4350-a4d1-e61ca6f45a23         30  1.00         46000       8,625.00
+Luke Net 15:
+                       crm_account_id  net_terms  f1_june_full  new_cred_full
+109ba9a9-5e3b-405a-9dd6-cb9749d065cd         15             0       3,402.00
+Dorothy Gale GTM accounts:
+                       crm_account_id                       app_account_id    go_live      closer_name  existing_june  june_nr_all
+8307dfaa-3e7b-43b9-b3dc-ac939fb5a7b6 b568f7d4-6f8c-4166-aed6-a890cadc2343 2026-04-17 Katniss Everdeen           True         6480
+b2b39ae1-3d7a-47ee-962b-f400aabcd70c 3ffe588d-e4a1-48bf-83f4-2c425aede793 2026-06-01         Jon Snow          False         8100
+dc8b8676-bfd7-41fe-9fa7-68221e8cd01f 46e23c1d-566a-466a-98f7-c22e7fa5f8f6 2025-11-26     Diana Prince           True        11020
+f25d265c-d07b-4b76-9ff4-49687f4b3b5e 27ec5fb7-4cd3-477f-a836-3cf518a7e5c7 2026-06-15    Indiana Jones          False         2860

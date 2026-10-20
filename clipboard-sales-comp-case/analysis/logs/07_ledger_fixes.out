@@ -1,0 +1,49 @@
+engine still matches reference: True | total 413214.11
+manager attainment:                   attain  attain2
+name                             
+Darth Vader         1.12      NaN
+Bruce Wayne         0.91      NaN
+Aragorn             1.02      NaN
+Lord Voldemort      0.65      NaN
+Mr. Darcy           1.08      NaN
+Captain Ahab        1.03      NaN
+Ebenezer Scrooge    0.98      NaN
+Matilda Wormwood    0.96      NaN
+Mowgli              1.00      NaN
+Buzz Lightyear      0.97      NaN
+Marty McFly         0.98      NaN
+John McClane        1.05      NaN
+Trinity             0.98      NaN
+Gollum              0.97      NaN
+Jack Sparrow        1.00      NaN
+Hannibal Lecter     0.98     0.99
+
+### Walter White started 28 June per Slack (HR says 2021): signed -2,812.00 | abs 2,812.00 | reps 1
+name
+Walter White   -2,812.00
+  Walter White alt: days 3 floor 3000.00 produced_paid 1686.00 credited 3000.00 comm 480.00
+
+### Ramp does not restart on promotion or rehire (corrected: Gimli from 2022 start): signed -2,695.13 | abs 3,747.41 | reps 9
+name
+Anna              -901.05
+Percy Jackson     -899.41
+Marty McFly       -495.58
+Mowgli            -299.80
+Jack Sparrow      -270.31
+Gollum            -179.88
+Hannibal Lecter   -175.23
+Gimli              187.26
+Scout Finch        338.88
+
+### Jay and Scout: ENT role from the day after the SMB role ended (plan-consistent correction): signed 0.00 | abs 0.00 | reps 0
+  (none)
+
+GTM other 39 accounts: fill over all posted shifts in extract 80.8% | June-posted 79.5% | flagged account 14.4% | Standard accounts 73.9%
+per-account fill among other GTM: min 50% median 80%
+Standard accounts with >=900 posted shifts: 8, fill range 20% to 31%
+accounts with given first-worked date >= 1 Mar and no worked shift that day: 49
+Slack rows: 59
+Closed Won after closer End Date: opportunity_id             name closed_won_date   End Date
+     OPP-00281    Severus Snape      2026-06-16 2026-05-29
+     OPP-00631 Katniss Everdeen      2026-06-15 2026-06-12
+SPIFF count: 9 total 7500
