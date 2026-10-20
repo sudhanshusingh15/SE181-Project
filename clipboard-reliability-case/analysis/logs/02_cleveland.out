@@ -1,0 +1,209 @@
+### CLEVELAND CANCELS: 7780 rows | shifts touched: 6535 | workers: 858 | facilities: 59
+Action            NO_CALL_NO_SHOW  WORKER_CANCEL   All
+lt_bin                                                
+NCNS/after start             1261              0  1261
+0-4h                            0           1445  1445
+4-24h                           0           1140  1140
+24-72h                          0            561   561
+72h-7d                          0            851   851
+>7d                             0           2522  2522
+All                          1261           6519  7780
+Share of cancel rows that are late (<24h incl NCNS): 49.4% | NCNS share of all cancels: 16.2% | NCNS share of late: 32.8%
+
+### SHIFT LEVEL (n=41040). ever booked (has worker or had cancel): 24566 (59.9%)
+Shifts with >=1 cancel: 6535 (15.9% of all, 26.6% of ever-booked)
+Shifts with late cancel: 3672 (14.9% of ever-booked) | with NCNS: 1253 (5.1% of ever-booked)
+Outcome overall:
+ outcome
+worked                 16400
+deleted                13982
+unfilled               10163
+assigned_unverified      495
+Outcome x had cancel:
+ n_cancel                 0     1     2    All
+outcome                                      
+assigned_unverified    413    70    12    495
+deleted              12774  1025   183  13982
+unfilled              7419  2332   412  10163
+worked               13899  2089   412  16400
+All                  34505  5516  1019  41040
+Outcome for shifts with LATE cancel:
+ outcome
+unfilled               2487
+worked                  888
+deleted                 265
+assigned_unverified      32
+Outcome for shifts with NCNS:
+ outcome
+unfilled               1022
+worked                  197
+deleted                  33
+assigned_unverified       1
+Outcome for shifts with only early cancels (>=24h):
+ outcome
+worked                 1613
+deleted                 943
+unfilled                257
+assigned_unverified      50
+Outcome for shifts with no cancel at all:
+ outcome
+worked                 13899
+deleted                12774
+unfilled                7419
+assigned_unverified      413
+
+### ECONOMICS (Charge*Time). Avg GMV/shift all: 300 | late-cancel shifts: 290
+Late-cancel shifts NOT worked: 2784, GMV 802532 (4 months) -> take 22%: 176557; annualized rev: 529671
+Worked GMV total (4mo): 5563117 ; verified shifts 16400
+Monthly: shifts, worked, late-cancel shifts, ncns shifts, late rate per booked:
+         shifts  booked  worked  late  ncns  unfilled  deleted  late_rate_booked  ncns_rate_booked  fill_rate
+Start                                                                                                        
+2021-10    7863    4132    2808   574   182      2241     2787             0.139             0.044      0.357
+2021-11    7871    5085    3351   720   194      1434     2998             0.142             0.038      0.426
+2021-12   11799    7168    4657  1107   373      3233     3706             0.154             0.052      0.395
+2022-01   13506    8180    5584  1271   504      3255     4490             0.155             0.062      0.413
+
+By Shift Type:
+             booked  late  ncns  worked  late_rate  ncns_rate
+Shift Type                                                  
+am            8282  1271   501    5415      0.153      0.060
+custom         573    78    36     344      0.136      0.063
+noc           7603  1076   315    5113      0.142      0.041
+pm            8108  1247   401    5528      0.154      0.049
+By Agent Req:
+            booked  late  ncns  worked  late_rate  ncns_rate
+Agent Req                                                  
+CAREGIVER      11     4     3       3      0.364      0.273
+CNA         18451  2833  1040   12502      0.154      0.056
+LVN          4720   585   147    3110      0.124      0.031
+NURSE         238   181    50       3      0.761      0.210
+RN           1146    69    13     782      0.060      0.011
+By weekday (0=Mon):
+      booked  late  ncns  worked  late_rate  ncns_rate
+dow                                                  
+0.0    3439   662   256    2303      0.192      0.074
+1.0    3106   471   151    2066      0.152      0.049
+2.0    3157   443   143    2090      0.140      0.045
+3.0    3237   422   135    2127      0.130      0.042
+4.0    3606   501   154    2306      0.139      0.043
+5.0    4008   541   201    2724      0.135      0.050
+6.0    4012   632   213    2784      0.158      0.053
+By charge quartile (within booked, charge>0):
+                booked  late  ncns  worked  late_rate  ncns_rate
+charge_q                                                       
+(2.999, 32.0]    7854  1411   483    5503      0.180      0.061
+(32.0, 40.0]     5723  1030   394    4630      0.180      0.069
+(40.0, 48.0]     3825   553   176    3020      0.145      0.046
+(48.0, 120.0]    4048   497   150    3243      0.123      0.037
+By posting lead (Created->Start):
+                booked  late  ncns  worked  late_rate  ncns_rate
+post_lead_bin                                                  
+<1d              1390   162    78    1143      0.117      0.056
+1-3d             2307   374   116    1681      0.162      0.050
+3-7d             4950   806   291    3452      0.163      0.059
+7-14d            6237  1001   357    4132      0.160      0.057
+>14d             9681  1329   411    5992      0.137      0.042
+By duration:
+            booked  late  ncns  worked  late_rate  ncns_rate
+dur_bin                                                    
+<6h          5777   333   114    1345      0.058      0.020
+6-8.5h      13857  2605   875   11008      0.188      0.063
+8.5-12.5h    4720   720   258    3847      0.153      0.055
+>12.5h        212    14     6     200      0.066      0.028
+
+Facilities (booked>=100) late rate spread: min 0.058 p25 0.114 median 0.151 p75 0.188 max 0.241
+                          booked  late  ncns  late_rate
+Facility ID                                            
+5f9c169622c5c50016d5ba32    1657   189    67      0.114
+5f91b184cb91b40016e1e183    1632   185    66      0.113
+5f9c119522c5c50016d5b89e    1502   283   105      0.188
+6137c340b7995a01665c51df    1386   243    87      0.175
+5f9ad22ae3a95f0016090f97    1304   186    58      0.143
+609975612a95760166932b34    1122    82    19      0.073
+61422c7f81f2950166d5f881    1002   110    34      0.110
+5f9b189a7ecb880016516a52     937   195    71      0.208
+5f986e357f5dee0016f760a3     873   113    35      0.129
+5fa0a33daaa281001684ade2     848   142    36      0.167
+5f9891557f5dee0016f77fc0     702   155    57      0.221
+61704cc1f19e4d0169ec4ac5     700   118    21      0.169
+
+### WORKERS (Cleveland): with any cancel 858 | with late cancel 775 | with NCNS 454 | workers who worked 941 | total distinct 1042
+  workers with >=1 late cancels: 775 (100.0% of late-cancelers) -> 100.0% of late cancels
+  workers with >=2 late cancels: 576 (74.3% of late-cancelers) -> 94.8% of late cancels
+  workers with >=3 late cancels: 432 (55.7% of late-cancelers) -> 87.3% of late cancels
+  workers with >=5 late cancels: 277 (35.7% of late-cancelers) -> 73.5% of late cancels
+  workers with >=10 late cancels: 102 (13.2% of late-cancelers) -> 44.3% of late cancels
+  top 10% of late-cancelers share: 37.5%
+  distribution late per worker:
+ late
+1     199
+2     144
+3      93
+4      62
+5      59
+6      49
+7      25
+8      28
+9      14
+10     14
+11     12
+12      8
+13     10
+14      4
+15      7
+16      8
+17      3
+18      3
+19      3
+20      6
+21      4
+22      3
+23      4
+24      3
+25      2
+26      1
+27      1
+29      1
+31      2
+32      1
+40      1
+45      1
+Workers with >=5 worked+late: late share quantiles:
+ 0.10    0.000
+0.25    0.071
+0.50    0.167
+0.75    0.333
+0.90    0.511
+Late cancels by worker's nth late cancel (Cleveland):
+ nth
+1.0     775
+2.0     576
+3.0     432
+4.0     339
+5.0     277
+6.0    1423
+
+NCNS Lead Time (hours, negative=after start) quantiles:
+ 0.10   -402.2
+0.25   -159.7
+0.50    -43.5
+0.75     -2.0
+0.90     -0.5
+WORKER_CANCEL <24h: lead time quantiles:
+ 0.10     0.55
+0.25     1.28
+0.50     3.24
+0.75     7.62
+0.90    14.85
+  <1h: 515, 1-2h: 421, 2-4h: 509, 4-8h: 520, 8-12h: 241, 12-24h: 379
+
+Cancels per shift (Cleveland):
+ n_cancel
+1     5516
+2      845
+3      143
+4       25
+5        4
+7        1
+18       1
+Late-cancel shifts that were worked: 888; of which final worker differs from last canceler: 837

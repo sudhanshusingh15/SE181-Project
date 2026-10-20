@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Confirm or Release</title>
+<style>
+  :root { --ink:#0b0b0b; --ink2:#52514e; --muted:#898781; --grid:#e1e0d9; --base:#c3c2b7; --blue:#2a78d6; }
+  html, body { margin:0; padding:0; background:#fff; }
+  body { font-family: Inter, "Segoe UI", system-ui, sans-serif; font-size:9.8pt; line-height:1.4; color:var(--ink); }
+  h1 { font-size:19pt; font-weight:700; letter-spacing:-0.01em; line-height:1.2; margin:0 0 6pt; }
+  .byline { font-size:9.4pt; color:var(--ink2); margin:0 0 14pt; }
+  h2 { font-size:12.2pt; font-weight:650; margin:11pt 0 4pt; padding-bottom:3pt; border-bottom:1px solid var(--grid); page-break-after:avoid; }
+  h3 { font-size:10.4pt; font-weight:650; margin:8pt 0 3pt; page-break-after:avoid; }
+  p { margin:0 0 6pt; }
+  ul, ol { margin:0 0 6pt 17pt; padding:0; }
+  li { margin:0 0 3pt; }
+  b { font-weight:650; }
+  table { width:100%; border-collapse:collapse; font-size:8.7pt; margin:4pt 0 8pt; }
+  tr { page-break-inside:avoid; }
+  thead { display:table-header-group; }
+  table.keep { page-break-inside:avoid; }
+  th { text-align:left; font-weight:650; color:var(--ink2); border-bottom:1px solid var(--base); padding:3pt 6pt 3pt 0; vertical-align:bottom; }
+  td { border-bottom:1px solid var(--grid); padding:3pt 6pt 3pt 0; vertical-align:top; }
+  td.n, th.n { text-align:right; font-variant-numeric: tabular-nums; }
+  td.n { white-space:nowrap; }
+  table { table-layout:auto; max-width:100%; }
+  tr.group td { font-weight:650; color:var(--ink2); border-bottom:none; padding-top:6pt; }
+  figure { margin:5pt 0 8pt; page-break-inside:avoid; }
+  figure img { width:100%; display:block; }
+  figcaption { font-size:8.7pt; color:var(--ink2); margin-top:2pt; }
+  .appendix { page-break-before:always; }
+  .small { font-size:9pt; color:var(--ink2); page-break-after:avoid; }
+  .tbl { }
+  .keynums td:first-child { color:var(--ink2); }
+</style>
+</head>
+<body>
+
+<h1>Confirm or Release: a plan to take the sting out of late cancellations</h1>
+<p class="byline">Project proposal for Clipboard executive leadership. Prepared by Sudhanshu Singh. Based on Cleveland marketplace data, October 2021 to January 2022.</p>
+
+<h2>1. The ask</h2>
+<p>I am asking for approval to build Confirm or Release and pilot it in Cleveland. Every booked shift must be confirmed by the professional in the app between 48 and 24 hours before it starts. One tap on the reminder we already send does it. If a shift is not confirmed by the 24 hour mark, it goes back on the marketplace automatically, with no penalty to the professional, and the facility is told right away.</p>
+<p>It needs about four engineering weeks, no new cash incentives, and an eight week randomized pilot. The goal is a 20 percent cut in late cancellations per booking, measured against a control group in Cleveland, within 90 days of approval, with no drop in fill rate. If the pilot shows less than a 10 percent cut, I will stop it and say so.</p>
+
+<h2>2. What the data says</h2>
+<p>I worked from the Cleveland shift log and the cancellation log for October 2021 through January 2022 (method in Appendix A). The headline numbers:</p>
+<table class="keynums">
+<tr><td>Shifts posted by 67 facilities</td><td class="n">41,040</td><td class="small">40 percent worked, 25 percent never filled, 34 percent deleted by the facility, 1 percent assigned but never verified</td></tr>
+<tr><td>Bookings by 1,058 professionals</td><td class="n">28,785</td><td class="small">final assignments plus cancellation events</td></tr>
+<tr><td>Cancellations</td><td class="n">7,780</td><td class="small">27 per 100 bookings</td></tr>
+<tr><td>Late cancellations (under 24 hours, or no-show)</td><td class="n">3,846</td><td class="small">13.4 per 100 bookings; half of all cancellations</td></tr>
+<tr><td>No-call no-shows</td><td class="n">1,261</td><td class="small">4.4 per 100 bookings</td></tr>
+<tr><td>Shifts that lost their professional inside 24 hours</td><td class="n">3,672</td><td class="small">68 percent empty at start, 7 percent deleted, 24 percent worked</td></tr>
+</table>
+<p>Two findings changed how I think about this problem, and a third explains why it has been hard to see.</p>
+
+<h3>Finding 1. Lead time is the whole story.</h3>
+<p>Of the 3,672 shifts that lost their professional inside 24 hours, two in three were still empty when the shift started. Another 7 percent were deleted by the facility. Only one in four was worked. Now look at shifts released a day or more ahead: 26 percent were empty when the release came 24 to 48 hours out, 17 percent at 48 to 72 hours, and 5 percent at a week or more (Figure 1). Given a day or more, the marketplace refills about half of these shifts and facilities cover most of the rest themselves. It just needs time.</p>
+<p>Seen from the facility's side, this is the whole problem. Of the booked Cleveland shifts that ended with nobody there, 91 percent had a cancellation inside 24 hours. A cancellation three days out is an inconvenience. A cancellation three hours out is an empty floor.</p>
+<figure><img src="../fig/f1_refill.svg" alt="Bar chart of empty-shift rate by cancellation lead time"><figcaption>Figure 1. Share of Cleveland shifts that ended with nobody there, by lead time of the last cancellation. Shifts with no cancellation are excluded. The rest were worked or deleted by the facility: deleted shifts are 7 percent of those canceled inside 24 hours and 24 to 35 percent of those released earlier (Table B2). n = 6,535 shifts.</figcaption></figure>
+
+<h3>Finding 2. The people who cancel late are our core workforce.</h3>
+<p>775 professionals canceled late at least once. The 277 who did it five or more times account for 73 percent of all late cancellations. They also worked 48 percent of all Cleveland shifts (Figure 2). Their late rate is high, 14 to 21 percent of their bookings, but these are not casual users. They book a lot, so they cancel a lot. The pattern is also stable: a professional's late rate in the first two months predicts the next two (correlation 0.59).</p>
+<p>I tested the obvious response on this data: enforce attendance harder. A seven day suspension after two late cancellations in 30 days would have prevented 28 percent of late cancellations and cost 14 percent of worked shifts, about two fills lost for every late cancellation avoided. A three strike version prevents 20 percent and costs 9 percent. The 2021 policy applied exactly as written, with no excusals, prevents 38 percent and costs 21 percent. In a market where one in four posted shifts already goes unfilled, that trade hurts facilities more than it helps. The simulation ignores deterrence, so the true cost is somewhat lower, but the direction is not in doubt. It also explains why our triage team excused so many offenses: they could see what losing these people would do to fill.</p>
+<figure><img src="../fig/f3_segments.svg" alt="Grouped bar chart of share of late cancellations and share of worked shifts by professional segment"><figcaption>Figure 2. Cleveland professionals grouped by their number of late cancellations over four months. Orange: share of all late cancellations. Blue: share of all worked shifts. Source: shift log and cancellation log.</figcaption></figure>
+
+<h3>Finding 3. We find out last.</h3>
+<p>Late cancellations cluster in the final hours. Leaving no-shows aside, the median late cancellation comes 3.2 hours before the start, and the busiest hours for canceling are noon to 2 p.m. and 5 to 7 a.m., right before the PM and AM shifts. No-shows are worse. The median no-show is logged 43 hours after the shift started. The facility learns at 7:15 a.m. that nobody is coming. We learn two days later. A no-show is rarely a sign of someone who has left: only about one in fifteen is that professional's last event with us, and most keep booking, though one in six never works another shift in the window. It is a shift someone still held and stopped acting on.</p>
+
+<h3>What the data rules out</h3>
+<ul>
+<li><b>Shift shopping.</b> Only 3 percent of late cancellations happened while the same person worked an overlapping shift somewhere else in Cleveland. For cancellations made more than three days out, it is 25 percent. People do rearrange their schedules, but they do it early.</li>
+<li><b>Pay.</b> Among CNA bookings, the cheapest quarter of shifts has a 16 percent late rate against 13 percent for the most expensive. Real, but small.</li>
+<li><b>New professionals.</b> People in their first two weeks cancel late 18 percent of the time, against 10 to 14 percent for veterans, and they produce only 5 percent of late cancellations.</li>
+<li><b>Facilities.</b> Late rates run from 5 to 20 percent across the 42 facilities with 100 or more bookings, and the ranking is fairly stable over time, but it does not line up with pay or role mix.</li>
+</ul>
+<p>So the behavior I am dealing with is this: committed, high volume professionals who decide late and tell us later, or never. That is a timing problem, and timing is something a product can change.</p>
+
+<h2>3. The fix: Confirm or Release</h2>
+<p>I worked backwards from two outcomes. For a facility: by this time tomorrow you know who is coming, and if someone is not, the shift is already back in front of a thousand professionals. For a professional: keep the flexibility, and never be punished for a plan that changed, as long as you tell us a day ahead.</p>
+<p>Today a booking is a one time promise made far in advance (the median shift is posted nine days out). Nothing between the booking and the shift asks the professional to recommit, and nothing happens if they have silently moved on. Confirm or Release changes what a booking means. Booking holds the shift. Confirming at 24 hours keeps it.</p>
+<h3>How it works</h3>
+<ol>
+<li>At 48 hours before the start, the professional gets a push notification: "Confirm your Tuesday 7 a.m. shift at Riverside." One tap confirms. If there is no answer, reminders repeat at 36, 30, and 25 hours, the last one by text message as well.</li>
+<li>At 24 hours, an unconfirmed shift is released. The professional is told, with a one tap "take it back" if nobody has claimed it yet. The release counts as an ordinary early cancellation: no points, no suspension.</li>
+<li>The facility sees a confirmed status on every shift at 24 hours, or a notice that the shift is open again, so they can plan.</li>
+<li>Shifts booked inside 48 hours of the start are confirmed by the act of booking. Shifts booked between 48 and 24 hours out get one confirmation prompt right away.</li>
+<li>If a professional confirms and then cancels inside 24 hours or does not show, today's attendance policy applies exactly as written. This proposal adds no penalties. It does give the triage team a cleaner record to work from.</li>
+</ol>
+<h3>Why this and not something else</h3>
+<ul>
+<li><b>Stricter, automated enforcement.</b> See Finding 2. It trades fills for fewer cancellations.</li>
+<li><b>Bonus pay to refill late-canceled shifts.</b> It leaves the facility in the dark until the cancellation lands, and it pays on every refill, including the 23 percent that refill today. It is the right second project for same day sickness, which this plan does not fix.</li>
+<li><b>Reliability tiers with priority access.</b> Access is not scarce for professionals when one in four shifts goes unfilled, so the reward is weak, and the penalty side cuts supply.</li>
+<li><b>A paid standby pool.</b> Expensive while idle. Not before we have shrunk the problem.</li>
+</ul>
+<p>Confirm or Release is cheap, it rides on a channel we already have, it is fair to professionals, and it moves the one variable the data says matters: lead time.</p>
+
+<h2>4. What I expect it to do</h2>
+<p>I split the 3,846 late cancellations by what the plan can touch. Numbers are per four months in Cleveland.</p>
+<ul>
+<li><b>1,140 cancellations made 4 to 24 hours out.</b> These professionals decided within the day before the shift. I assume 35 percent of them, asked between 48 and 24 hours, decide then instead. That moves 399 cancellations into the 24 to 48 hour bucket.</li>
+<li><b>1,261 no-shows.</b> A no-show is a shift someone stopped acting on. I assume 25 percent of them will not act on a confirmation either, so the shift is released a day ahead. That is 315.</li>
+<li><b>1,445 cancellations inside 4 hours.</b> Mostly genuine same day problems: illness, a sick child, a car. I assume 10 percent move. That is 145.</li>
+</ul>
+<p>Together that is 859 late disruptions turned into day-ahead releases, a 22 percent cut in the late rate, from 13.4 to about 10.4 per 100 bookings. Applying the outcome rates in Table B2, the releases keep about 320 shifts per four months from going empty, roughly 950 a year in Cleveland. About 175 of the 320 get worked by a replacement; facilities cover or delete the rest, which still beats an empty floor. If a release at exactly 24 hours behaves like today's 24 to 30 hour cancellations rather than the whole 24 to 48 hour bucket, the saving is about 270 instead of 320. Every one of the 859 shifts gives the facility a day of notice instead of three hours or none.</p>
+<p>In dollars, the shifts that were not worked after a late cancellation carried about $800K in billings over four months, or $2.4M a year in Cleveland, of which about $530K is our revenue at a 22 percent take. The 175 recovered worked shifts per four months are worth roughly $160K of billings a year in Cleveland, about $36K of revenue. Cleveland is about a tenth of the marketplace by cancellation volume, so across markets that is about $1.6M in billings and $360K in revenue a year. That pays for the build several times over, but the dollars are not the point. Late cancellations and no-shows predict facility churn, which the brief gives and four months of data is too short to show, and a facility that leaves takes every future shift with it.</p>
+<p>There is a cost side too. If professionals let shifts they meant to work lapse through inattention, some go empty. The plan breaks even if about 7 percent of would-be-worked bookings are released by mistake and not taken back; at 1 percent the cost is about 40 empty shifts per four months against 320 saved. The guardrails in section 6 watch this. If my conversion assumptions are half right, the plan still saves about 160 shifts per four months and pays for itself. If they are wrong, the pilot will say so inside eight weeks.</p>
+
+<h2>5. Plan and timeline</h2>
+<table>
+<thead><tr><th style="width:14%">When</th><th>What</th><th style="width:30%">Who</th></tr></thead>
+<tr><td>Week 1 to 2</td><td>Build: confirmation state on bookings, the notification sequence, the release job, facility status, and take it back.</td><td>One backend engineer, one mobile engineer, a designer at half time. I own the spec and the dashboard.</td></tr>
+<tr><td>Week 3</td><td>Dry run with 50 Cleveland professionals. Fix copy and timing.</td><td>Me, with the Cleveland ops lead.</td></tr>
+<tr><td>Week 4 to 11</td><td>Randomized pilot. Cleveland professionals are split at random: half get Confirm or Release, half keep today's reminders. About 6,700 bookings per arm, enough to detect a 20 percent change in the late rate once clustering within a person is allowed for.</td><td>Me. Weekly readout to this group.</td></tr>
+<tr><td>Week 12</td><td>Decision: ship, extend, or kill.</td><td>This group.</td></tr>
+<tr><td>Week 13 to 16</td><td>If shipped, roll out to all markets in two waves, largest markets first.</td><td>Me, with market ops leads.</td></tr>
+</table>
+
+<h2>6. How we will know</h2>
+<p>Everything below is measured as treatment against control, except fill rate, which is market-wide and is compared with the eight weeks before the pilot. Released shifts can be picked up by control professionals, which flatters control; that bias runs against the plan, so it is safe. I will publish the dashboard weekly with both arms side by side.</p>
+<table>
+<thead><tr><th style="width:42%">Metric</th><th class="n">Baseline</th><th style="width:22%">Target by week 12</th><th>Red line</th></tr></thead>
+<tr class="group"><td colspan="4">Primary</td></tr>
+<tr><td>Late disruption rate: late cancellations plus no-shows per 100 bookings</td><td class="n">13.4</td><td>At least 20 percent below control (about 10.7 on today's base)</td><td>Less than 10 percent below control at week 12: kill</td></tr>
+<tr><td>Booked-then-empty rate: booked shifts that reach their start with nobody there</td><td class="n">11.2%</td><td>9.9%</td><td>No movement by week 8: review</td></tr>
+<tr class="group"><td colspan="4">Secondary</td></tr>
+<tr><td>No-show rate per 100 bookings</td><td class="n">4.4</td><td>3.3</td><td></td></tr>
+<tr><td>Refill rate of disrupted shifts: a replacement found and worked</td><td class="n">23%</td><td>30%</td><td></td></tr>
+<tr><td>Share of disruptions and releases that came with a full day's notice</td><td class="n">0%</td><td>22%, the modeled conversion</td><td></td></tr>
+<tr class="group"><td colspan="4">Guardrails</td></tr>
+<tr><td>Fill rate: worked shifts over posted shifts, market-wide</td><td class="n">40%</td><td>Within one point of the eight weeks before the pilot</td><td>Below that: review</td></tr>
+<tr><td>Worked shifts per active professional, and weekly active professionals</td><td class="n">flat</td><td>Flat against control</td><td>Down 5 percent against control: review</td></tr>
+<tr><td>Confirmation rate among professionals who go on to work the shift</td><td class="n">new</td><td>90 percent or more</td><td>Below: the prompts are not landing, fix copy and timing</td></tr>
+<tr><td>Take-backs: releases re-claimed by the same person</td><td class="n">new</td><td>Under 20 percent of releases</td><td>Above: the window is too aggressive</td></tr>
+<tr><td>Confirmed-then-late rate</td><td class="n">new</td><td>Well below 13.4</td><td>At today's rate: confirmation is reflexive and the plan is not working</td></tr>
+</table>
+
+<h2>7. Risks and what I will do about them</h2>
+<ul>
+<li><b>Good professionals lose shifts by accident.</b> The 24 hour window, four reminders, and take it back limit this. The take-backs metric tells us if it happens anyway.</li>
+<li><b>People confirm by reflex and still cancel.</b> This is the biggest uncertainty. The confirmed-then-late guardrail will show it within weeks. The fallback is to open the window at 72 hours for professionals with a late cancellation in the last 30 days.</li>
+<li><b>Facilities read "released" as "unreliable."</b> The notice replaces a 5 a.m. surprise with a day's warning. I will write it with the facility team and track complaints.</li>
+<li><b>Winter illness skews the result.</b> December and January late rates ran about a point above October. The randomized control absorbs that. A before and after comparison would not.</li>
+<li><b>Same day illness is untouched.</b> True. Cancellations inside four hours are 38 percent of late disruptions, and the plan assumes it moves only one in ten of them. It shrinks the problem to that core, and a refill incentive is the natural next project.</li>
+<li><b>Cleveland is not every market.</b> The marketplace-wide cancellation log has the same shape: 37 percent of cancellations by professionals land inside 24 hours and 15 percent of all cancellation events are no-shows, against 40 and 16 in Cleveland. The two wave rollout is the second check.</li>
+</ul>
+
+<h2>8. Assumptions</h2>
+<ol>
+<li><b>Cleveland generalizes.</b> Given in the brief, and the marketplace-wide cancellation log matches it. If a market behaves differently, the two wave rollout will show it.</li>
+<li><b>A booking is either a final assignment in the shift log or a cancellation event.</b> I rebuilt the 28,785 bookings this way rather than from the booking log. Every cancellation maps to a shift, so the two sources agree. The booking log would add how long people hold a shift before canceling. It would not change the lead time finding.</li>
+<li><b>"Empty" means the shift ended with no professional: not verified, not deleted, nobody assigned.</b> Deleted shifts are counted separately. Some were covered by the facility's own staff, which is still a failure for us.</li>
+<li><b>Times in the data are UTC.</b> I converted to Eastern time, with daylight saving, for the time of day and weekday findings. Shift start hours line up with 7 a.m., 3 p.m., and 11 p.m. starts, which supports this.</li>
+<li><b>No-show timestamps show when the no-show was logged, not when it happened.</b> The lead time field confirms it: the median is 43 hours after the start.</li>
+<li><b>The conversion rates of 35, 25, and 10 percent are my judgment.</b> Half of all cancellations already happen a day or more ahead, so deciding early is normal here, and a confirmation turns inaction on a held shift into a release. The no-show rate is the least evidenced of the three. The pilot measures all of them. At half these rates the plan still pays for itself.</li>
+<li><b>The suspension simulation is a direction, not a price.</b> It assumes a suspended professional's shifts are not refilled and that nobody changes behavior under threat. Both cut against the policy. Even at half the simulated cost, the trade is poor.</li>
+<li><b>Shift value is charge rate times scheduled hours, and our take is 22 percent.</b> 5,019 shifts carry a $0 rate and are excluded from the dollar figures only. 1,907 are "NURSE" placeholder rows: never assigned, yet carrying 194 late events, 5 percent of the total. Dropping them moves the late rate from 13.4 to 12.8 and changes no conclusion. The other 3,112 are ordinary roles the facility deleted.</li>
+</ol>
+<p>If assumption 6 is wrong, the plan is cheap and reversible and we will know in eight weeks. Nothing else on this list changes the recommendation.</p>
+
+<div class="appendix">
+<h2>Appendix A. Data and method</h2>
+<p><b>Sources.</b> Cleveland_shifts_logs: 41,040 shifts, one row per shift in its final state (professional assigned, verified, deleted, charge rate, hours). Cancel_logs: 78,073 cancellation events across the marketplace, of which 7,780 join to Cleveland shifts by Shift ID. All rates in this document use the Cleveland join. Booking_logs was not used; bookings were reconstructed as described below.</p>
+<p><b>Definitions.</b> Late cancellation: a WORKER_CANCEL with lead time under 24 hours, or any NO_CALL_NO_SHOW. Lead time: shift start minus cancellation timestamp, in hours, as given in the log and verified against the timestamps. Worked: Verified is true. Deleted: the Deleted flag is set. Empty (unfilled): not verified, not deleted, nobody assigned. Refilled: worked, and the final professional differs from the last one who canceled. Booking: a final assignment in the shift log or a cancellation event, 28,785 in total. Fill rate: worked over posted. Booked-then-empty: ever booked shifts that ended empty, 2,744 of 24,566.</p>
+<p><b>Methods.</b> Professional tenure uses the account creation time embedded in each Worker ID (a MongoDB ObjectId); the same field on Shift IDs matches the shift Created At column to the second. Shift swapping: for each cancellation, whether the same Worker ID has a verified Cleveland shift whose window overlaps the canceled shift. Policy simulation: each professional's bookings in start order; after the k-th late cancellation within 30 days, a seven day suspension; late cancellations inside a suspension count as avoided and worked shifts inside it as lost; no refill and no deterrence assumed. Local time is Eastern with daylight saving (America/New_York). The two and three strike rules are simplifications of the 2021 policy; Table B5 also applies the written policy mechanically. 31 cancellation rows carry a Start a few hours off the shift log's (rescheduled shifts); lead times follow the cancellation log. A crude churn check, each facility's posting growth from the first two months to the last two against its late rate, shows no negative relationship in this window; four months is too short to see churn, so the churn link is taken from the brief. Dollar figures exclude rows with a $0 charge rate. Code and tables are in the accompanying repository folder.</p>
+
+<h2>Appendix B. Tables</h2>
+<div class="tbl"><p class="small">B1. Cleveland by month. Shift late rate is late-disrupted shifts over booked shifts; late per 100 bookings is the event-level rate behind the 13.4 headline.</p>
+<table>
+<thead><tr><th class="">Month</th><th class="n">Posted</th><th class="n">Booked shifts</th><th class="n">Bookings</th><th class="n">Worked</th><th class="n">Late shifts</th><th class="n">No-show shifts</th><th class="n">Empty</th><th class="n">Deleted</th><th class="n">Shift late rate</th><th class="n">Late per 100 bookings</th><th class="n">Fill rate</th></tr></thead>
+<tr><td>Oct 2021</td><td class="n">7,863</td><td class="n">4,132</td><td class="n">4,682</td><td class="n">2,808</td><td class="n">574</td><td class="n">182</td><td class="n">2,241</td><td class="n">2,787</td><td class="n">13.9%</td><td class="n">12.6%</td><td class="n">36%</td></tr>
+<tr><td>Nov 2021</td><td class="n">7,871</td><td class="n">5,085</td><td class="n">5,930</td><td class="n">3,351</td><td class="n">720</td><td class="n">194</td><td class="n">1,434</td><td class="n">2,998</td><td class="n">14.2%</td><td class="n">12.8%</td><td class="n">43%</td></tr>
+<tr><td>Dec 2021</td><td class="n">11,799</td><td class="n">7,168</td><td class="n">8,461</td><td class="n">4,657</td><td class="n">1,107</td><td class="n">373</td><td class="n">3,233</td><td class="n">3,706</td><td class="n">15.4%</td><td class="n">13.7%</td><td class="n">39%</td></tr>
+<tr><td>Jan 2022</td><td class="n">13,506</td><td class="n">8,180</td><td class="n">9,711</td><td class="n">5,584</td><td class="n">1,271</td><td class="n">504</td><td class="n">3,255</td><td class="n">4,490</td><td class="n">15.5%</td><td class="n">13.8%</td><td class="n">41%</td></tr>
+</table></div>
+<div class="tbl"><p class="small">B2. Outcome of shifts with a cancellation, by lead time of the last cancellation (Figure 1 data).</p>
+<table>
+<thead><tr><th class="">Lead time of last cancellation</th><th class="n">Shifts</th><th class="n">Refilled</th><th class="n">Worked</th><th class="n">Empty</th><th class="n">Deleted</th><th class="n">Worked rate</th><th class="n">Deleted rate</th><th class="n">Empty rate</th></tr></thead>
+<tr><td>No-show / after start</td><td class="n">1,253</td><td class="n">173</td><td class="n">197</td><td class="n">1,022</td><td class="n">33</td><td class="n">15.7%</td><td class="n">2.6%</td><td class="n">81.6%</td></tr>
+<tr><td>0 to 1 hour</td><td class="n">500</td><td class="n">68</td><td class="n">76</td><td class="n">374</td><td class="n">47</td><td class="n">15.2%</td><td class="n">9.4%</td><td class="n">74.8%</td></tr>
+<tr><td>1 to 4 hours</td><td class="n">883</td><td class="n">238</td><td class="n">249</td><td class="n">564</td><td class="n">64</td><td class="n">28.2%</td><td class="n">7.2%</td><td class="n">63.9%</td></tr>
+<tr><td>4 to 12 hours</td><td class="n">704</td><td class="n">220</td><td class="n">224</td><td class="n">402</td><td class="n">63</td><td class="n">31.8%</td><td class="n">8.9%</td><td class="n">57.1%</td></tr>
+<tr><td>12 to 24 hours</td><td class="n">332</td><td class="n">138</td><td class="n">142</td><td class="n">125</td><td class="n">58</td><td class="n">42.8%</td><td class="n">17.5%</td><td class="n">37.7%</td></tr>
+<tr><td>24 to 48 hours</td><td class="n">275</td><td class="n">127</td><td class="n">130</td><td class="n">72</td><td class="n">65</td><td class="n">47.3%</td><td class="n">23.6%</td><td class="n">26.2%</td></tr>
+<tr><td>48 to 72 hours</td><td class="n">178</td><td class="n">92</td><td class="n">96</td><td class="n">31</td><td class="n">45</td><td class="n">53.9%</td><td class="n">25.3%</td><td class="n">17.4%</td></tr>
+<tr><td>3 to 7 days</td><td class="n">681</td><td class="n">346</td><td class="n">369</td><td class="n">65</td><td class="n">231</td><td class="n">54.2%</td><td class="n">33.9%</td><td class="n">9.5%</td></tr>
+<tr><td>Over 7 days</td><td class="n">1,729</td><td class="n">955</td><td class="n">1,018</td><td class="n">89</td><td class="n">602</td><td class="n">58.9%</td><td class="n">34.8%</td><td class="n">5.1%</td></tr>
+</table></div>
+<div class="tbl"><p class="small">B3. Cleveland cancellation events by lead time (Figure C1 data).</p>
+<table>
+<thead><tr><th class="">Lead time</th><th class="n">Events</th><th class="n">Share</th></tr></thead>
+<tr><td>No-show</td><td class="n">1,261</td><td class="n">16.2%</td></tr>
+<tr><td>0 to 1 hour</td><td class="n">515</td><td class="n">6.6%</td></tr>
+<tr><td>1 to 2 hours</td><td class="n">421</td><td class="n">5.4%</td></tr>
+<tr><td>2 to 4 hours</td><td class="n">509</td><td class="n">6.5%</td></tr>
+<tr><td>4 to 8 hours</td><td class="n">520</td><td class="n">6.7%</td></tr>
+<tr><td>8 to 12 hours</td><td class="n">241</td><td class="n">3.1%</td></tr>
+<tr><td>12 to 24 hours</td><td class="n">379</td><td class="n">4.9%</td></tr>
+<tr><td>24 to 48 hours</td><td class="n">333</td><td class="n">4.3%</td></tr>
+<tr><td>48 to 72 hours</td><td class="n">228</td><td class="n">2.9%</td></tr>
+<tr><td>3 to 7 days</td><td class="n">851</td><td class="n">10.9%</td></tr>
+<tr><td>7 to 14 days</td><td class="n">1,525</td><td class="n">19.6%</td></tr>
+<tr><td>Over 14 days</td><td class="n">997</td><td class="n">12.8%</td></tr>
+</table></div>
+<div class="tbl"><p class="small">B4. Professionals grouped by number of late cancellations (Figure 2 data).</p>
+<table>
+<thead><tr><th class="">Segment</th><th class="n">Professionals</th><th class="n">Bookings</th><th class="n">Worked</th><th class="n">Late</th><th class="n">Share of late</th><th class="n">Share of worked</th><th class="n">Late rate</th></tr></thead>
+<tr><td>0 late cancellations</td><td class="n">283</td><td class="n">2,023</td><td class="n">1,425</td><td class="n">0</td><td class="n">0.0%</td><td class="n">8.7%</td><td class="n">0.0%</td></tr>
+<tr><td>1 to 2 late cancellations</td><td class="n">343</td><td class="n">5,896</td><td class="n">3,900</td><td class="n">487</td><td class="n">12.7%</td><td class="n">23.8%</td><td class="n">8.3%</td></tr>
+<tr><td>3 to 4 late cancellations</td><td class="n">155</td><td class="n">4,841</td><td class="n">3,003</td><td class="n">527</td><td class="n">13.8%</td><td class="n">18.3%</td><td class="n">10.9%</td></tr>
+<tr><td>5 to 9 late cancellations</td><td class="n">175</td><td class="n">7,870</td><td class="n">4,470</td><td class="n">1,114</td><td class="n">29.1%</td><td class="n">27.3%</td><td class="n">14.2%</td></tr>
+<tr><td>10+ late cancellations</td><td class="n">102</td><td class="n">8,131</td><td class="n">3,442</td><td class="n">1,694</td><td class="n">44.3%</td><td class="n">21.0%</td><td class="n">20.8%</td></tr>
+</table></div>
+<div class="tbl"><p class="small">B5. Attendance policy simulations on the four months of Cleveland bookings. Lost shifts count verified shifts only.</p>
+<table>
+<thead><tr><th class="">Rule</th><th class="n">Suspensions</th><th class="n">Deactivations</th><th class="n">Late avoided</th><th class="n">Share of late</th><th class="n">Worked shifts lost</th><th class="n">Share of worked</th><th class="n">Lost per avoided</th></tr></thead>
+<tr><td>2 late in 30 days, then seven day suspension</td><td class="n">1,147</td><td class="n">0</td><td class="n">1,085</td><td class="n">28%</td><td class="n">2,333</td><td class="n">14.2%</td><td class="n">2.2</td></tr>
+<tr><td>3 late in 30 days, then seven day suspension</td><td class="n">679</td><td class="n">0</td><td class="n">757</td><td class="n">20%</td><td class="n">1,442</td><td class="n">8.8%</td><td class="n">1.9</td></tr>
+<tr><td>2021 policy as written, no excusals</td><td class="n">891</td><td class="n">147</td><td class="n">1,476</td><td class="n">38%</td><td class="n">3,486</td><td class="n">21.3%</td><td class="n">2.4</td></tr>
+</table></div>
+<div class="tbl"><p class="small">B6. Late rate by role, shift type, and weekday (Eastern time), per booked shift, for roles with at least 100 booked shifts. NURSE rows are $0 placeholder shifts (assumption 8).</p>
+<table>
+<thead><tr><th class="">Cut</th><th class="">Value</th><th class="n">Booked shifts</th><th class="n">Late rate</th><th class="n">No-show rate</th></tr></thead>
+<tr><td>Role</td><td>CNA</td><td class="n">18,451</td><td class="n">15.4%</td><td class="n">5.6%</td></tr>
+<tr><td>Role</td><td>LVN</td><td class="n">4,720</td><td class="n">12.4%</td><td class="n">3.1%</td></tr>
+<tr><td>Role</td><td>NURSE</td><td class="n">238</td><td class="n">76.1%</td><td class="n">21.0%</td></tr>
+<tr><td>Role</td><td>RN</td><td class="n">1,146</td><td class="n">6.0%</td><td class="n">1.1%</td></tr>
+<tr><td>Shift type</td><td>AM</td><td class="n">8,282</td><td class="n">15.3%</td><td class="n">6.0%</td></tr>
+<tr><td>Shift type</td><td>CUSTOM</td><td class="n">573</td><td class="n">13.6%</td><td class="n">6.3%</td></tr>
+<tr><td>Shift type</td><td>NOC</td><td class="n">7,603</td><td class="n">14.2%</td><td class="n">4.1%</td></tr>
+<tr><td>Shift type</td><td>PM</td><td class="n">8,108</td><td class="n">15.4%</td><td class="n">4.9%</td></tr>
+<tr><td>Weekday</td><td>Mon</td><td class="n">3,225</td><td class="n">18.6%</td><td class="n">7.0%</td></tr>
+<tr><td>Weekday</td><td>Tue</td><td class="n">3,118</td><td class="n">14.4%</td><td class="n">4.9%</td></tr>
+<tr><td>Weekday</td><td>Wed</td><td class="n">3,180</td><td class="n">13.1%</td><td class="n">3.9%</td></tr>
+<tr><td>Weekday</td><td>Thu</td><td class="n">3,347</td><td class="n">13.3%</td><td class="n">4.1%</td></tr>
+<tr><td>Weekday</td><td>Fri</td><td class="n">3,655</td><td class="n">14.1%</td><td class="n">4.9%</td></tr>
+<tr><td>Weekday</td><td>Sat</td><td class="n">4,034</td><td class="n">13.6%</td><td class="n">4.8%</td></tr>
+<tr><td>Weekday</td><td>Sun</td><td class="n">4,006</td><td class="n">17.4%</td><td class="n">6.0%</td></tr>
+</table></div>
+<div class="tbl"><p class="small">B7. Late rate by professional's tenure at shift start, per booking (Figure C2 data).</p>
+<table>
+<thead><tr><th class="">Tenure at shift start</th><th class="n">Bookings</th><th class="n">Late</th><th class="n">Late rate</th><th class="n">No-show rate</th></tr></thead>
+<tr><td>Under 2 weeks</td><td class="n">1,088</td><td class="n">193</td><td class="n">17.7%</td><td class="n">5.4%</td></tr>
+<tr><td>2 to 4 weeks</td><td class="n">2,108</td><td class="n">335</td><td class="n">15.9%</td><td class="n">5.3%</td></tr>
+<tr><td>1 to 2 months</td><td class="n">4,444</td><td class="n">645</td><td class="n">14.5%</td><td class="n">4.8%</td></tr>
+<tr><td>2 to 3 months</td><td class="n">4,271</td><td class="n">566</td><td class="n">13.3%</td><td class="n">4.0%</td></tr>
+<tr><td>3 to 6 months</td><td class="n">7,823</td><td class="n">993</td><td class="n">12.7%</td><td class="n">4.3%</td></tr>
+<tr><td>6 to 12 months</td><td class="n">5,267</td><td class="n">548</td><td class="n">10.4%</td><td class="n">3.4%</td></tr>
+<tr><td>Over 1 year</td><td class="n">3,759</td><td class="n">542</td><td class="n">14.4%</td><td class="n">4.5%</td></tr>
+</table></div>
+
+<h2>Appendix C. More figures</h2>
+<figure><img src="../fig/f2_leadtime.svg" alt="Histogram of cancellation lead times"><figcaption>Figure C1. Cleveland cancellation events by lead time before shift start, n = 7,780.</figcaption></figure>
+<figure><img src="../fig/f5_tenure_weekday.svg" alt="Late rate by tenure and by weekday"><figcaption>Figure C2. Late cancellation rate per booking by professional tenure and by weekday of the shift.</figcaption></figure>
+
+<h2>Appendix D. What I would look at next</h2>
+<ul>
+<li><b>The booking log.</b> Claim-to-start lead time and how long a shift is held before it is canceled. If short notice claims cancel more, the confirmation rule for shifts booked inside 48 hours should change.</li>
+<li><b>Facility variation.</b> A persistent 5 to 20 percent spread that pay does not explain. Interview the five best and five worst.</li>
+<li><b>The same day core.</b> About 40 percent of late disruptions happen inside four hours. Design a refill incentive funded from margin and measure it against the refill curve in Figure 1.</li>
+<li><b>Sundays and Mondays.</b> Late rates of 17 and 19 percent against 13 to 14 percent midweek. Worth one week of someone's time.</li>
+</ul>
+</div>
+</body>
+</html>

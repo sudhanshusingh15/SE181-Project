@@ -1,0 +1,74 @@
+### AFTER THE EVENT (Cleveland; 'excl. last 2 weeks' drops events starting after Jan 17 to limit right-censoring)
+NCNS               n=1261 | no verified shift afterwards: 22.0% (excl. last 2 weeks 17.2%) | no event of any kind afterwards: 6.7% (excl. 5.5%)
+late WORKER_CANCEL n=2585 | no verified shift afterwards: 13.3% (excl. last 2 weeks 10.7%) | no event of any kind afterwards: 4.9% (excl. 3.1%)
+early cancel       n=3934 | no verified shift afterwards: 18.9% (excl. last 2 weeks 15.3%) | no event of any kind afterwards: 9.4% (excl. 6.5%)
+
+Late-disrupted shifts 3672 | worked 888 (24.2%) | refilled by a different professional 837 (22.8%)
+
+### OUTCOME RATES by last-cancel bucket (shift basis):
+         shifts  empty  worked  deleted
+cat                                   
+0-4h      1383  0.678   0.235    0.080
+24-30h     108  0.324   0.417    0.241
+30-48h     167  0.222   0.509    0.234
+4-24h     1036  0.509   0.353    0.117
+NCNS      1253  0.816   0.157    0.026
+other     2588  0.071   0.573    0.339
+counterfactual 24-48h: n=275 empty 0.262 worked 0.473 deleted 0.236
+
+### IMPACT MODEL
+ bucket  late_events  shifts  assumed_share_moved  shifts_moved  empty_rate  worked_rate  saved_empty  gained_worked  saved_empty_cf24to30
+ 4-24h         1140    1036                 0.35        362.60       0.509        0.353       89.515         43.311                66.941
+  NCNS         1261    1253                 0.25        313.25       0.816        0.157      173.485         98.832               153.984
+  0-4h         1445    1383                 0.10        138.30       0.678        0.235       57.591         32.878                48.981
+events moved 859 of 3846 (22.3%) -> late rate 13.4 -> 10.4 per 100 bookings
+shifts moved 814 | empty shifts avoided per 4mo 321 (x3 = 962/yr) | worked shifts gained 175 (x3 = 525/yr) | with 24-30h counterfactual: 270 avoided
+avg GMV of a lost late shift $308 -> gained worked billings/yr $161696, revenue @22% $35573 ; x10 markets $1616959 / $355731
+half the assumed conversion: empty avoided 160 per 4mo
+break-even accidental release rate (share of would-be-worked bookings released and not taken back): 7.5% ; cost at 1%: 43 empty shifts per 4mo
+booked-then-empty after plan: (2744 - 321)/24566 = 9.9%
+
+### PILOT POWER: last 8 weeks bookings 16895 (8448 per arm), ICC 0.084, mean bookings/professional 20.2, design effect 2.62, effective n per arm 3226
+  15% relative cut: power 66% (two-sided 5%)
+  20% relative cut: power 88% (two-sided 5%)
+  25% relative cut: power 98% (two-sided 5%)
+
+### NURSE rows: 1907 shifts, charge==0 100%, assigned 0, verified 3, late events 194, NCNS 51
+Excluding NURSE: bookings 28503, late 3652, late rate 12.8 per 100 (vs 13.4)
+$0 charge rows total 5019; non-NURSE $0 rows 3112 of which deleted 3111, verified 1
+
+### MONTHLY
+          shifts  booked  worked  late  ncns  unfilled  deleted  bookings  late_events  ncns_events  late_per100
+Start                                                                                                          
+2021-10    7863    4132    2808   574   182      2241     2787      4682          588          184         12.6
+2021-11    7871    5085    3351   720   194      1434     2998      5930          762          196         12.8
+2021-12   11799    7168    4657  1107   373      3233     3706      8461         1160          376         13.7
+2022-01   13506    8180    5584  1271   504      3255     4490      9711         1336          505         13.8
+
+Late rate by weekday (local):
+      booked  late  ncns  worked  late_rate  ncns_rate
+dow                                                  
+Mon    3225   601   227    2149      0.186      0.070
+Tue    3118   450   153    2088      0.144      0.049
+Wed    3180   415   124    2083      0.131      0.039
+Thu    3347   446   138    2180      0.133      0.041
+Fri    3655   515   179    2385      0.141      0.049
+Sat    4034   549   192    2778      0.136      0.048
+Sun    4006   696   240    2737      0.174      0.060
+
+### SEGMENTS
+ segment  workers  bookings  verified  late  share_late  share_verified  late_rate
+      0      283      2023      1425     0         0.0             8.7        0.0
+    1-2      343      5896      3900   487        12.7            23.8        8.3
+    3-4      155      4841      3003   527        13.8            18.3       10.9
+    5-9      175      7870      4470  1114        29.1            27.3       14.2
+    10+      102      8131      3442  1694        44.3            21.0       20.8
+5+ late: share of verified 48.3%, share of late 73.4%
+
+Median lead time: late WORKER_CANCEL 3.24 h | all late events incl NCNS 1.31 h
+Late WORKER_CANCEL by local hour (top 6): {12: 196, 13: 191, 14: 173, 5: 165, 6: 162, 21: 151}
+Posting lead median 9.4 days | late events inside 4h incl NCNS: 70.4%
+Marketplace: worker cancels <24h 36.8%, NCNS share of events 15.3% | Cleveland 39.7% / 16.2%
+Cancel rows whose Start differs from shift log: 31
+
+ {'shifts': 41040, 'facilities': 67, 'workers': 1058, 'bookings': 28785, 'cancels': 7780, 'late_events': 3846, 'ncns_events': 1261, 'late_per100': 13.4, 'ncns_per100': np.float64(4.4), 'late_shifts': 3672, 'late_shifts_unfilled': 2487, 'late_shifts_deleted': 265, 'late_shifts_worked': 888, 'worked': 16400, 'unfilled': 10163, 'deleted': 13982, 'refill_rate_late_shifts': np.float64(22.8), 'empty_avoided_4mo': 321, 'worked_gained_4mo': 175}
